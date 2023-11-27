@@ -1,0 +1,18 @@
+{
+    "name": "load_modules",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d5b475ae933e34562a753eb2d4cccfc6",
+        "GUID:8121710c819524e37a6b2334ff0f6f3e",
+        "GUID:279d70a682a12904382724fb4c7e58fc"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

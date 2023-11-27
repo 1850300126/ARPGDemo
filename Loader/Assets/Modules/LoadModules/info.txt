@@ -1,0 +1,14 @@
+{
+    "name": "LoadModules",
+    "path": "Assets/Modules/LoadModules",
+    "aot" : [],
+    "dll" : ["load_modules.dll.bytes"],
+    "datas": [
+        {
+            "name"   : "load_modules",
+            "type"   : "Module",
+            "data"   : "Prefabs/load_modules.prefab",
+            "tags"   : ["loader"]
+        }
+    ]
+}

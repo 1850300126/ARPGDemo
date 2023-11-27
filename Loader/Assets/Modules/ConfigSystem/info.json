@@ -1,0 +1,14 @@
+{
+    "name": "ConfigSystem",
+    "path": "Assets/Modules/ConfigSystem",
+    "aot" : [],
+    "dll" : [],
+    "datas": [
+        {
+            "name"   : "player_config",
+            "type"   : "player",
+            "data"   : "Configs/PlayerConfigs/PlayerData.asset",
+            "tags"   : ["config"]
+        }
+    ]
+}

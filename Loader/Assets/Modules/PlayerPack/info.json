@@ -1,0 +1,14 @@
+{
+    "name": "PlayerPack",
+    "path": "Assets/Modules/PlayerPack",
+    "aot" : [],
+    "dll" : [],
+    "datas": [
+        {
+            "name"   : "character_GraceHoward",
+            "type"   : "character",
+            "data"   : "Prefabs/character_GraceHoward.prefab",
+            "tags"   : ["model"]
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "name": "WorldSystem",
+    "path": "Assets/Modules/WorldSystem",
+    "aot" : [],
+    "dll" : [],
+    "datas": [
+        {
+            "name"   : "world_system",
+            "type"   : "Module",
+            "data"   : "Prefabs/world_system.prefab",
+            "tags"   : ["system"]
+        }
+    ]
+}

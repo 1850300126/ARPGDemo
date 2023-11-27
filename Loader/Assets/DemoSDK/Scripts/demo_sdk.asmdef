@@ -1,0 +1,25 @@
+{
+    "name": "demo_sdk",
+    "rootNamespace": "",
+    "references": [
+        "GUID:9851a8df5d540314eaa91db686d589a8",
+        "GUID:7475642370b4d41b3ae6507b2d46776a",
+        "GUID:13ba8ce62aa80c74598530029cb2d649",
+        "GUID:9e24947de15b9834991c9d8411ea37cf",
+        "GUID:84651a3751eca9349aac36a66bba901b",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:8121710c819524e37a6b2334ff0f6f3e",
+        "GUID:d5b475ae933e34562a753eb2d4cccfc6",
+        "GUID:4307f53044263cf4b835bd812fc161a4",
+        "GUID:a4cfc1a18fa3a469b96d885db522f42e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,14 @@
+{
+    "name": "PlayerSystem",
+    "path": "Assets/Modules/PlayerSystem",
+    "aot" : [],
+    "dll" : [],
+    "datas": [
+        {
+            "name"   : "player_system",
+            "type"   : "Module",
+            "data"   : "Prefabs/player_system.prefab",
+            "tags"   : ["system"]
+        }
+    ]
+}

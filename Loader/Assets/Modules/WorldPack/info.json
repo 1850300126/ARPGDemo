@@ -1,0 +1,14 @@
+{
+    "name": "WorldPack",
+    "path": "Assets/Modules/WorldPack",
+    "aot" : [],
+    "dll" : [],
+    "datas": [
+        {
+            "name"   : "DemoSpace",
+            "type"   : "Scene",
+            "data"   : "Scene/DemoSpace.unity",
+            "tags"   : ["scene"]
+        }
+    ]
+}
