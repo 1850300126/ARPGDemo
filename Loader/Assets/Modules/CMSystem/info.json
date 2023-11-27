@@ -1,0 +1,14 @@
+{
+    "name": "CMSystem",
+    "path": "Assets/Modules/CMSystem",
+    "aot" : [],
+    "dll" : [],
+    "datas": [
+        {
+            "name"   : "CM_system",
+            "type"   : "Module",
+            "data"   : "Prefabs/CM_system.prefab",
+            "tags"   : ["system"]
+        }
+    ]
+}

@@ -82,7 +82,7 @@ MonoBehaviour:
       RenderQueueType: 0
       LayerMask:
         serializedVersion: 2
-        m_Bits: 8
+        m_Bits: 64
       PassNames: []
     overrideMaterial: {fileID: 0}
     overrideMaterialPassIndex: 0
@@ -120,22 +120,22 @@ MonoBehaviour:
   renderPassEvent: 300
   outlinesLayerMask:
     serializedVersion: 2
-    m_Bits: 136
+    m_Bits: 64
   outlinesOccluderLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 191
   outlineSettings:
-    outlineColor: {r: 0.4433962, g: 0.37855998, b: 0.37855998, a: 1}
-    outlineScale: 0.9
+    outlineColor: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 1}
+    outlineScale: 0.3
     depthThreshold: 4
     robertsCrossMultiplier: 200
-    normalThreshold: 0.931
-    steepAngleThreshold: 0
-    steepAngleMultiplier: 0
+    normalThreshold: 0.454
+    steepAngleThreshold: 1
+    steepAngleMultiplier: 500
   viewSpaceNormalsTextureSettings:
     colorFormat: 0
     depthBufferBits: 16
-    filterMode: 0
+    filterMode: 1
     backgroundColor: {r: 0, g: 0, b: 0, a: 0}
     perObjectData: 0
     enableDynamicBatching: 0

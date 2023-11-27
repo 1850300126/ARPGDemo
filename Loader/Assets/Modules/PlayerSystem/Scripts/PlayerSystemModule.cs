@@ -7,8 +7,8 @@ public class PlayerSystemModule : ModuleItem
 {
     public override void OnLoaded()
     {
-        PlayerSystem level_system = gameObject.AddComponent<PlayerSystem>();
+        PlayerSystem player_system = gameObject.AddComponent<PlayerSystem>();
 
-        level_system.OnLoaded();
+        player_system.OnLoaded();
     } 
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using EasyUpdateDemoSDK;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerSystem : MonoBehaviour
@@ -15,6 +16,8 @@ public class PlayerSystem : MonoBehaviour
         // 构建场景类
         // api_functions.Add("build_config", BuildConfig);
         api_functions.Add("build_player", BuildPlayer);
+
+        api_functions.Add("get_player", GetPlayer);
         
         APISystem.instance.RegistAPI("player_system", OnPlayerSystemAPIFunction);
     }
@@ -48,7 +51,6 @@ public class PlayerSystem : MonoBehaviour
                 return;
 
         BundleInfoSystem.BundleInfoItem player_SO = BundleInfoSystem.instance.GetBundleInfoItem("player_config", "player");
-        Debug.Log(player_SO.data);
             if (player_SO == null)
                 return;
 
@@ -59,5 +61,19 @@ public class PlayerSystem : MonoBehaviour
         player.player_data = BundleInfoSystem.LoadAddressablesAsset<PlayerSO>(player_SO.data);
 
         player.OnLoaded();
+    }
+
+    public object GetPlayer(object param)
+    {   
+        Debug.Log(player);
+        if(player != null)
+        {
+            return player;
+        }
+        else
+        {   
+            Warning.Info("未找到角色引用");
+            return null;
+        }
     }
 }

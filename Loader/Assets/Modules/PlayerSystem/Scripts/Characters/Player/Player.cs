@@ -52,8 +52,10 @@ public class Player : MonoBehaviour, IAnimationEvent
 
         cam_trans = Camera.main.transform;
 
-        layer_data = new PlayerLayerData();
-        layer_data.GroundLayer = LayerMask.NameToLayer("Environment");
+        layer_data = new PlayerLayerData
+        {
+            GroundLayer = 1 << LayerMask.NameToLayer("Environment")
+        };
 
         movement_state_machine = new PlayerMovementStateMachine(this);
         movement_state_machine.ChangeState(movement_state_machine.idle_state);

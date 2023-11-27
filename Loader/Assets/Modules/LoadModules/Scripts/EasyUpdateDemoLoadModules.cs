@@ -52,9 +52,15 @@ namespace EasyUpdateDemoSDK
            
             APISystem.instance.CallAPI("world_system", "build_config");
             
-            APISystem.instance.CallAPI("world_system", "build_level", new object[] { "DemoSpace" });
+            APISystem.instance.CallAPI("world_system", "build_world", new object[] { "DemoSpace" });
+
+            yield return null;
             
             ModuleSystem.instance.LoadModule("player_system");
+
+            yield return null;
+
+            ModuleSystem.instance.LoadModule("CM_system");
             
 
             yield return null;
