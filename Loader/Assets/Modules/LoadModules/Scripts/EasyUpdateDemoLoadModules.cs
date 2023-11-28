@@ -55,6 +55,10 @@ namespace EasyUpdateDemoSDK
             APISystem.instance.CallAPI("world_system", "build_world", new object[] { "DemoSpace" });
 
             yield return null;
+
+            ModuleSystem.instance.LoadModule("pool_system");
+
+            yield return null;
             
             ModuleSystem.instance.LoadModule("player_system");
 
@@ -62,6 +66,9 @@ namespace EasyUpdateDemoSDK
 
             ModuleSystem.instance.LoadModule("CM_system");
             
+            yield return null;
+
+            ModuleSystem.instance.LoadModule("VFX_system");
 
             yield return null;
         }

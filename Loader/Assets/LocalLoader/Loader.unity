@@ -139,7 +139,7 @@ PrefabInstance:
     - target: {fileID: 4122206056342995214, guid: 446498d537a1dda44b6530e82fc148da,
         type: 3}
       propertyPath: local_info_paths.Array.size
-      value: 7
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4122206056342995214, guid: 446498d537a1dda44b6530e82fc148da,
         type: 3}
@@ -179,12 +179,12 @@ PrefabInstance:
     - target: {fileID: 4122206056342995214, guid: 446498d537a1dda44b6530e82fc148da,
         type: 3}
       propertyPath: local_info_paths.Array.data[7]
-      value: Assets/Modules/EnemyPack/info.txt
+      value: Assets/Modules/VFXSystem/info.json
       objectReference: {fileID: 0}
     - target: {fileID: 4122206056342995214, guid: 446498d537a1dda44b6530e82fc148da,
         type: 3}
       propertyPath: local_info_paths.Array.data[8]
-      value: Assets/Modules/LevelRuleSystem/info.txt
+      value: Assets/Modules/VFXPack/info.json
       objectReference: {fileID: 0}
     - target: {fileID: 4122206056342995214, guid: 446498d537a1dda44b6530e82fc148da,
         type: 3}

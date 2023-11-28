@@ -56,6 +56,7 @@ public class WorldSystem : MonoBehaviour
                     Debug.Log("场景加载完毕");
                     LoadPlayer();
                     LoadCMSystem();
+                    LoadVFXSystem();
                 }
             );
         return null;
@@ -80,9 +81,10 @@ public class WorldSystem : MonoBehaviour
         Debug.Log("相机加载完毕");
     }
     // 武器系统
-    private void LoadWeaponSystem()
+    public void LoadVFXSystem()
     {
-        APISystem.instance.CallAPI("weapon_system", "build_weapon", new object[] { "pistol_hand_01", "pistol_01" });
+        APISystem.instance.CallAPI("VFX_system", "create_VFX");
+        Debug.Log("特效粒子系统加载完毕");        
     }
     #endregion
 

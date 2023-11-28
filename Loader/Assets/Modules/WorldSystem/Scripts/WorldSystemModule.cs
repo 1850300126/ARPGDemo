@@ -7,8 +7,8 @@ public class WorldSystemModule : ModuleItem
 {
     public override void OnLoaded()
     {
-        WorldSystem level_system = gameObject.AddComponent<WorldSystem>();
+        WorldSystem world_system = gameObject.AddComponent<WorldSystem>();
 
-        level_system.OnLoaded();
+        world_system.OnLoaded();
     } 
 }
