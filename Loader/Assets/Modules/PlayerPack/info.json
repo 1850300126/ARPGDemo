@@ -9,6 +9,12 @@
             "type"   : "character",
             "data"   : "Prefabs/character_GraceHoward.prefab",
             "tags"   : ["model"]
+        },
+        {
+            "name"   : "character_Ya",
+            "type"   : "character",
+            "data"   : "Prefabs/character_Ya.prefab",
+            "tags"   : ["model"]
         }
     ]
 }

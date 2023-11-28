@@ -60,8 +60,6 @@ public class Player : MonoBehaviour, IAnimationEvent
 
         current_combo_config = (ComboConfig)APISystem.instance.CallAPI("weapon_system", "get_combo_config", new object[]{"Katana"});
 
-        Debug.Log((GameObject)APISystem.instance.CallAPI("weapon_system", "get_weapon_model", new object[]{"Katana"}));
-
         GameObject current_weapon = (GameObject)APISystem.instance.CallAPI("weapon_system", "get_weapon_model", new object[]{"Katana"});
 
         current_weapon.transform.parent = hand_point.transform;
