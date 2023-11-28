@@ -385,6 +385,11 @@ PrefabInstance:
       propertyPath: m_UpdateMethod
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4684137930123417680, guid: 03f132f26a829ea4a88a7c29385e0807,
+        type: 3}
+      propertyPath: m_DefaultBlend.m_Style
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6065210386503255126, guid: 03f132f26a829ea4a88a7c29385e0807,
         type: 3}
       propertyPath: m_LocalPosition.x
