@@ -1,0 +1,32 @@
+{
+    "name": "WeaponPack",
+    "path": "Assets/Modules/WeaponPack",
+    "aot" : [],
+    "dll" : [],
+    "datas": [
+        {
+            "name"   : "BigSword",
+            "type"   : "weapon_model",
+            "data"   : "Prefabs/BigSword.prefab",
+            "tags"   : ["model"]
+        },
+        {
+            "name"   : "Katana",
+            "type"   : "weapon_model",
+            "data"   : "Prefabs/Katana.prefab",
+            "tags"   : ["model"]
+        },
+        {
+            "name"   : "BigSword",
+            "type"   : "weapon_config",
+            "data"   : "WeaponData/ComboData/BigSwordData/BigSwordSO.asset",
+            "tags"   : ["config"]
+        },
+        {
+            "name"   : "Katana",
+            "type"   : "weapon_config",
+            "data"   : "WeaponData/ComboData/KatanaData/KatanaSO.asset",
+            "tags"   : ["config"]
+        }
+    ]
+}

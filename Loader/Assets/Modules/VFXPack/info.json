@@ -1,0 +1,20 @@
+{
+    "name": "VFXPack",
+    "path": "Assets/Modules/VFXPack",
+    "aot" : [],
+    "dll" : [],
+    "datas": [
+        {
+            "name"   : "Hit",
+            "type"   : "VFX",
+            "data"   : "Prefabs/AttackVFX/Hit.prefab",
+            "tags"   : ["VFX"]
+        },
+        {
+            "name"   : "SwordSlash1",
+            "type"   : "VFX",
+            "data"   : "Prefabs/AttackVFX/Sword/SwordSlash1.prefab",
+            "tags"   : ["VFX"]
+        }
+    ]
+}

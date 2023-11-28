@@ -48,6 +48,7 @@ namespace EasyUpdateDemoSDK
             if (api_functions.ContainsKey(api_name) == true)
                 return api_functions[api_name](api_function, param);
 
+            Debug.LogWarning("-><color=#ff0000>" + "未找到该API" + "</color>");
             return null;
         }
 

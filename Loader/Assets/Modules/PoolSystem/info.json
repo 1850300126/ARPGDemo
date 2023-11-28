@@ -1,0 +1,14 @@
+{
+    "name": "PoolSystem",
+    "path": "Assets/Modules/PoolSystem",
+    "aot" : [],
+    "dll" : [],
+    "datas": [
+        {
+            "name"   : "pool_system",
+            "type"   : "Module",
+            "data"   : "Prefabs/pool_system.prefab",
+            "tags"   : ["system"]
+        }
+    ]
+}

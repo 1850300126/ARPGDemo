@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6afe30e98a7feff4885f3e60aa9dfd74, type: 3}
+  m_Name: BigSwordSO
+  m_EditorClassIdentifier: 
+  weapon_name: BigSword
+  controller: {fileID: 9100000, guid: baaa1f00ebb123b4c8b4badad9ea4d04, type: 2}
+  light_attack_configs: []
+  hard_attack_configs: []

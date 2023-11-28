@@ -30,7 +30,7 @@ public class LightAttackState : GroundedAttackState
         ResetVelocity();
 
 
-        light_attack_configs = movement_state_machine.player.cureent_weapon.light_attack_configs;
+        light_attack_configs = movement_state_machine.player.current_combo_config.light_attack_configs;
         // 进行一次攻击
         OnLightAttack();
     }

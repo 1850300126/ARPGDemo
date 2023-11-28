@@ -1,0 +1,14 @@
+{
+    "name": "VFXSystem",
+    "path": "Assets/Modules/VFXSystem",
+    "aot" : [],
+    "dll" : [],
+    "datas": [
+        {
+            "name"   : "VFX_system",
+            "type"   : "Module",
+            "data"   : "Prefabs/VFX_system.prefab",
+            "tags"   : ["system"]
+        }
+    ]
+}

@@ -6,7 +6,7 @@
     "datas": [
         {
             "name"   : "player_config",
-            "type"   : "player",
+            "type"   : "player_config",
             "data"   : "Configs/PlayerConfigs/PlayerData.asset",
             "tags"   : ["config"]
         }

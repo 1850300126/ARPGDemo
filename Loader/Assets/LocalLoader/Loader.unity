@@ -139,7 +139,7 @@ PrefabInstance:
     - target: {fileID: 4122206056342995214, guid: 446498d537a1dda44b6530e82fc148da,
         type: 3}
       propertyPath: local_info_paths.Array.size
-      value: 7
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4122206056342995214, guid: 446498d537a1dda44b6530e82fc148da,
         type: 3}
@@ -149,57 +149,57 @@ PrefabInstance:
     - target: {fileID: 4122206056342995214, guid: 446498d537a1dda44b6530e82fc148da,
         type: 3}
       propertyPath: local_info_paths.Array.data[1]
-      value: Assets/Modules/ConfigPack/info.json
+      value: Assets/Modules/PoolSystem/info.json
       objectReference: {fileID: 0}
     - target: {fileID: 4122206056342995214, guid: 446498d537a1dda44b6530e82fc148da,
         type: 3}
       propertyPath: local_info_paths.Array.data[2]
-      value: Assets/Modules/WorldPack/info.json
+      value: Assets/Modules/ConfigPack/info.json
       objectReference: {fileID: 0}
     - target: {fileID: 4122206056342995214, guid: 446498d537a1dda44b6530e82fc148da,
         type: 3}
       propertyPath: local_info_paths.Array.data[3]
-      value: Assets/Modules/WorldSystem/info.json
+      value: Assets/Modules/WorldPack/info.json
       objectReference: {fileID: 0}
     - target: {fileID: 4122206056342995214, guid: 446498d537a1dda44b6530e82fc148da,
         type: 3}
       propertyPath: local_info_paths.Array.data[4]
-      value: Assets/Modules/PlayerSystem/info.json
+      value: Assets/Modules/WorldSystem/info.json
       objectReference: {fileID: 0}
     - target: {fileID: 4122206056342995214, guid: 446498d537a1dda44b6530e82fc148da,
         type: 3}
       propertyPath: local_info_paths.Array.data[5]
-      value: Assets/Modules/PlayerPack/info.json
+      value: Assets/Modules/PlayerSystem/info.json
       objectReference: {fileID: 0}
     - target: {fileID: 4122206056342995214, guid: 446498d537a1dda44b6530e82fc148da,
         type: 3}
       propertyPath: local_info_paths.Array.data[6]
-      value: Assets/Modules/CMSystem/info.json
+      value: Assets/Modules/PlayerPack/info.json
       objectReference: {fileID: 0}
     - target: {fileID: 4122206056342995214, guid: 446498d537a1dda44b6530e82fc148da,
         type: 3}
       propertyPath: local_info_paths.Array.data[7]
-      value: Assets/Modules/EnemyPack/info.txt
+      value: Assets/Modules/CMSystem/info.json
       objectReference: {fileID: 0}
     - target: {fileID: 4122206056342995214, guid: 446498d537a1dda44b6530e82fc148da,
         type: 3}
       propertyPath: local_info_paths.Array.data[8]
-      value: Assets/Modules/LevelRuleSystem/info.txt
+      value: Assets/Modules/VFXSystem/info.json
       objectReference: {fileID: 0}
     - target: {fileID: 4122206056342995214, guid: 446498d537a1dda44b6530e82fc148da,
         type: 3}
       propertyPath: local_info_paths.Array.data[9]
-      value: Assets/Modules/LevelRuleSystem/info.txt
+      value: Assets/Modules/VFXPack/info.json
       objectReference: {fileID: 0}
     - target: {fileID: 4122206056342995214, guid: 446498d537a1dda44b6530e82fc148da,
         type: 3}
       propertyPath: local_info_paths.Array.data[10]
-      value: Assets/Modules/LevelRuleSystem/info.txt
+      value: Assets/Modules/WeaponSystem/info.json
       objectReference: {fileID: 0}
     - target: {fileID: 4122206056342995214, guid: 446498d537a1dda44b6530e82fc148da,
         type: 3}
       propertyPath: local_info_paths.Array.data[11]
-      value: Assets/Modules/LevelRuleSystem/info.txt
+      value: Assets/Modules/WeaponPack/info.json
       objectReference: {fileID: 0}
     - target: {fileID: 4122206056342995214, guid: 446498d537a1dda44b6530e82fc148da,
         type: 3}
@@ -387,7 +387,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4684137930123417680, guid: 03f132f26a829ea4a88a7c29385e0807,
         type: 3}
-      propertyPath: m_DefaultBlend.m_Style
+      propertyPath: m_DefaultBlend.m_Time
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6065210386503255126, guid: 03f132f26a829ea4a88a7c29385e0807,
@@ -408,22 +408,22 @@ PrefabInstance:
     - target: {fileID: 6065210386503255126, guid: 03f132f26a829ea4a88a7c29385e0807,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9996489
       objectReference: {fileID: 0}
     - target: {fileID: 6065210386503255126, guid: 03f132f26a829ea4a88a7c29385e0807,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: -0.0245447
       objectReference: {fileID: 0}
     - target: {fileID: 6065210386503255126, guid: 03f132f26a829ea4a88a7c29385e0807,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.009978622
       objectReference: {fileID: 0}
     - target: {fileID: 6065210386503255126, guid: 03f132f26a829ea4a88a7c29385e0807,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0.0002450083
       objectReference: {fileID: 0}
     - target: {fileID: 6110034678115319053, guid: 03f132f26a829ea4a88a7c29385e0807,
         type: 3}
