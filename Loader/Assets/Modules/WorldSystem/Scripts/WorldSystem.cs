@@ -21,7 +21,7 @@ public class WorldSystem : MonoBehaviour
         // 注册api调用
         // 构建场景类
         api_functions.Add("build_config", BuildConfig);
-        api_functions.Add("build_world", BuildLevel);
+        api_functions.Add("build_world", BuildWorld);
         
         APISystem.instance.RegistAPI("world_system", OnLevelSystemAPIFunction);
 
@@ -46,7 +46,7 @@ public class WorldSystem : MonoBehaviour
     // 得到当前关卡需要用到的配置信息
     public WorldConfig current_world_config;
     public CommonInfo current_level_elements_info;
-    public object BuildLevel(object[] param)
+    public object BuildWorld(object[] param)
     {   
 
         StageSystem.instance.LoadStage
@@ -54,9 +54,10 @@ public class WorldSystem : MonoBehaviour
                 (string)param[0], () =>
                 {   
                     Debug.Log("场景加载完毕");
+                    LoadVFXSystem();
+                    LoadWeaponSystem();
                     LoadPlayer();
                     LoadCMSystem();
-                    LoadVFXSystem();
                 }
             );
         return null;
@@ -67,25 +68,31 @@ public class WorldSystem : MonoBehaviour
     {
 
     }
-    // 读取当前角色信息。 （参数后续需要根据存档来变更
+   
+    public void LoadVFXSystem()
+    {
+        APISystem.instance.CallAPI("VFX_system", "build_vfx");
+        Debug.Log("特效粒子系统加载完毕");        
+    }
+    public void LoadWeaponSystem()
+    {
+        APISystem.instance.CallAPI("weapon_system", "build_config");
+        Debug.Log("武器系统加载完毕");        
+    }
     public void LoadPlayer()
     { 
         APISystem.instance.CallAPI("player_system", "build_player", new object[] { "character_GraceHoward" });
         Debug.Log("角色加载完毕");
     }
-    // 加载相机，相机会寻找Player标签，必须在Player之后加载
+
     public void LoadCMSystem()
     {
         APISystem.instance.CallAPI("CM_system", "build_CM");
         APISystem.instance.CallAPI("CM_system", "CM_find_player");
         Debug.Log("相机加载完毕");
     }
-    // 武器系统
-    public void LoadVFXSystem()
-    {
-        APISystem.instance.CallAPI("VFX_system", "create_VFX");
-        Debug.Log("特效粒子系统加载完毕");        
-    }
+
+
     #endregion
 
     #region 卸载地形等物体

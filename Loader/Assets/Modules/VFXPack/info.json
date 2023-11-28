@@ -1,6 +1,6 @@
 {
     "name": "VFXPack",
-    "path": "Assets/Modules/PlayerPack",
+    "path": "Assets/Modules/VFXPack",
     "aot" : [],
     "dll" : [],
     "datas": [

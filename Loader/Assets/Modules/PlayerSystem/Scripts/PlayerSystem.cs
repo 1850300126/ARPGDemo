@@ -48,24 +48,29 @@ public class PlayerSystem : MonoBehaviour
     {
         BundleInfoSystem.BundleInfoItem model_data = BundleInfoSystem.instance.GetBundleInfoItem(name, "character");
             if (model_data == null)
+            {
+                Debug.Log("未找到角色模型");
                 return;
+            }
 
-        BundleInfoSystem.BundleInfoItem player_SO = BundleInfoSystem.instance.GetBundleInfoItem("player_config", "player");
-            if (player_SO == null)
+        BundleInfoSystem.BundleInfoItem player_config = BundleInfoSystem.instance.GetBundleInfoItem("player_config", "player_config");
+            if (player_config == null)
+            {
+                Debug.Log("未找到角色配置信息");
                 return;
+            }
 
         GameObject create_character_model = BundleInfoSystem.LoadAddressablesPrefabs(model_data.data, model_data.name, transform);
 
         player = create_character_model.AddComponent<Player>();
 
-        player.player_data = BundleInfoSystem.LoadAddressablesAsset<PlayerSO>(player_SO.data);
+        player.player_data = BundleInfoSystem.LoadAddressablesAsset<PlayerSO>(player_config.data);
 
         player.OnLoaded();
     }
 
     public object GetPlayer(object param)
     {   
-        Debug.Log(player);
         if(player != null)
         {
             return player;

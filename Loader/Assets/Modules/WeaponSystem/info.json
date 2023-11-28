@@ -1,0 +1,14 @@
+{
+    "name": "WeaponSystem",
+    "path": "Assets/Modules/WeaponSystem",
+    "aot" : [],
+    "dll" : [],
+    "datas": [
+        {
+            "name"   : "weapon_system",
+            "type"   : "Module",
+            "data"   : "Prefabs/weapon_system.prefab",
+            "tags"   : ["system"]
+        }
+    ]
+}

@@ -12,11 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
   m_Name: PoolSystem
   m_EditorClassIdentifier: 
-  m_GroupName: Packed Assets
+  m_GroupName: PoolSystem
   m_Data:
     m_SerializedData: []
   m_GUID: 0f2ce115ed1eeed408c0976ec5ac4aab
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: a5253d54868024a428d95118ced76894
+    m_Address: Assets/Modules/PoolSystem
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: a7d7bc06072c1fa438308a821fa38f8a, type: 2}
   m_SchemaSet:

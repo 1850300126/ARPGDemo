@@ -24,8 +24,7 @@ public class Player : MonoBehaviour, IAnimationEvent
     [field: SerializeField] public PlayerResizableCapsuleCollider ResizableCapsuleCollider { get; private set; }
     [field: SerializeField] public PlayerSO player_data;
     [field: SerializeField] public PlayerLayerData layer_data;
-    [field: SerializeField] public ComboConfig cureent_weapon;
-
+    [field: SerializeField] public ComboConfig current_combo_config;
     private void Awake() 
     {  
 
@@ -56,6 +55,20 @@ public class Player : MonoBehaviour, IAnimationEvent
         {
             GroundLayer = 1 << LayerMask.NameToLayer("Environment")
         };
+
+        hand_point = this.GetComponent<CommonInfo>().GetPoint("right_hand").transform;
+
+        current_combo_config = (ComboConfig)APISystem.instance.CallAPI("weapon_system", "get_combo_config", new object[]{"Katana"});
+
+        Debug.Log((GameObject)APISystem.instance.CallAPI("weapon_system", "get_weapon_model", new object[]{"Katana"}));
+
+        GameObject current_weapon = (GameObject)APISystem.instance.CallAPI("weapon_system", "get_weapon_model", new object[]{"Katana"});
+
+        current_weapon.transform.parent = hand_point.transform;
+
+        current_weapon.transform.position = Vector3.zero;
+
+
 
         movement_state_machine = new PlayerMovementStateMachine(this);
         movement_state_machine.ChangeState(movement_state_machine.idle_state);
