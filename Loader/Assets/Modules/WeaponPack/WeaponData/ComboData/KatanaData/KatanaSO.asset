@@ -50,25 +50,22 @@ MonoBehaviour:
   hard_attack_configs:
   - relaese_time: 0.5
     hard_attack_clip_name: HardAttack1
-    particle_conifgs:
-    - particle: {fileID: 0}
-      pos: {x: 0, y: 0, z: 0}
+    particle_configs:
+    - particle: {fileID: 198926107242498482, guid: 84dbe6bf1f262924c95535986960fd97,
+        type: 3}
+      pos: {x: 0, y: 1, z: 0}
       rot: {x: 0, y: 0, z: 0}
       deley_time: 0
     derive_attack_clips: []
   - relaese_time: 0.5
     hard_attack_clip_name: HardAttack2
-    particle_conifgs:
-    - particle: {fileID: 0}
-      pos: {x: 0, y: 0, z: 0}
-      rot: {x: 0, y: 0, z: 0}
-      deley_time: 0
+    particle_configs: []
     derive_attack_clips: []
   - relaese_time: 0.5
     hard_attack_clip_name: HardAttack3
-    particle_conifgs: []
+    particle_configs: []
     derive_attack_clips: []
   - relaese_time: 0.5
     hard_attack_clip_name: HardAttack4
-    particle_conifgs: []
+    particle_configs: []
     derive_attack_clips: []

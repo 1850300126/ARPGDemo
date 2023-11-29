@@ -54,7 +54,7 @@ public class LightAttackState : GroundedAttackState
     public override void OnUpdate()
     {
         base.OnUpdate();
-        Debug.Log(movement_state_machine.player.animator.GetCurrentAnimatorStateInfo(0).IsTag("AllowInterruption"));
+        // Debug.Log(movement_state_machine.player.animator.GetCurrentAnimatorStateInfo(0).IsTag("AllowInterruption"));
         // 判断切片tag是否为可被移动打断
         JugdeClipAllowInterruption();
     }

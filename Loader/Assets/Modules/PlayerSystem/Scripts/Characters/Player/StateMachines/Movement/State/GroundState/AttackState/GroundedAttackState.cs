@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GroundedAttackState : PlayerGroundedState
-{   
+{
     protected bool move;
     public GroundedAttackState(PlayerMovementStateMachine player_movement_state_machine) : base(player_movement_state_machine)
     {
@@ -38,7 +38,7 @@ public class GroundedAttackState : PlayerGroundedState
         base.AddInputAction();
 
         movement_state_machine.player.player_input.player_actions.Dodge.started += OnDodgeStarted;
-        
+
         movement_state_machine.player.player_input.player_actions.HardAttack.started += OnHardAttackStarted;
 
         movement_state_machine.player.player_input.player_actions.LightAttack.started += OnLightAttackStarted;
@@ -48,7 +48,7 @@ public class GroundedAttackState : PlayerGroundedState
         base.RemoveInputAction();
 
         movement_state_machine.player.player_input.player_actions.Dodge.started -= OnDodgeStarted;
-        
+
         movement_state_machine.player.player_input.player_actions.HardAttack.started -= OnHardAttackStarted;
 
         movement_state_machine.player.player_input.player_actions.LightAttack.started -= OnLightAttackStarted;
@@ -61,9 +61,9 @@ public class GroundedAttackState : PlayerGroundedState
     /// <param name="attack_animation_foward_shake">本次攻击的前摇时间</param>
     /// <returns></returns>
     protected bool AttackForwardShake(ref float last_attack_time, float attack_animation_foward_shake)
-    {        
-        if(Time.time < last_attack_time + attack_animation_foward_shake)
-        {   
+    {
+        if (Time.time < last_attack_time + attack_animation_foward_shake)
+        {
             return true;
         }
         else
@@ -73,7 +73,7 @@ public class GroundedAttackState : PlayerGroundedState
         }
     }
     protected void PlayComboAnimationClip(string name, float fade_time = 0.1f)
-    {   
+    {
         movement_state_machine.player.animator.CrossFade(name, fade_time);
     }
 
@@ -83,11 +83,11 @@ public class GroundedAttackState : PlayerGroundedState
     }
 
     protected void RotatePlayer()
-    {   
-        if(movement_state_machine.reusable_data.movement_input == Vector2.zero) return;
+    {
+        if (movement_state_machine.reusable_data.movement_input == Vector2.zero) return;
 
         Vector3 dashDirection = new Vector3(movement_state_machine.reusable_data.movement_input.x, 0, movement_state_machine.reusable_data.movement_input.y);
-        
+
         Quaternion target_rot = Quaternion.Euler(0f, UpdateTargetRotation(dashDirection, true), 0f);
 
         movement_state_machine.player.transform.rotation = target_rot;
@@ -95,12 +95,32 @@ public class GroundedAttackState : PlayerGroundedState
 
     protected void JugdeClipAllowInterruption()
     {
-        if(!movement_state_machine.player.animator.GetCurrentAnimatorStateInfo(0).IsTag("AllowInterruption")) return;
+        if (!movement_state_machine.player.animator.GetCurrentAnimatorStateInfo(0).IsTag("AllowInterruption")) return;
 
-        if(movement_state_machine.reusable_data.movement_input == Vector2.zero)
+        // if (movement_state_machine.player.animator.GetCurrentAnimatorStateInfo(0).IsName("LightAttack1"))
+        // {
+        //     Debug.Log("xxxxxxxxxx");
+        // }
+        // else if (!movement_state_machine.player.animator.GetCurrentAnimatorStateInfo(0).IsName("LightAttack1"))
+        // {
+        //     //
+        //     if (movement_state_machine.player.animator.GetCurrentAnimatorStateInfo(0).IsName("Light_Attack"))
+        //     {
+
+        //         Debug.Log(" xxxxxxxxxxxxxxxxx");
+        //     }
+        //     else
+        //     {
+        //         Debug.Log("11111111111111");
+        //     }
+        // }
+
+
+        if (movement_state_machine.reusable_data.movement_input == Vector2.zero)
         {
             return;
         }
+
         OnMove();
 
     }
