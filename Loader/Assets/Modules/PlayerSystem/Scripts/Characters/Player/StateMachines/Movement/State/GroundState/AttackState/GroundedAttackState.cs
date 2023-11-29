@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GroundedAttackState : PlayerGroundedState
-{
+{   
+    protected bool move;
     public GroundedAttackState(PlayerMovementStateMachine player_movement_state_machine) : base(player_movement_state_machine)
     {
 

@@ -54,6 +54,7 @@ public class LightAttackState : GroundedAttackState
     public override void OnUpdate()
     {
         base.OnUpdate();
+        Debug.Log(movement_state_machine.player.animator.GetCurrentAnimatorStateInfo(0).IsTag("AllowInterruption"));
         // 判断切片tag是否为可被移动打断
         JugdeClipAllowInterruption();
     }
@@ -68,6 +69,8 @@ public class LightAttackState : GroundedAttackState
     protected override void OnLightAttackStarted(InputAction.CallbackContext context)
     {
         if(AttackForwardShake(ref last_attack_time, light_attack_configs[movement_state_machine.reusable_data.next_light_combo_index - 1].relaese_time)) return;
+
+        move = true;
 
         OnLightAttack();
     }     
@@ -89,6 +92,8 @@ public class LightAttackState : GroundedAttackState
             LightAttack(light_attack_configs[current_light_attack_index].light_attack_clip_name);
 
             movement_state_machine.reusable_data.next_light_combo_index += 1;
+
+            move = false;
         }
         else
         {

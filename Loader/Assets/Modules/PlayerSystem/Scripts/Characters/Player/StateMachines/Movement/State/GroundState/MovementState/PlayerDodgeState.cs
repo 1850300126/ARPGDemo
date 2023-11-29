@@ -56,7 +56,7 @@ public class PlayerDodgeState : PlayerGroundedState
 
         if (movement_state_machine.reusable_data.movement_input == Vector2.zero)
         {
-            movement_state_machine.ChangeState(movement_state_machine.idle_state);
+            movement_state_machine.ChangeState(movement_state_machine.light_stop_state);
 
             return;
         }

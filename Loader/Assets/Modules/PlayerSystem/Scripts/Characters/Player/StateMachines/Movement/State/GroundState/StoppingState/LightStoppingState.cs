@@ -12,7 +12,7 @@ public class LightStoppingState : StoppingStateBase
     {
         base.OnEnter();
 
-        movement_state_machine.reusable_data.MovementDecelerationForce = 6f;
+        movement_state_machine.reusable_data.MovementDecelerationForce = 10f;
         
         StartAnimation(movement_state_machine.player.animation_data.MediumStopParameterHash);
         

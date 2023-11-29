@@ -67,8 +67,7 @@ public class StoppingStateBase : PlayerGroundedState
         DecelerateHorizontally();
     }        
     public override void OnAnimationTransitionEvent()
-    {   
-        Debug.Log(111);
+    { 
         movement_state_machine.ChangeState(movement_state_machine.idle_state);
     }
 

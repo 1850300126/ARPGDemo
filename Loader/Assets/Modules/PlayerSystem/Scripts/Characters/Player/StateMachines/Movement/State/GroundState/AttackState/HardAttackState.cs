@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using EasyUpdateDemoSDK;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -88,6 +89,9 @@ public class HardAttackState : GroundedAttackState
         // 让人物旋转至输入方向
         RotatePlayer();
         // 播放动画切片
-        PlayComboAnimationClip(animation_name);
+        PlayComboAnimationClip(animation_name);// 播放特效
+        APISystem.instance.CallAPI("VFX_system", "play_particle_from_config", 
+        new object[]{movement_state_machine.player.current_combo_config.hard_attack_configs[movement_state_machine.reusable_data.next_light_combo_index - 1].particle_configs[0],
+         movement_state_machine.player.transform});
     }
 }

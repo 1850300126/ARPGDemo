@@ -53,6 +53,8 @@ public class WorldSystem : MonoBehaviour
             (
                 (string)param[0], () =>
                 {   
+                    Cursor.visible = false;
+                    Cursor.lockState = CursorLockMode.Locked;
                     Debug.Log("场景加载完毕");
                     LoadVFXSystem();
                     LoadWeaponSystem();

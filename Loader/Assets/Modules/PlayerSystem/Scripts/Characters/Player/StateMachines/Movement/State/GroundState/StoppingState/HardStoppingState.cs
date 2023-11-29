@@ -12,7 +12,7 @@ public class HardStoppingState : StoppingStateBase
     {
         base.OnEnter();
 
-        movement_state_machine.reusable_data.MovementDecelerationForce = 6f;
+        movement_state_machine.reusable_data.MovementDecelerationForce = 2f;
 
         StartAnimation(movement_state_machine.player.animation_data.HardStopParameterHash);
         
