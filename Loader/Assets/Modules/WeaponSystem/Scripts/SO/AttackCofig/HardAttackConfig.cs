@@ -17,7 +17,7 @@ public class HardAttackConfig
     /// <summary>
     /// 该动作需要使用到的特效
     /// </summary>
-    public List<AttackParticleConfig> particles = new List<AttackParticleConfig>();
+    public List<ParticleConfig> particle_conifgs = new List<ParticleConfig>();
     /// <summary>
     /// 重攻击派生攻击动作列表
     /// </summary>

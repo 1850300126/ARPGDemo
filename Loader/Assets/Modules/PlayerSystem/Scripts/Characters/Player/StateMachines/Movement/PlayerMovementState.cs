@@ -329,6 +329,12 @@ public class PlayerMovementState : IState
             return;
         }
         movement_state_machine.player.player_data.self_data.spirit += value;
+    }        
+    protected void DecelerateHorizontally()
+    {
+        Vector3 playerHorizontalVelocity = GetPlayerHorizontalVelocity();
+
+        movement_state_machine.player.player_rb.AddForce(-playerHorizontalVelocity * movement_state_machine.reusable_data.MovementDecelerationForce, ForceMode.Acceleration);
     }
     #endregion
 }

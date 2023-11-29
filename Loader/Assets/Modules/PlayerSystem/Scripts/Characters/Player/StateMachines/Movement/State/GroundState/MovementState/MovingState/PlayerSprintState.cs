@@ -75,7 +75,7 @@ public class PlayerSprintState : PlayerMovingState
     {
         if ( movement_state_machine.reusable_data.movement_input == Vector2.zero)
         {
-            movement_state_machine.ChangeState(movement_state_machine.idle_state);
+            OnStop(movement_state_machine.idle_state);
 
             return;
         }
@@ -105,7 +105,7 @@ public class PlayerSprintState : PlayerMovingState
 
     protected override void OnMovementCanceled(InputAction.CallbackContext context)
     {   
-        movement_state_machine.ChangeState(movement_state_machine.idle_state);
+        movement_state_machine.ChangeState(movement_state_machine.hard_stop_state);
 
         base.OnMovementCanceled(context);
     }

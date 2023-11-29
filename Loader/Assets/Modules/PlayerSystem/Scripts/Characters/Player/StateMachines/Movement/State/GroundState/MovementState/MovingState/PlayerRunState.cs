@@ -42,7 +42,7 @@ public class PlayerRunState : PlayerMovingState
     {
         if(movement_state_machine.reusable_data.movement_input == Vector2.zero)
         {
-            OnIdle();
+            OnStop(movement_state_machine.light_stop_state);
         }
 
         SpiritAdd(Time.deltaTime * 5);
@@ -78,9 +78,5 @@ public class PlayerRunState : PlayerMovingState
         base.RemoveInputAction();
 
         movement_state_machine.player.player_input.player_actions.Movement.performed -= OnMovementPerformed;
-    }
-    public void OnIdle()
-    {
-        movement_state_machine.ChangeState(movement_state_machine.idle_state);
     }
 }

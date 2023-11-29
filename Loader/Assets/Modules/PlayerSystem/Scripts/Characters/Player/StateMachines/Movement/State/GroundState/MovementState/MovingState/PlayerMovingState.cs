@@ -44,4 +44,9 @@ using UnityEngine;
 
         movement_state_machine.player.player_input.player_actions.Dodge.started -= OnDodgeStarted;
     }
+
+    protected void OnStop(IState state)
+    {
+        movement_state_machine.ChangeState(state);
+    }
 }

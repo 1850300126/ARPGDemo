@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using EasyUpdateDemoSDK;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
@@ -31,6 +32,8 @@ public class LightAttackState : GroundedAttackState
 
 
         light_attack_configs = movement_state_machine.player.current_combo_config.light_attack_configs;
+        
+        movement_state_machine.reusable_data.next_light_combo_index = 0;
         // 进行一次攻击
         OnLightAttack();
     }
@@ -101,6 +104,8 @@ public class LightAttackState : GroundedAttackState
         RotatePlayer();
         // 播放动画切片
         PlayComboAnimationClip(animation_name);
+        // 播放特效
+        APISystem.instance.CallAPI("VFX_system", "play_particle_from_config", new object[]{light_attack_configs[movement_state_machine.reusable_data.next_light_combo_index].particle_configs[0], movement_state_machine.player.transform});
     }
 
 }

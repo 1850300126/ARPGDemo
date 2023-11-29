@@ -58,18 +58,20 @@ public class Player : MonoBehaviour, IAnimationEvent
 
         hand_point = this.GetComponent<CommonInfo>().GetPoint("right_hand").transform;
 
+        movement_state_machine = new PlayerMovementStateMachine(this);
+        movement_state_machine.ChangeState(movement_state_machine.idle_state);
+
+        
+
         current_combo_config = (ComboConfig)APISystem.instance.CallAPI("weapon_system", "get_combo_config", new object[]{"Katana"});
 
         GameObject current_weapon = (GameObject)APISystem.instance.CallAPI("weapon_system", "get_weapon_model", new object[]{"Katana"});
 
         current_weapon.transform.parent = hand_point.transform;
 
-        current_weapon.transform.position = Vector3.zero;
+        current_weapon.transform.localPosition = Vector3.zero;
 
-
-
-        movement_state_machine = new PlayerMovementStateMachine(this);
-        movement_state_machine.ChangeState(movement_state_machine.idle_state);
+        current_weapon.transform.localRotation = Quaternion.Euler(0, 0, -90);
     }
     private void Start() 
     {

@@ -18,6 +18,8 @@ public class PlayerMovementStateMachine : StateMachine
     public PlayerJumpState jump_state;
     public PlayerFallState fall_state;
 
+    public LightStoppingState light_stop_state;
+    public HardStoppingState hard_stop_state;
 
     public AttackIdleState attack_idle_state;
     public LightAttackState light_attack_state;
@@ -44,6 +46,9 @@ public class PlayerMovementStateMachine : StateMachine
 
         fall_state = new PlayerFallState(this);
 
+        light_stop_state = new LightStoppingState(this);
+
+        hard_stop_state = new HardStoppingState(this);
 
         attack_idle_state = new AttackIdleState(this);
 

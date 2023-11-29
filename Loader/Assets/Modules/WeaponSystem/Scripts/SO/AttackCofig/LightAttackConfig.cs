@@ -17,5 +17,5 @@ public class LightAttackConfig
     /// <summary>
     /// 该动作需要使用到的特效
     /// </summary>
-    public List<AttackParticleConfig> particles = new List<AttackParticleConfig>();
+    public List<ParticleConfig> particle_configs = new List<ParticleConfig>();
 }
