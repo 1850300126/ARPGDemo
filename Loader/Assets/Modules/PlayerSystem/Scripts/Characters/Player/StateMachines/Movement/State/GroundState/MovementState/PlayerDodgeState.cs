@@ -30,6 +30,8 @@ public class PlayerDodgeState : PlayerGroundedState
         shouldKeepRotating = movement_state_machine.reusable_data.movement_input != Vector2.zero;
 
         MsgSystem.instance.SendMsg("player_dodege", null);
+
+        APISystem.instance.CallAPI("VFX_system", "play_particle_in_transform", new object[]{"Sprint", Vector3.zero, Vector3.zero, movement_state_machine.player.transform, 0f});
     }
     public override void OnExit()
     {
@@ -50,6 +52,7 @@ public class PlayerDodgeState : PlayerGroundedState
 
         RotateTowardsTargetRotation();
     }
+
     public override void OnAnimationTransitionEvent()
     {   
         ResetVelocity();

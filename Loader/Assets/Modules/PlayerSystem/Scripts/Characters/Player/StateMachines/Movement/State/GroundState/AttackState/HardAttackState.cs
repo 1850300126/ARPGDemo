@@ -59,7 +59,7 @@ public class HardAttackState : GroundedAttackState
     }
     public override void OnAnimationExitEvent()
     { 
-        PlayAnimationClipFinish(movement_state_machine.attack_idle_state);
+        PlayAnimationClipFinish(movement_state_machine.attack_finish_state);
     }
     
     protected override void OnLightAttackStarted(InputAction.CallbackContext context)
