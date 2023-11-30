@@ -34,6 +34,7 @@ public class PlayerAnimationData
     [SerializeField] private string AttackIdleParameterName = "isAttackIdle";
     [SerializeField] private string AttackLightParameterName = "isLightAttack";
     [SerializeField] private string AttackHardParameterName = "isHardAttack";
+    [SerializeField] private string AttackFinishParameterName = "isAttackFinish";
 
     public int GroundedParameterHash { get; private set; }
     public int MovingParameterHash { get; private set; }
@@ -46,8 +47,10 @@ public class PlayerAnimationData
     public int WalkParameterHash { get; private set; }
     public int RunParameterHash { get; private set; }
     public int SprintParameterHash { get; private set; }
+    
     public int MediumStopParameterHash { get; private set; }
     public int HardStopParameterHash { get; private set; }
+
     public int RollParameterHash { get; private set; }
     public int HardLandParameterHash { get; private set; }
 
@@ -59,6 +62,7 @@ public class PlayerAnimationData
     public int AttackIdleParameterHash { get; private set; }
     public int AttackLightParameterHash { get; private set; }
     public int AttackHardParameterHash { get; private set; }
+    public int AttackFinishParameterHash { get; private set; }   
 
     public void Initialize()
     {
@@ -85,5 +89,6 @@ public class PlayerAnimationData
         AttackIdleParameterHash = Animator.StringToHash(AttackIdleParameterName);
         AttackLightParameterHash = Animator.StringToHash(AttackLightParameterName);
         AttackHardParameterHash = Animator.StringToHash(AttackHardParameterName);
+        AttackFinishParameterHash = Animator.StringToHash(AttackFinishParameterName);
     }
 }

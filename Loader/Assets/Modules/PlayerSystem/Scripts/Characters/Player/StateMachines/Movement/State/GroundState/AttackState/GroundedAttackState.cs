@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GroundedAttackState : PlayerGroundedState
 {
-    protected bool move;
     public GroundedAttackState(PlayerMovementStateMachine player_movement_state_machine) : base(player_movement_state_machine)
     {
 
@@ -43,6 +44,8 @@ public class GroundedAttackState : PlayerGroundedState
 
         movement_state_machine.player.player_input.player_actions.LightAttack.started += OnLightAttackStarted;
     }
+
+
     protected override void RemoveInputAction()
     {
         base.RemoveInputAction();
@@ -92,28 +95,9 @@ public class GroundedAttackState : PlayerGroundedState
 
         movement_state_machine.player.transform.rotation = target_rot;
     }
-
     protected void JugdeClipAllowInterruption()
     {
         if (!movement_state_machine.player.animator.GetCurrentAnimatorStateInfo(0).IsTag("AllowInterruption")) return;
-
-        // if (movement_state_machine.player.animator.GetCurrentAnimatorStateInfo(0).IsName("LightAttack1"))
-        // {
-        //     Debug.Log("xxxxxxxxxx");
-        // }
-        // else if (!movement_state_machine.player.animator.GetCurrentAnimatorStateInfo(0).IsName("LightAttack1"))
-        // {
-        //     //
-        //     if (movement_state_machine.player.animator.GetCurrentAnimatorStateInfo(0).IsName("Light_Attack"))
-        //     {
-
-        //         Debug.Log(" xxxxxxxxxxxxxxxxx");
-        //     }
-        //     else
-        //     {
-        //         Debug.Log("11111111111111");
-        //     }
-        // }
 
 
         if (movement_state_machine.reusable_data.movement_input == Vector2.zero)

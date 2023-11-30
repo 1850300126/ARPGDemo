@@ -38,6 +38,21 @@ public class PlayerLightLandState : PlayerLandingState
 
         ResetVelocity();
     }
+
+    protected override void AddInputAction()
+    {
+        base.AddInputAction();
+
+        movement_state_machine.player.player_input.player_actions.Dodge.started += OnDodgeStarted;
+    }
+
+    protected override void RemoveInputAction()
+    {
+        base.RemoveInputAction();
+
+        movement_state_machine.player.player_input.player_actions.Dodge.started -= OnDodgeStarted;
+    }
+
     public override void OnAnimationTransitionEvent()
     {        
         
