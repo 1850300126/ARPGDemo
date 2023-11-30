@@ -66,7 +66,7 @@ MonoBehaviour:
       rot: {x: 0, y: 0, z: -150}
       deley_time: 0
     derive_attack_clips: []
-  - relaese_time: 0.5
+  - relaese_time: 1
     hard_attack_clip_name: HardAttack3
     particle_configs:
     - particle: {fileID: 655079248034792683, guid: 8da4eea68a6b5bf4ea99cc9c45004366,
@@ -77,5 +77,10 @@ MonoBehaviour:
     derive_attack_clips: []
   - relaese_time: 0.5
     hard_attack_clip_name: HardAttack4
-    particle_configs: []
+    particle_configs:
+    - particle: {fileID: 3453023397261098871, guid: 41f3cca7393adf043a6509c5a9e27076,
+        type: 3}
+      pos: {x: 0, y: 1, z: 0}
+      rot: {x: 0, y: 0, z: 0}
+      deley_time: 0
     derive_attack_clips: []
