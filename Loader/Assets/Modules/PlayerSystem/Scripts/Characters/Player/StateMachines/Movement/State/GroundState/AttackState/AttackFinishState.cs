@@ -17,13 +17,14 @@ public class AttackFinishState : GroundedAttackState
         StartAnimation(movement_state_machine.player.animation_data.AttackFinishParameterHash);
         // 屏蔽移动
         movement_state_machine.reusable_data.MovementSpeedModifier = 0f;
+        movement_state_machine.player.animator.applyRootMotion = true;
         // 重置速度
         ResetVelocity();
     }
     public override void OnExit()
     {
         base.OnExit();
-
+movement_state_machine.player.animator.applyRootMotion = false;
         StopAnimation(movement_state_machine.player.animation_data.AttackFinishParameterHash);
     }
 
