@@ -57,6 +57,6 @@ public class PlayerStateReusableData
 
     public int next_light_combo_index { get; set; }
     public int current_light_combo_index { get; set; }
-
-    public LightAttackSO current_light_attack_SO;
+    public float last_attack_time;
+    public float combo_time = 2.5f;
 }

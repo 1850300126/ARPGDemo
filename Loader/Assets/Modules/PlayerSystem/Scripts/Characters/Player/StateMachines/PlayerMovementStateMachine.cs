@@ -25,6 +25,8 @@ public class PlayerMovementStateMachine : StateMachine
     public LightAttackState light_attack_state;
     public HardAttackState hard_attack_state;
     public AttackFinishState attack_finish_state;
+    public LightAttackFinishState light_attack_finish_state;
+    public HardAttackFinishState hard_attack_finish_state;
 
     public PlayerMovementStateMachine(Player player)
     {
@@ -60,5 +62,9 @@ public class PlayerMovementStateMachine : StateMachine
         hard_attack_state = new HardAttackState(this);
 
         attack_finish_state = new AttackFinishState(this);
+
+        light_attack_finish_state = new LightAttackFinishState(this);
+
+        hard_attack_finish_state = new HardAttackFinishState(this);
     }
 }

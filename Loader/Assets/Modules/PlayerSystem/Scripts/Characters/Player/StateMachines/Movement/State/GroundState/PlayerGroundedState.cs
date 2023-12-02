@@ -58,12 +58,12 @@ public class PlayerGroundedState : PlayerMovementState
     }          
     protected virtual void OnDodgeStarted(InputAction.CallbackContext context)
     {   
-        if(movement_state_machine.player.player_data.self_data.spirit < 20)
-        {
-            return;
-        }
+        // if(movement_state_machine.player.player_data.self_data.spirit < 20)
+        // {
+        //     return;
+        // }
 
-        SpiritReduce(grounded_data.DodgeData.dodge_reduce);
+        // SpiritReduce(grounded_data.DodgeData.dodge_reduce);
 
         movement_state_machine.ChangeState(movement_state_machine.dodge_state);
     }     
@@ -71,7 +71,7 @@ public class PlayerGroundedState : PlayerMovementState
     {   
         // 重置连招索引
         if(movement_state_machine.player.current_combo_config == null) return;
-        movement_state_machine.reusable_data.current_light_combo_index = 0;
+        
         movement_state_machine.ChangeState(movement_state_machine.light_attack_state);
     }     
     protected virtual void OnHardAttackStarted(InputAction.CallbackContext context)

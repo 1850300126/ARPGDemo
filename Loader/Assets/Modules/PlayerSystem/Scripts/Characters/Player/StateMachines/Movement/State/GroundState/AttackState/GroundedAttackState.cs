@@ -75,7 +75,7 @@ public class GroundedAttackState : PlayerGroundedState
             return false;
         }
     }
-    protected void PlayComboAnimationClip(string name, float fade_time = 0.1f)
+    protected void PlayComboAnimationClip(string name, float fade_time = 0.05f)
     {
         movement_state_machine.player.animator.CrossFade(name, fade_time);
     }
@@ -107,5 +107,13 @@ public class GroundedAttackState : PlayerGroundedState
 
         OnMove();
 
+    }
+
+    protected void JugdeComboFinish()
+    {
+        if(Time.time - movement_state_machine.reusable_data.last_attack_time > movement_state_machine.reusable_data.combo_time)
+        {
+            movement_state_machine.reusable_data.next_light_combo_index = 0;
+        }
     }
 }

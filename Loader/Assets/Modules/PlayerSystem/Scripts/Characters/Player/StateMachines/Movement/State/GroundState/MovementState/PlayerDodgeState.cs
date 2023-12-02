@@ -32,6 +32,8 @@ public class PlayerDodgeState : PlayerGroundedState
         MsgSystem.instance.SendMsg("player_dodege", null);
 
         APISystem.instance.CallAPI("VFX_system", "play_particle_in_transform", new object[]{"Sprint", Vector3.zero, Vector3.zero, movement_state_machine.player.transform, 0f});
+
+        ResetAttackIndex();
     }
     public override void OnExit()
     {
@@ -43,14 +45,14 @@ public class PlayerDodgeState : PlayerGroundedState
     }        
     public override void OnFixUpdate()
     {
-        Float();
+        base.OnFixUpdate();
 
         if (!shouldKeepRotating)
         {
             return;
         }
 
-        RotateTowardsTargetRotation();
+        // RotateTowardsTargetRotation();
     }
 
     public override void OnAnimationTransitionEvent()

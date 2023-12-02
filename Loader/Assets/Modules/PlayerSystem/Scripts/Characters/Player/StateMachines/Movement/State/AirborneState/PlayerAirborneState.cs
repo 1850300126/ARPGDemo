@@ -12,6 +12,8 @@ public class PlayerAirborneState : PlayerMovementState
         base.OnEnter();
 
         StartAnimation(movement_state_machine.player.animation_data.AirborneParameterHash);
+
+        ResetAttackIndex();
     }        
     public override void OnFixUpdate()
     {

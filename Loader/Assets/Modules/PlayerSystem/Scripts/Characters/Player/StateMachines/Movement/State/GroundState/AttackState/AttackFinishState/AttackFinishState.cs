@@ -24,7 +24,7 @@ public class AttackFinishState : GroundedAttackState
     public override void OnExit()
     {
         base.OnExit();
-movement_state_machine.player.animator.applyRootMotion = false;
+        movement_state_machine.player.animator.applyRootMotion = false;
         StopAnimation(movement_state_machine.player.animation_data.AttackFinishParameterHash);
     }
 

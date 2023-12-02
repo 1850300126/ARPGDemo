@@ -336,5 +336,13 @@ public class PlayerMovementState : IState
 
         movement_state_machine.player.player_rb.AddForce(-playerHorizontalVelocity * movement_state_machine.reusable_data.MovementDecelerationForce, ForceMode.Acceleration);
     }
+
+    protected void ResetAttackIndex(bool allow = true)
+    {
+        if(allow)
+        {
+            movement_state_machine.reusable_data.next_light_combo_index = 0;
+        }
+    }
     #endregion
 }

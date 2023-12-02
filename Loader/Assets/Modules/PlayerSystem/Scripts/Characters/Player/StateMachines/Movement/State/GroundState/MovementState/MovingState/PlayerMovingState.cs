@@ -13,7 +13,8 @@ using UnityEngine;
             base.OnEnter();
 
             StartAnimation(movement_state_machine.player.animation_data.MovingParameterHash);
-            
+
+            ResetAttackIndex();
         }
 
         public override void OnExit()

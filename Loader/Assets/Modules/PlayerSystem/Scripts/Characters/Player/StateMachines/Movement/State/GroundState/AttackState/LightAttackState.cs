@@ -8,11 +8,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class LightAttackState : GroundedAttackState
-{ 
-    private bool input_light_combo_next = false;
-    private bool input_hard_combo_next = false;
-    private float relaese_timer;
-    private float last_attack_time;
+{
     private List<LightAttackConfig> light_attack_configs;
     public LightAttackState(PlayerMovementStateMachine player_movement_state_machine) : base(player_movement_state_machine)
     {
@@ -32,8 +28,7 @@ public class LightAttackState : GroundedAttackState
 
 
         light_attack_configs = movement_state_machine.player.current_combo_config.light_attack_configs;
-        
-        movement_state_machine.reusable_data.next_light_combo_index = 0;
+
         // 进行一次攻击
         OnLightAttack();
     }
@@ -62,24 +57,24 @@ public class LightAttackState : GroundedAttackState
     }
     public override void OnAnimationExitEvent()
     {  
-        PlayAnimationClipFinish(movement_state_machine.attack_finish_state);
+        PlayAnimationClipFinish(movement_state_machine.light_attack_finish_state);
     }
     protected override void OnLightAttackStarted(InputAction.CallbackContext context)
     {
-        if(AttackForwardShake(ref last_attack_time, light_attack_configs[movement_state_machine.reusable_data.next_light_combo_index - 1].relaese_time)) return;
+        if(AttackForwardShake(ref movement_state_machine.reusable_data.last_attack_time, light_attack_configs[movement_state_machine.reusable_data.next_light_combo_index - 1].relaese_time)) return;
 
         OnLightAttack();
     }     
     protected override void OnHardAttackStarted(InputAction.CallbackContext context)
     {
-        if(AttackForwardShake(ref last_attack_time, light_attack_configs[movement_state_machine.reusable_data.next_light_combo_index - 1].relaese_time)) return;
+        if(AttackForwardShake(ref movement_state_machine.reusable_data.last_attack_time, light_attack_configs[movement_state_machine.reusable_data.next_light_combo_index - 1].relaese_time)) return;
 
         movement_state_machine.ChangeState(movement_state_machine.hard_attack_state);
     } 
 
     protected void OnLightAttack()
     {   
-        last_attack_time = Time.time;
+        movement_state_machine.reusable_data.last_attack_time = Time.time;
 
         int current_light_attack_index = movement_state_machine.reusable_data.next_light_combo_index;
 

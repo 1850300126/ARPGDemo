@@ -64,7 +64,7 @@ public class HardAttackState : GroundedAttackState
     
     protected override void OnLightAttackStarted(InputAction.CallbackContext context)
     {
-        if(AttackForwardShake(ref last_attack_time, movement_state_machine.player.current_combo_config.hard_attack_configs[movement_state_machine.reusable_data.next_light_combo_index - 1].relaese_time)) return;
+        if(AttackForwardShake(ref movement_state_machine.reusable_data.last_attack_time, movement_state_machine.player.current_combo_config.hard_attack_configs[movement_state_machine.reusable_data.next_light_combo_index - 1].relaese_time)) return;
 
         movement_state_machine.ChangeState(movement_state_machine.light_attack_state);
     }    
@@ -72,14 +72,15 @@ public class HardAttackState : GroundedAttackState
     {
         if(comb_index == 1) return;
 
-        if(AttackForwardShake(ref last_attack_time, movement_state_machine.player.current_combo_config.hard_attack_configs[movement_state_machine.reusable_data.next_light_combo_index - 1].relaese_time)) return;
+        if(AttackForwardShake(ref movement_state_machine.reusable_data.last_attack_time, movement_state_machine.player.current_combo_config.hard_attack_configs[movement_state_machine.reusable_data.next_light_combo_index - 1].relaese_time)) return;
 
         OnHardAttack();
     }  
     protected void OnHardAttack()
     {
-        last_attack_time = Time.time;
+        movement_state_machine.reusable_data.last_attack_time = Time.time;
         // 判断该次轻攻击是否对应的有重攻击
+        Debug.Log(movement_state_machine.reusable_data.next_light_combo_index - 1);
         if(movement_state_machine.player.current_combo_config.hard_attack_configs[movement_state_machine.reusable_data.next_light_combo_index - 1] == null) return;
 
         comb_index ++ ;
