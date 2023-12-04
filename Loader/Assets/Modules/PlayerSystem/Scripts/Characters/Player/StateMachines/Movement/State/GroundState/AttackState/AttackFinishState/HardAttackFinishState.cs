@@ -12,7 +12,7 @@ public class HardAttackFinishState : AttackFinishState
     {
         base.OnEnter();
 
-        // movement_state_machine.player.animator.CrossFade("HardAttackFinish", 0.1f);
+        movement_state_machine.player.animator.CrossFade("HardAttackFinish", 0.1f);
     }
     public override void OnExit()
     {

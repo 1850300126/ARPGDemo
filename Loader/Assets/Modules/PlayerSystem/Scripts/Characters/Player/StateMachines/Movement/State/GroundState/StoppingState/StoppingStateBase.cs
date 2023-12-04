@@ -17,7 +17,7 @@ public class StoppingStateBase : PlayerGroundedState
 
         base.OnEnter();
 
-        StartAnimation(movement_state_machine.player.animation_data.StoppingParameterHash);
+        // StartAnimation(movement_state_machine.player.animation_data.StoppingParameterHash);
         
     }
 
@@ -25,7 +25,7 @@ public class StoppingStateBase : PlayerGroundedState
     {
         base.OnExit();
 
-        StopAnimation(movement_state_machine.player.animation_data.StoppingParameterHash);
+        //StopAnimation(movement_state_machine.player.animation_data.StoppingParameterHash);
     }
 
     protected override void AddInputAction()

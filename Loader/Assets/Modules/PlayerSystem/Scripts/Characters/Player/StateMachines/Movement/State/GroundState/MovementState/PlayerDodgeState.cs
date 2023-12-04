@@ -19,7 +19,8 @@ public class PlayerDodgeState : PlayerGroundedState
 
         base.OnEnter();
 
-        StartAnimation(movement_state_machine.player.animation_data.DodgeParameterHash);
+        // StartAnimation(movement_state_machine.player.animation_data.DodgeParameterHash);
+        movement_state_machine.player.animator.CrossFade("Dodge", 0.1f);
 
         movement_state_machine.reusable_data.current_jump_force = airborne_data.JumpData.StrongForce;
 
@@ -39,7 +40,7 @@ public class PlayerDodgeState : PlayerGroundedState
     {
         base.OnExit();
 
-        StopAnimation(movement_state_machine.player.animation_data.DodgeParameterHash);
+        // StopAnimation(movement_state_machine.player.animation_data.DodgeParameterHash);
 
         SetBaseRotationData();
     }        

@@ -20,7 +20,7 @@ public class HardAttackState : GroundedAttackState
     {
         base.OnEnter();
 
-        StartAnimation(movement_state_machine.player.animation_data.AttackHardParameterHash);
+        // StartAnimation(movement_state_machine.player.animation_data.AttackHardParameterHash);
         // 使用根运动
         movement_state_machine.player.animator.applyRootMotion = true;
         // 屏蔽移动
@@ -34,7 +34,7 @@ public class HardAttackState : GroundedAttackState
     {
         base.OnExit();
 
-        StopAnimation(movement_state_machine.player.animation_data.AttackHardParameterHash);
+        // StopAnimation(movement_state_machine.player.animation_data.AttackHardParameterHash);
 
         movement_state_machine.player.animator.applyRootMotion = false;
     }
@@ -59,7 +59,7 @@ public class HardAttackState : GroundedAttackState
     }
     public override void OnAnimationExitEvent()
     { 
-        PlayAnimationClipFinish(movement_state_machine.attack_finish_state);
+        PlayAnimationClipFinish(movement_state_machine.hard_attack_finish_state);
     }
     
     protected override void OnLightAttackStarted(InputAction.CallbackContext context)

@@ -25,7 +25,7 @@ public class StateMachine
         current_state?.OnUpdate();
     }
 
-    public void PhysicsUpdate()
+    public void FixUpdate()
     {
         current_state?.OnFixUpdate();
     }

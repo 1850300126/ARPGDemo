@@ -32,7 +32,8 @@ public class PlayerFallState : PlayerAirborneState
     {
         base.OnEnter();   
 
-        StartAnimation(movement_state_machine.player.animation_data.FallParameterHash);
+        // StartAnimation(movement_state_machine.player.animation_data.FallParameterHash);
+        movement_state_machine.player.animator.CrossFade("Fall", 0.1f);
 
         movement_state_machine.reusable_data.MovementSpeedModifier = 0f;
 
@@ -45,7 +46,7 @@ public class PlayerFallState : PlayerAirborneState
     {
         base.OnExit();
 
-        StopAnimation(movement_state_machine.player.animation_data.FallParameterHash);
+        // StopAnimation(movement_state_machine.player.animation_data.FallParameterHash);
     }
     public override void OnUpdate() 
     {

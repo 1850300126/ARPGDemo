@@ -18,7 +18,7 @@ public class LightAttackState : GroundedAttackState
     {
         base.OnEnter();
 
-        StartAnimation(movement_state_machine.player.animation_data.AttackLightParameterHash);
+        // StartAnimation(movement_state_machine.player.animation_data.AttackLightParameterHash);
         // 使用根运动
         movement_state_machine.player.animator.applyRootMotion = true;
         // 屏蔽移动
@@ -36,7 +36,7 @@ public class LightAttackState : GroundedAttackState
     {
         base.OnExit();
 
-        StopAnimation(movement_state_machine.player.animation_data.AttackLightParameterHash);
+        // StopAnimation(movement_state_machine.player.animation_data.AttackLightParameterHash);
 
         movement_state_machine.player.animator.applyRootMotion = false;
     }

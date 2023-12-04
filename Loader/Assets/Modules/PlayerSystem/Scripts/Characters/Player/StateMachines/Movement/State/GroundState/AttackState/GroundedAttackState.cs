@@ -15,13 +15,13 @@ public class GroundedAttackState : PlayerGroundedState
     {
         base.OnEnter();
 
-        StartAnimation(movement_state_machine.player.animation_data.AttackParameterHash);
+        // StartAnimation(movement_state_machine.player.animation_data.AttackParameterHash);
     }
     public override void OnExit()
     {
         base.OnExit();
 
-        StopAnimation(movement_state_machine.player.animation_data.AttackParameterHash);
+        // StopAnimation(movement_state_machine.player.animation_data.AttackParameterHash);
     }
 
     public override void OnFixUpdate()

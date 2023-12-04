@@ -15,7 +15,9 @@ public class PlayerIdleState : PlayerGroundedState
     {
         base.OnEnter();
 
-        StartAnimation(movement_state_machine.player.animation_data.IdleParameterHash);
+        // StartAnimation(movement_state_machine.player.animation_data.IdleParameterHash);
+
+        movement_state_machine.player.animator.CrossFade("Idle", 0.1f);
 
         movement_state_machine.reusable_data.MovementSpeedModifier = 0;
 
@@ -53,7 +55,7 @@ public class PlayerIdleState : PlayerGroundedState
     }
     public override void OnExit()
     {
-        StopAnimation(movement_state_machine.player.animation_data.IdleParameterHash);
+        // StopAnimation(movement_state_machine.player.animation_data.IdleParameterHash);
 
         base.OnExit();
     }

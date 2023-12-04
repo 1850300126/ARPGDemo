@@ -16,6 +16,8 @@ public class PlayerLightLandState : PlayerLandingState
 
         base.OnEnter();
 
+        movement_state_machine.player.animator.CrossFade("LightLanding", 0.1f);
+
         ResetVelocity();
     }
     public override void OnExit()

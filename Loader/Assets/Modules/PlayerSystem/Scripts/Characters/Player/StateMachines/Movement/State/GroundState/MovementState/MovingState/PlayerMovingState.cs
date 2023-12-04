@@ -12,7 +12,7 @@ using UnityEngine;
         {
             base.OnEnter();
 
-            StartAnimation(movement_state_machine.player.animation_data.MovingParameterHash);
+            // StartAnimation(movement_state_machine.player.animation_data.MovingParameterHash);
 
             ResetAttackIndex();
         }
@@ -21,7 +21,7 @@ using UnityEngine;
         {
             base.OnExit();
 
-            StopAnimation(movement_state_machine.player.animation_data.MovingParameterHash);
+            // StopAnimation(movement_state_machine.player.animation_data.MovingParameterHash);
         }
 
     protected override void AddInputAction()

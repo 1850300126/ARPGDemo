@@ -11,17 +11,13 @@ public class PlayerAirborneState : PlayerMovementState
     {
         base.OnEnter();
 
-        StartAnimation(movement_state_machine.player.animation_data.AirborneParameterHash);
+        // StartAnimation(movement_state_machine.player.animation_data.AirborneParameterHash);
 
         ResetAttackIndex();
-    }        
-    public override void OnFixUpdate()
-    {
-        base.OnFixUpdate();
     }
     public override void OnExit()
     {
         base.OnExit();
-        StopAnimation(movement_state_machine.player.animation_data.AirborneParameterHash);
+        // StopAnimation(movement_state_machine.player.animation_data.AirborneParameterHash);
     }
 }

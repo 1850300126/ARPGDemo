@@ -22,7 +22,9 @@ public class PlayerSprintState : PlayerMovingState
 
         base.OnEnter();
 
-        StartAnimation(movement_state_machine.player.animation_data.SprintParameterHash);
+        // StartAnimation(movement_state_machine.player.animation_data.SprintParameterHash);
+
+        movement_state_machine.player.animator.CrossFade("Sprint", 0.1f);
 
         movement_state_machine.reusable_data.current_jump_force = airborne_data.JumpData.StrongForce;
 
@@ -39,7 +41,7 @@ public class PlayerSprintState : PlayerMovingState
     {
         base.OnExit();
 
-        StopAnimation(movement_state_machine.player.animation_data.SprintParameterHash);
+        // StopAnimation(movement_state_machine.player.animation_data.SprintParameterHash);
 
         if (shouldResetSprintState)
         {

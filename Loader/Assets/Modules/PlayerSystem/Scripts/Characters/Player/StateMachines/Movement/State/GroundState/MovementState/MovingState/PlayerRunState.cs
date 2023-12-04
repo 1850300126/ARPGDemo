@@ -29,7 +29,9 @@ public class PlayerRunState : PlayerMovingState
     {
         base.OnEnter();
 
-        StartAnimation(movement_state_machine.player.animation_data.RunParameterHash);
+        // StartAnimation(movement_state_machine.player.animation_data.RunParameterHash);
+
+        movement_state_machine.player.animator.CrossFade("Run", 0.1f);
 
         movement_state_machine.reusable_data.current_jump_force = airborne_data.JumpData.WeakForce;
 
@@ -62,7 +64,7 @@ public class PlayerRunState : PlayerMovingState
     {   
         base.OnExit();
 
-        StopAnimation(movement_state_machine.player.animation_data.RunParameterHash);
+        // StopAnimation(movement_state_machine.player.animation_data.RunParameterHash);
     }
     #endregion
     protected override void AddInputAction()

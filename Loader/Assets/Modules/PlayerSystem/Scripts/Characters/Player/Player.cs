@@ -86,7 +86,7 @@ public class Player : MonoBehaviour, IAnimationEvent
 
     private void FixedUpdate()
     {
-        movement_state_machine.PhysicsUpdate();
+        movement_state_machine.FixUpdate();
     }
 
     private void OnTriggerEnter(Collider collider)

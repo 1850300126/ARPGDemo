@@ -14,7 +14,7 @@ public class PlayerGroundedState : PlayerMovementState
     {
         base.OnEnter();
 
-        StartAnimation(movement_state_machine.player.animation_data.GroundedParameterHash);
+        // StartAnimation(movement_state_machine.player.animation_data.GroundedParameterHash);
 
         UpdateShouldSprintState();
     }        
@@ -26,7 +26,7 @@ public class PlayerGroundedState : PlayerMovementState
     public override void OnExit()
     {
         base.OnExit();
-        StopAnimation(movement_state_machine.player.animation_data.GroundedParameterHash);
+        // StopAnimation(movement_state_machine.player.animation_data.GroundedParameterHash);
     }
     protected override void AddInputAction()
     {

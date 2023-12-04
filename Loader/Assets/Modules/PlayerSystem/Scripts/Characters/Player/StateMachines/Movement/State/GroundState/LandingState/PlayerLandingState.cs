@@ -11,12 +11,12 @@ public class PlayerLandingState : PlayerGroundedState
     public override void OnEnter()
     {
         base.OnEnter();
-        StartAnimation(movement_state_machine.player.animation_data.LandingParameterHash);
+        // StartAnimation(movement_state_machine.player.animation_data.LandingParameterHash);
     }
 
     public override void OnExit()
     {
         base.OnExit();
-        StopAnimation(movement_state_machine.player.animation_data.LandingParameterHash);
+        // StopAnimation(movement_state_machine.player.animation_data.LandingParameterHash);
     }
 }
