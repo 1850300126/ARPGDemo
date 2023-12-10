@@ -34,7 +34,10 @@ public class StateMachine
     {
         current_state?.OnTriggerEnter(collider);
     }
-
+    public void OnTriggerStay(Collider collider)
+    {
+        current_state?.OnTriggerStay(collider);
+    }
     public void OnTriggerExit(Collider collider)
     {
         current_state?.OnTriggerExit(collider);

@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent agent;
     public Animator animator;
     public EnemyStateMachine enemy_state_machine;
+    public Collider find_enemy_collider;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +21,8 @@ public class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         
         animator = GetComponent<Animator>();
+
+        find_enemy_collider = transform.Find("find_enemy_collider").GetComponent<Collider>();
 
         enemy_state_machine = new EnemyStateMachine(this);
 
@@ -35,5 +38,18 @@ public class Enemy : MonoBehaviour
     void FixUpdate()
     {
         enemy_state_machine.FixUpdate();
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        enemy_state_machine.OnTriggerEnter(collider);
+    }
+    void OnTriggerStay(Collider collider)
+    {
+        enemy_state_machine.OnTriggerStay(collider);
+    }
+    void OnTriggerExit(Collider collider)
+    {
+        enemy_state_machine.OnTriggerExit(collider);
     }
 }

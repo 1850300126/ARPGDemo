@@ -74,7 +74,10 @@ public class PlayerMovementState : IState
             return;
         }
     }
-
+    public virtual void OnTriggerStay(Collider collider)
+    {
+        
+    }
     public virtual void OnTriggerExit(Collider collider)
     {            
         if (movement_state_machine.player.layer_data.IsGroundLayer(collider.gameObject.layer))
