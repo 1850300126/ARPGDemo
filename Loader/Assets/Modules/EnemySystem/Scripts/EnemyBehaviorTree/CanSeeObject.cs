@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 using BehaviorDesigner.Runtime;
-public class CanSeeObject : Conditional
+using DG.Tweening;
+public class CanSeeObject : EnemyConditionBase
 {
     private static int _enemyLayerMask = 1 << LayerMask.NameToLayer("Character");
-    public SharedTransform self_transform;
-    public SharedTransform target_transform;
     public float fov_range;
     public override TaskStatus OnUpdate()
     {
@@ -21,12 +20,19 @@ public class CanSeeObject : Conditional
 
         if(colliders.Length > 0)
         {   
-            target_transform.Value = colliders[0].transform;
+            PlayAnimation("AttackIdle");
+
+            reach_point.Value = colliders[0].transform.position;
+
+            target_objcet.Value = colliders[0].gameObject;
+
+            enemy.transform.DOLookAt(reach_point.Value, 0.14f, AxisConstraint.Y);
+
             return TaskStatus.Success;
         }
         else
         {   
-            target_transform.Value = null;
+            
             return TaskStatus.Failure;
         }
         

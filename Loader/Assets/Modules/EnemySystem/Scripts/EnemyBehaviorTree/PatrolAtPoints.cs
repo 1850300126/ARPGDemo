@@ -4,21 +4,23 @@ using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
 using Unity.Burst.Intrinsics;
 using UnityEngine;
-
-public class PatrolAtPoints : Conditional
-{
-    public SharedTransform self_transform;
+using DG.Tweening;
+public class PatrolAtPoints : EnemyConditionBase
+{   
     public Vector3 target_point;
-    public SharedVector3 origin_point;
     // 获取与远点不能超过的最大距离
     public float max_distance_origin = 10;    
-    private float wait_time = 1f;
+    private float wait_time = 2f;
     private float wait_counter = 0f;
     private bool waiting = true;
     public float speed = 5;
 
     public override TaskStatus OnUpdate()
     {
+        if(enemy == null)
+        {
+            enemy = self_transform.Value.GetComponent<Enemy>();
+        }
         return Patrol();
     }
 
@@ -30,21 +32,20 @@ public class PatrolAtPoints : Conditional
             if(wait_counter >= wait_time)
             {
                 GetPatrolTargetPos();
+                AgentMoveToTarget(target_point, target_point, 0.2f, 2, 0f);
+                PlayAnimation("Walk");
                 waiting = false;
             }
         }
         else
-        {
-            if(Vector3.Distance(self_transform.Value.position, target_point) < 0.01f)
-            {
+        {   
+            if(!enemy.agent.pathPending && enemy.agent.remainingDistance < 0.1f)
+            {   
+                PlayAnimation("Idle");
                 wait_counter = 0f;
                 waiting = true;
             }
-            else
-            {
-                self_transform.Value.position = Vector3.MoveTowards(self_transform.Value.position, target_point, speed * Time.deltaTime);
-                self_transform.Value.LookAt(target_point);
-            }
+
         }
         return TaskStatus.Running;
     }
@@ -70,7 +71,8 @@ public class PatrolAtPoints : Conditional
 
             float pos_z = Random.Range(min_z, max_z);
 
-            target_point = new Vector3(pos_x, 0, pos_z);
+            target_point = new Vector3(self_transform.Value.position.x + pos_x, 0, self_transform.Value.position.z + pos_z);
         }
     }
+    
 }

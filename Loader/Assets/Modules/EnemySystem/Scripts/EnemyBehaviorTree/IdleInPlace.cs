@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 using BehaviorDesigner.Runtime;
-public class IdleInPlace : Conditional
+public class IdleInPlace : EnemyConditionBase
 {
     public override TaskStatus OnUpdate()
     {
@@ -11,7 +11,11 @@ public class IdleInPlace : Conditional
     }
 
     public TaskStatus Idle()
-    { 
+    {   
+        if(enemy.patrol)
+        {
+            return TaskStatus.Failure;
+        }
         return TaskStatus.Running;
     }
 }

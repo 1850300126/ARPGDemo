@@ -9,9 +9,12 @@ public class Enemy : MonoBehaviour
     public Collider enemy_collider;
     public NavMeshAgent agent;
     public Animator animator;
-    public EnemyStateMachine enemy_state_machine;
-    public Collider find_enemy_collider;
-    // Start is called before the first frame update
+
+    [Header("数据类")]
+    [Header("是否允许巡逻")]
+    public bool patrol;
+    [Header("是否在攻击中")]
+    public bool attacking;
     void Start()
     {
         enemy_rb = GetComponent<Rigidbody>();
@@ -21,35 +24,11 @@ public class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         
         animator = GetComponent<Animator>();
-
-        find_enemy_collider = transform.Find("find_enemy_collider").GetComponent<Collider>();
-
-        enemy_state_machine = new EnemyStateMachine(this);
-
-        enemy_state_machine.ChangeState(enemy_state_machine.idle_state);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDrawGizmos() 
     {
-        enemy_state_machine.Update();
-    }
-
-    void FixUpdate()
-    {
-        enemy_state_machine.FixUpdate();
-    }
-
-    void OnTriggerEnter(Collider collider)
-    {
-        enemy_state_machine.OnTriggerEnter(collider);
-    }
-    void OnTriggerStay(Collider collider)
-    {
-        enemy_state_machine.OnTriggerStay(collider);
-    }
-    void OnTriggerExit(Collider collider)
-    {
-        enemy_state_machine.OnTriggerExit(collider);
+        Gizmos.color = new Color(1, 0, 0, 0.1f);
+        Gizmos.DrawSphere(transform.position, 5);
     }
 }
