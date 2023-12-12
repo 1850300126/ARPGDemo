@@ -648,7 +648,7 @@ Transform:
   m_GameObject: {fileID: 341252441}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.207, z: 15.43}
+  m_LocalPosition: {x: 0, y: 0.207, z: 15.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2647,13 +2647,14 @@ MonoBehaviour:
       parentIndex: 
       startIndex: 
       variableStartIndex: 
-      JSONSerialization: '{"Variables":[{"Type":"BehaviorDesigner.Runtime.SharedTransform","Name":"SelfTransform","IsShared":true,"PropertyMapping":"UnityEngine.Transform/transform","PropertyMappingOwner":0,"TransformmValue":1},{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"TargetObject","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"ReachPoint","IsShared":true,"Vector3mValue":"(0,0,0)"},{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"OriginPoint","IsShared":true,"Vector3mValue":"(0,0.5,0)"}]}'
+      JSONSerialization: '{"Variables":[{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"SelfObject","IsShared":true,"PropertyMapping":"UnityEngine.Transform/gameObject","PropertyMappingOwner":0},{"Type":"BehaviorDesigner.Runtime.SharedTransform","Name":"SelfTransform","IsShared":true,"PropertyMapping":"UnityEngine.Transform/transform","PropertyMappingOwner":1,"TransformmValue":2},{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"TargetObject","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"ReachPoint","IsShared":true,"Vector3mValue":"(0,0,0)"},{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"OriginPoint","IsShared":true,"Vector3mValue":"(0,0.5,0)"}]}'
       fieldSerializationData:
         typeName: []
         fieldNameHash: 
         startIndex: 
         dataPosition: 
         unityObjects:
+        - {fileID: 1599327244}
         - {fileID: 1599327244}
         - {fileID: 102363614}
         byteData: 

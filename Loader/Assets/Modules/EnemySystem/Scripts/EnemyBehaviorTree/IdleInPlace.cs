@@ -3,18 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 using BehaviorDesigner.Runtime;
+
 public class IdleInPlace : EnemyConditionBase
 {
+    public string animator_clip_name;
+    public float wait_counter;
+    public float wait_time;
+
     public override TaskStatus OnUpdate()
     {
         return Idle();
     }
 
-    public TaskStatus Idle()
+    public override void OnStart() 
     {   
-        if(enemy.patrol)
-        {
-            return TaskStatus.Failure;
+        base.OnStart();
+
+        InitAgent(2, 0.1f);
+
+        enemy.animator.CrossFade(animator_clip_name, 0.1f);
+    }
+
+    private TaskStatus Idle()
+    {   
+        wait_counter += Time.deltaTime;
+        if(wait_counter >= wait_time)
+        {   
+            wait_counter = 0;
+            return TaskStatus.Success;
         }
         return TaskStatus.Running;
     }

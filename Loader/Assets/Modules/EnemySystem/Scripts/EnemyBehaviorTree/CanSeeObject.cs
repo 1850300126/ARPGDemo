@@ -28,11 +28,14 @@ public class CanSeeObject : EnemyConditionBase
 
             enemy.transform.DOLookAt(reach_point.Value, 0.14f, AxisConstraint.Y);
 
+            enemy.animator.CrossFade("AttackIdle", 0.1f);
+
             return TaskStatus.Success;
         }
         else
         {   
-            
+            target_objcet.Value = null;
+
             return TaskStatus.Failure;
         }
         

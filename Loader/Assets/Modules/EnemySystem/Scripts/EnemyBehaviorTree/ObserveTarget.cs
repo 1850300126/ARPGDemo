@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using BehaviorDesigner.Runtime.Tasks;
 using BehaviorDesigner.Runtime;
-public class MoveToTarget : EnemyConditionBase
-{   
 
-    public float stop_distance;
+public class ObserveTarget : EnemyConditionBase
+{
     public float move_speed;
+    public float stop_distance;
     public string animator_clip_name;
+
     public override TaskStatus OnUpdate()
     {
-        return MoveToTargetTrans();
+        return Observe();
     }
     public override void OnStart()
     {
@@ -20,20 +21,28 @@ public class MoveToTarget : EnemyConditionBase
         InitAgent(move_speed, stop_distance);
 
         enemy.animator.CrossFade(animator_clip_name, 0.1f);
+
+        GetRandomPoint();
     }   
-    public TaskStatus MoveToTargetTrans()
+
+    private TaskStatus Observe()
     {   
-        if(!target_objcet.Value) return TaskStatus.Failure;
-
-        AgentMoveToTarget(target_objcet.Value.transform.position);
-
         self_transform.Value.LookAt(target_objcet.Value.transform.position);
 
-        if(enemy.agent.remainingDistance <= stop_distance) 
+        if(enemy.agent.remainingDistance < 0.1f)
         {
             return TaskStatus.Success;
         }
-
+    
         return TaskStatus.Running;
-    }    
+    }
+
+    public void GetRandomPoint()
+    {
+        float _random = Random.Range(0f, 2f);
+        
+        Vector3 _random_point = enemy.transform.right * _random;
+
+        AgentMoveToTarget(_random_point);
+    }
 }
