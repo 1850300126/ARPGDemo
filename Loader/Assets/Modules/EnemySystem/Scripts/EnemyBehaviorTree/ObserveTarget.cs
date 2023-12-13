@@ -20,6 +20,8 @@ public class ObserveTarget : EnemyConditionBase
 
         InitAgent(move_speed, stop_distance);
 
+        enemy.agent.isStopped = false;
+
         enemy.animator.CrossFade(animator_clip_name, 0.1f);
 
         GetRandomPoint();

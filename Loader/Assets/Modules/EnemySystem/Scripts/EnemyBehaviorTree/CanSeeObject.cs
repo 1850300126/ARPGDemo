@@ -20,15 +20,11 @@ public class CanSeeObject : EnemyConditionBase
 
         if(colliders.Length > 0)
         {   
-            PlayAnimation("AttackIdle");
-
             reach_point.Value = colliders[0].transform.position;
 
             target_objcet.Value = colliders[0].gameObject;
 
             enemy.transform.DOLookAt(reach_point.Value, 0.14f, AxisConstraint.Y);
-
-            enemy.animator.CrossFade("AttackIdle", 0.1f);
 
             return TaskStatus.Success;
         }

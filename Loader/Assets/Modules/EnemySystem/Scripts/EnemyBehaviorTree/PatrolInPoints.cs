@@ -7,8 +7,8 @@ using System;
 public class PatrolInPoints : EnemyConditionBase
 {   
     public Vector3[] patrol_points;
+    // public Vector3 target_pos;
     private int current_way_point_index = 0;
-    public bool waiting;
     public float wait_counter;
     public float wait_time;
 
@@ -25,22 +25,26 @@ public class PatrolInPoints : EnemyConditionBase
 
         InitAgent(2, 0.1f);
 
-        enemy.animator.CrossFade(animator_clip_name, 0.1f);
+        enemy.animator.CrossFade(animator_clip_name, 0.1f);      
+        
+
+        enemy.agent.isStopped = false;  
+
     }
 
     private TaskStatus Patrol()
     {   
-        Vector3 wp = patrol_points[current_way_point_index];
+        Vector3 target_pos = patrol_points[current_way_point_index];
 
-        AgentMoveToTarget(wp);
+        AgentMoveToTarget(target_pos);
 
-        self_transform.Value.LookAt(wp);
+        self_transform.Value.LookAt(target_pos, self_transform.Value.transform.up);
 
-        if(!enemy.agent.pathPending && enemy.agent.remainingDistance < 0.1f)
+
+        if(!enemy.agent.pathPending && enemy.agent.remainingDistance < 0.5f)
         {   
              enemy.animator.CrossFade("Idle", 0.1f);
             wait_counter = 0f;
-            waiting = true;
             current_way_point_index = (current_way_point_index + 1) % patrol_points.Length;
             return TaskStatus.Success;
         } 

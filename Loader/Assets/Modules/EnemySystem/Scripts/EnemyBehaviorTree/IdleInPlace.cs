@@ -22,6 +22,9 @@ public class IdleInPlace : EnemyConditionBase
         InitAgent(2, 0.1f);
 
         enemy.animator.CrossFade(animator_clip_name, 0.1f);
+
+        enemy.agent.isStopped = true;
+            wait_counter = 0;
     }
 
     private TaskStatus Idle()
@@ -29,7 +32,6 @@ public class IdleInPlace : EnemyConditionBase
         wait_counter += Time.deltaTime;
         if(wait_counter >= wait_time)
         {   
-            wait_counter = 0;
             return TaskStatus.Success;
         }
         return TaskStatus.Running;

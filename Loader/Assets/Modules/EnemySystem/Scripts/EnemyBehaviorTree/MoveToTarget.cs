@@ -20,10 +20,12 @@ public class MoveToTarget : EnemyConditionBase
         InitAgent(move_speed, stop_distance);
 
         enemy.animator.CrossFade(animator_clip_name, 0.1f);
+    
+        enemy.agent.isStopped = false;
     }   
     public TaskStatus MoveToTargetTrans()
     {   
-        if(!target_objcet.Value) return TaskStatus.Failure;
+        // if(target_objcet.Value.gameObject == null) return TaskStatus.Failure;
 
         AgentMoveToTarget(target_objcet.Value.transform.position);
 
