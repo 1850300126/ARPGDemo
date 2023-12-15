@@ -22,14 +22,14 @@ public class MoveToTarget : EnemyConditionBase
         enemy.animator.CrossFade(animator_clip_name, 0.1f);
     
         enemy.agent.isStopped = false;
+
+        self_transform.Value.LookAt(target_objcet.Value.transform.position);
+
+        AgentMoveToTarget(target_objcet.Value.transform.position);
     }   
     public TaskStatus MoveToTargetTrans()
     {   
         // if(target_objcet.Value.gameObject == null) return TaskStatus.Failure;
-
-        AgentMoveToTarget(target_objcet.Value.transform.position);
-
-        self_transform.Value.LookAt(target_objcet.Value.transform.position);
 
         if(enemy.agent.remainingDistance <= stop_distance) 
         {
@@ -37,5 +37,7 @@ public class MoveToTarget : EnemyConditionBase
         }
 
         return TaskStatus.Running;
-    }    
+    }
+
+
 }

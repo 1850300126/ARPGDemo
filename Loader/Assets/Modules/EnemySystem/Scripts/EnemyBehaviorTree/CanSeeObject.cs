@@ -16,20 +16,20 @@ public class CanSeeObject : EnemyConditionBase
     public TaskStatus CheckEnemyInFOVRange()
     {  
         // 进行判断范围内是否有可攻击的目标
-        Collider[] colliders = Physics.OverlapSphere(self_transform.Value.position, fov_range , _enemyLayerMask);
+        Collider[] colliders = Physics.OverlapSphere(enemy.transform.position, fov_range , _enemyLayerMask);
 
         if(colliders.Length > 0)
         {   
-            reach_point.Value = colliders[0].transform.position;
+            fov_range = 20f;
 
             target_objcet.Value = colliders[0].gameObject;
-
-            enemy.transform.DOLookAt(reach_point.Value, 0.14f, AxisConstraint.Y);
 
             return TaskStatus.Success;
         }
         else
         {   
+            fov_range = 6;
+            
             target_objcet.Value = null;
 
             return TaskStatus.Failure;

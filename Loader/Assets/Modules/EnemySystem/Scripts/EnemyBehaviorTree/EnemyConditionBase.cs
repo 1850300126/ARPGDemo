@@ -16,19 +16,12 @@ public class EnemyConditionBase : Conditional
     {
         enemy = self_transform.Value.GetComponent<Enemy>();
     }
-
-    protected void PlayAnimation(string name)
-    {
-        if(enemy.animator.GetCurrentAnimatorStateInfo(0).fullPathHash.ToString().Equals(name)) return;
-
-        enemy.animator.CrossFade(name, 0.1f);
-    }
     protected void InitAgent(float move_speed, float stop_distance)
     {
         enemy.agent.updateRotation = false;
 
         enemy.agent.speed = move_speed;
-        
+
         enemy.agent.stoppingDistance = stop_distance;
     }
     

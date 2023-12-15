@@ -26,7 +26,6 @@ public class PatrolInPoints : EnemyConditionBase
         InitAgent(2, 0.1f);
 
         enemy.animator.CrossFade(animator_clip_name, 0.1f);      
-        
 
         enemy.agent.isStopped = false;  
 
@@ -40,8 +39,7 @@ public class PatrolInPoints : EnemyConditionBase
 
         self_transform.Value.LookAt(target_pos, self_transform.Value.transform.up);
 
-
-        if(!enemy.agent.pathPending && enemy.agent.remainingDistance < 0.5f)
+        if(!enemy.agent.pathPending && enemy.agent.remainingDistance < 0.1f)
         {   
              enemy.animator.CrossFade("Idle", 0.1f);
             wait_counter = 0f;
@@ -52,34 +50,10 @@ public class PatrolInPoints : EnemyConditionBase
         return TaskStatus.Running;
     }
 
-    // private TaskStatus Patrol()
-    // {
-    //     if(waiting)
-    //     {
-    //         wait_counter += Time.deltaTime;
-    //         if(wait_counter >= wait_time)
-    //         {
-    //             PlayAnimation("Walk");
-    //             waiting = false;
-    //         }
-    //     }
-    //     else
-    //     {   
-    //         Vector3 wp = patrol_points[current_way_point_index];
+    public override void OnEnd()
+    {
+        base.OnEnd();
 
-    //         AgentMoveToTarget(wp);
-
-    //         self_transform.Value.LookAt(wp);
-
-    //         if(!enemy.agent.pathPending && enemy.agent.remainingDistance < 0.1f)
-    //         {   
-    //             PlayAnimation("Idle");
-    //             wait_counter = 0f;
-    //             waiting = true;
-    //             current_way_point_index = (current_way_point_index + 1) % patrol_points.Length;
-    //         }
-
-    //     }
-    //     return TaskStatus.Running;
-    // }
+        enemy.agent.isStopped = true; 
+    }
 }

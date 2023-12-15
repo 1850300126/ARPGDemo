@@ -19,12 +19,14 @@ public class IdleInPlace : EnemyConditionBase
     {   
         base.OnStart();
 
-        InitAgent(2, 0.1f);
+        if(target_objcet.Value != null)
+            self_transform.Value.LookAt(target_objcet.Value.transform.position);
 
         enemy.animator.CrossFade(animator_clip_name, 0.1f);
 
         enemy.agent.isStopped = true;
-            wait_counter = 0;
+
+        wait_counter = 0;
     }
 
     private TaskStatus Idle()
