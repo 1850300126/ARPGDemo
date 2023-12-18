@@ -10,7 +10,6 @@ public class EnemyConditionBase : Conditional
     public Enemy enemy;
     public SharedGameObject target_objcet;
     public SharedTransform self_transform;
-    public SharedVector3 reach_point;
     
     public override void OnStart()
     {

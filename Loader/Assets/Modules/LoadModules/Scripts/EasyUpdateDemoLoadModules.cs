@@ -74,7 +74,7 @@ namespace EasyUpdateDemoSDK
 
             yield return null;
             
-            APISystem.instance.CallAPI("world_system", "build_world", new object[] { "DemoSpace" });
+            APISystem.instance.CallAPI("world_system", "build_world", new object[] { "EnemyTest" });
         }
 
 

@@ -14,7 +14,7 @@ using UnityEngine;
 
             // StartAnimation(movement_state_machine.player.animation_data.MovingParameterHash);
 
-            ResetAttackIndex();
+            // ResetAttackIndex();
         }
 
         public override void OnExit()

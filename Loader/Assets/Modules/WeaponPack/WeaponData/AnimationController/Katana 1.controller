@@ -340,9 +340,9 @@ AnimatorStateMachine:
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: -7189424310630708030}
-    second: []
   - first: {fileID: 5860042645571908278}
+    second: []
+  - first: {fileID: -7189424310630708030}
     second: []
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 840, y: -230, z: 0}
@@ -608,11 +608,11 @@ AnimatorStateMachine:
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: -6709594388731328864}
-    second: []
   - first: {fileID: -4812776495860596362}
     second: []
   - first: {fileID: -4604576864393557463}
+    second: []
+  - first: {fileID: -6709594388731328864}
     second: []
   - first: {fileID: -1599258200850836564}
     second: []
@@ -754,7 +754,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Run
-  m_Speed: 1.1
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -791,9 +791,9 @@ AnimatorStateMachine:
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: -4110305847185798015}
-    second: []
   - first: {fileID: -922657592594544016}
+    second: []
+  - first: {fileID: -4110305847185798015}
     second: []
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 10, y: -10, z: 0}
@@ -908,7 +908,7 @@ AnimatorState:
   m_Transitions: []
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
+  m_IKOnFeet: 1
   m_WriteDefaultValues: 1
   m_Mirror: 0
   m_SpeedParameterActive: 0

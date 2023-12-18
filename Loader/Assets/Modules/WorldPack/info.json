@@ -9,6 +9,12 @@
             "type"   : "Scene",
             "data"   : "Scene/DemoSpace.unity",
             "tags"   : ["scene"]
+        },
+        {
+            "name"   : "EnemyTest",
+            "type"   : "Scene",
+            "data"   : "Scene/Test/EnemyTest.unity",
+            "tags"   : ["scene"]
         }
     ]
 }

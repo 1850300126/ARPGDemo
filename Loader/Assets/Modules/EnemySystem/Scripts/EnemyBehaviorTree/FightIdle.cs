@@ -9,6 +9,7 @@ public class FightIdle : Action
     public Enemy enemy;
     public Animator animator;
     public SharedTransform self_transform;
+    public SharedGameObject target_object;
     public override void OnStart() 
     {   
         base.OnStart();
@@ -18,5 +19,7 @@ public class FightIdle : Action
         animator = enemy.GetComponent<Animator>();
 
         animator.CrossFade("AttackIdle", 0.1f);
+
+        enemy.transform.LookAt(target_object.Value.transform);
     }
 }

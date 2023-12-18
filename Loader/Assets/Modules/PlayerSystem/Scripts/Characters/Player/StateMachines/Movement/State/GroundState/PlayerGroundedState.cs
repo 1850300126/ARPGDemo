@@ -14,9 +14,9 @@ public class PlayerGroundedState : PlayerMovementState
     {
         base.OnEnter();
 
-        // StartAnimation(movement_state_machine.player.animation_data.GroundedParameterHash);
-
         UpdateShouldSprintState();
+
+        ResetAttackIndex();
     }        
     public override void OnFixUpdate()
     {
@@ -26,7 +26,6 @@ public class PlayerGroundedState : PlayerMovementState
     public override void OnExit()
     {
         base.OnExit();
-        // StopAnimation(movement_state_machine.player.animation_data.GroundedParameterHash);
     }
     protected override void AddInputAction()
     {
@@ -71,8 +70,24 @@ public class PlayerGroundedState : PlayerMovementState
     {   
         // 重置连招索引
         if(movement_state_machine.player.current_combo_config == null) return;
-        
-        movement_state_machine.ChangeState(movement_state_machine.light_attack_state);
+
+        Collider[] colliders = Physics.OverlapSphere(movement_state_machine.player.transform.position, 6f , movement_state_machine.player.layer_data.AttackLayer);
+
+        if(colliders.Length > 0)
+        {   
+            movement_state_machine.move_target_state.target_trans = colliders[0].transform;
+
+            movement_state_machine.move_target_state.next_state = movement_state_machine.light_attack_state;
+
+            movement_state_machine.ChangeState(movement_state_machine.move_target_state);
+            
+            Debug.Log("invoke");
+        }
+        else
+        {
+            movement_state_machine.ChangeState(movement_state_machine.light_attack_state);
+        }
+
     }     
     protected virtual void OnHardAttackStarted(InputAction.CallbackContext context)
     {

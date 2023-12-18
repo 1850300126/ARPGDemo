@@ -35,6 +35,8 @@ public class PlayerSprintState : PlayerMovingState
             keepSprinting = false;
         }
         startTime = Time.time;
+
+        APISystem.instance.CallAPI("VFX_system", "play_particle_in_transform", new object[]{"Sprint", Vector3.zero, Vector3.zero, movement_state_machine.player.transform, 0f});
     }
 
     public override void OnExit()

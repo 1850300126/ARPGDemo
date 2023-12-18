@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 18586705}
   - component: {fileID: 18586704}
   - component: {fileID: 18586707}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,7 +270,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 57888346}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Environment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -298,165 +298,6 @@ Transform:
   - {fileID: 1916115667}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &102363610
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 102363614}
-  - component: {fileID: 102363613}
-  - component: {fileID: 102363612}
-  - component: {fileID: 102363611}
-  - component: {fileID: 102363615}
-  m_Layer: 0
-  m_Name: Cube
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!65 &102363611
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 102363610}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &102363612
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 102363610}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &102363613
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 102363610}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &102363614
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 102363610}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &102363615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 102363610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d7b55c7ecdb49a4a89fa5e6f9022861, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startWhenEnabled: 1
-  asynchronousLoad: 0
-  pauseWhenDisabled: 0
-  restartWhenComplete: 0
-  logTaskChanges: 0
-  group: 0
-  resetValuesOnRestart: 0
-  externalBehavior: {fileID: 0}
-  mBehaviorSource:
-    behaviorName: EnemyTreeTest
-    behaviorDescription: 
-    mTaskData:
-      types: []
-      parentIndex: 
-      startIndex: 
-      variableStartIndex: 
-      JSONSerialization: '{"EntryTask":{"Type":"BehaviorDesigner.Runtime.Tasks.EntryTask","NodeData":{"Offset":"(362,170)"},"ID":0,"Name":"Entry","Instant":true},"RootTask":{"Type":"BehaviorDesigner.Runtime.Tasks.SelectorEvaluator","NodeData":{"Offset":"(-2,189)"},"ID":1,"Name":"Selector
-        Evaluator","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"BehaviorDesigner.Runtime.Tasks.Sequence","NodeData":{"Offset":"(-222,153)"},"ID":2,"Name":"Sequence","Instant":true,"AbortTypeabortType":"None","Children":[{"Type":"CanSeeObject","NodeData":{"Offset":"(-130,170)"},"ID":3,"Name":"Can
-        See Object","Instant":true,"SharedTransformself_transform":{"Type":"BehaviorDesigner.Runtime.SharedTransform","Name":"SelfTransform","IsShared":true,"PropertyMapping":"UnityEngine.Transform/transform","PropertyMappingOwner":0,"TransformmValue":1},"SharedTransformtarget_transform":{"Type":"BehaviorDesigner.Runtime.SharedTransform","Name":"TargetTransform","IsShared":true},"Singlefov_range":6},{"Type":"MoveToTarget","NodeData":{"Offset":"(112.577667,166.449463)"},"ID":4,"Name":"Move
-        To Target","Instant":true,"SharedTransformself_transform":{"Type":"BehaviorDesigner.Runtime.SharedTransform","Name":"SelfTransform","IsShared":true,"PropertyMapping":"UnityEngine.Transform/transform","PropertyMappingOwner":2,"TransformmValue":3},"SharedTransformtarget_transform":{"Type":"BehaviorDesigner.Runtime.SharedTransform","Name":"TargetTransform","IsShared":true},"Singlespeed":5}]},{"Type":"PatrolAtPoints","NodeData":{"Offset":"(208.260864,129.130432)"},"ID":5,"Name":"Patrol
-        At Points","Instant":true,"SharedTransformself_transform":{"Type":"BehaviorDesigner.Runtime.SharedTransform","Name":"SelfTransform","IsShared":true,"PropertyMapping":"UnityEngine.Transform/transform","PropertyMappingOwner":4,"TransformmValue":5},"Vector3target_point":"(0,0,0)","SharedVector3origin_point":{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"OriginPoint","IsShared":true,"Vector3mValue":"(0,0.5,0)"},"Singlemax_distance_origin":10,"Singlespeed":5}]},"DetachedTasks":[{"Type":"IdleInPlace","NodeData":{"Offset":"(819.4943,335.40387)"},"ID":6,"Name":"Idle
-        In Place","Instant":true}],"Variables":[{"Type":"BehaviorDesigner.Runtime.SharedTransform","Name":"SelfTransform","IsShared":true,"PropertyMapping":"UnityEngine.Transform/transform","PropertyMappingOwner":6,"TransformmValue":7},{"Type":"BehaviorDesigner.Runtime.SharedTransform","Name":"TargetTransform","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"OriginPoint","IsShared":true,"Vector3mValue":"(0,0.5,0)"}]}'
-      fieldSerializationData:
-        typeName: []
-        fieldNameHash: 
-        startIndex: 
-        dataPosition: 
-        unityObjects:
-        - {fileID: 102363610}
-        - {fileID: 102363614}
-        - {fileID: 102363610}
-        - {fileID: 102363614}
-        - {fileID: 102363610}
-        - {fileID: 102363614}
-        - {fileID: 102363610}
-        - {fileID: 102363614}
-        byteData: 
-        byteDataArray: 
-      Version: 1.7.7
-  gizmoViewMode: 2
-  showBehaviorDesignerGizmo: 1
 --- !u!43 &316097794
 Mesh:
   m_ObjectHideFlags: 0
@@ -1587,7 +1428,7 @@ GameObject:
   - component: {fileID: 750517956}
   - component: {fileID: 750517955}
   - component: {fileID: 750517954}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BigRamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1876,7 +1717,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &963194226
 AudioListener:
   m_ObjectHideFlags: 0
@@ -2414,7 +2255,7 @@ GameObject:
   - component: {fileID: 1363839316}
   - component: {fileID: 1363839315}
   - component: {fileID: 1363839314}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2520,7 +2361,7 @@ GameObject:
   - component: {fileID: 1424984066}
   - component: {fileID: 1424984065}
   - component: {fileID: 1424984064}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2656,7 +2497,7 @@ MonoBehaviour:
         unityObjects:
         - {fileID: 1599327244}
         - {fileID: 1599327244}
-        - {fileID: 102363614}
+        - {fileID: 0}
         byteData: 
         byteDataArray: 
       Version: 1.7.7
@@ -2839,7 +2680,7 @@ GameObject:
   - component: {fileID: 1916115670}
   - component: {fileID: 1916115669}
   - component: {fileID: 1916115668}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2945,7 +2786,7 @@ GameObject:
   - component: {fileID: 2099024683}
   - component: {fileID: 2099024682}
   - component: {fileID: 2099024681}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SmallRamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3213,4 +3054,3 @@ SceneRoots:
   - {fileID: 57888346}
   - {fileID: 708860398}
   - {fileID: 341252442}
-  - {fileID: 102363614}

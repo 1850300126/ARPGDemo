@@ -6,7 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour, IAnimationEvent
+public class Player : MonoBehaviour, IAnimationEvent, IAttackObject
 {   
     // 状态机
     public PlayerMovementStateMachine movement_state_machine;
@@ -22,9 +22,15 @@ public class Player : MonoBehaviour, IAnimationEvent
     public Transform hand_point;
     [field: SerializeField] public PlayerAnimationData animation_data { get; private set; }
     [field: SerializeField] public PlayerResizableCapsuleCollider ResizableCapsuleCollider { get; private set; }
+
     [field: SerializeField] public PlayerSO player_data;
     [field: SerializeField] public PlayerLayerData layer_data;
     [field: SerializeField] public ComboConfig current_combo_config;
+
+    public AttackObjectType self_type = AttackObjectType.BeAttacked;
+    public AttackObjectType SelfType { get => self_type; set => self_type = value ; }
+    public AttackObjectType attack_type = AttackObjectType.Enemy;
+    public AttackObjectType AttackType { get => attack_type; set => attack_type = value; }
     private void Awake() 
     {  
 
@@ -53,7 +59,8 @@ public class Player : MonoBehaviour, IAnimationEvent
 
         layer_data = new PlayerLayerData
         {
-            GroundLayer = 1 << LayerMask.NameToLayer("Environment")
+            GroundLayer = 1 << LayerMask.NameToLayer("Environment"),
+            AttackLayer = 1 << LayerMask.NameToLayer("Enemy")
         };
 
         hand_point = this.GetComponent<CommonInfo>().GetPoint("right_hand").transform;
@@ -114,4 +121,8 @@ public class Player : MonoBehaviour, IAnimationEvent
         movement_state_machine.OnAnimationTransitionEvent();
     }
 
+    public virtual void BeHit()
+    {
+        
+    }
 }

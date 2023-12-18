@@ -32,8 +32,6 @@ public class PlayerDodgeState : PlayerGroundedState
 
         MsgSystem.instance.SendMsg("player_dodege", null);
 
-        APISystem.instance.CallAPI("VFX_system", "play_particle_in_transform", new object[]{"Sprint", Vector3.zero, Vector3.zero, movement_state_machine.player.transform, 0f});
-
         ResetAttackIndex();
     }
     public override void OnExit()
@@ -47,11 +45,12 @@ public class PlayerDodgeState : PlayerGroundedState
     public override void OnFixUpdate()
     {
         base.OnFixUpdate();
+        //Float();
 
-        if (!shouldKeepRotating)
-        {
-            return;
-        }
+        // if (!shouldKeepRotating)
+        // {
+        //     return;
+        // }
 
         // RotateTowardsTargetRotation();
     }
@@ -91,19 +90,21 @@ public class PlayerDodgeState : PlayerGroundedState
         shouldKeepRotating = true;
     }
     private void Dash()
-    {
+    {   
+        if(movement_state_machine.reusable_data.movement_input != Vector2.zero) return;
+
         Vector3 dashDirection = movement_state_machine.player.transform.forward;
 
         dashDirection.y = 0f;
 
         UpdateTargetRotation(dashDirection, false);
 
-        if (movement_state_machine.reusable_data.movement_input != Vector2.zero)
-        {
-            UpdateTargetRotation(GetMovementInputDirection());
+        // if (movement_state_machine.reusable_data.movement_input != Vector2.zero)
+        // {
+        //     UpdateTargetRotation(GetMovementInputDirection());
 
-            dashDirection = GetTargetRotationDirection(movement_state_machine.reusable_data.CurrentTargetRotation.y);
-        }
+        //     dashDirection = GetTargetRotationDirection(movement_state_machine.reusable_data.CurrentTargetRotation.y);
+        // }
 
         movement_state_machine.player.player_rb.velocity = dashDirection * GetMovementSpeed(false);        
     }

@@ -12,7 +12,7 @@ public class LightStoppingState : StoppingStateBase
     {
         base.OnEnter();
 
-        movement_state_machine.reusable_data.MovementDecelerationForce = 10f;
+        movement_state_machine.reusable_data.MovementDecelerationForce = 5f;
         
         movement_state_machine.player.animator.CrossFade("LightStop", 0.1f);
         // StartAnimation(movement_state_machine.player.animation_data.MediumStopParameterHash);

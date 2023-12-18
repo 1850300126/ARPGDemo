@@ -348,4 +348,14 @@ public class PlayerMovementState : IState
         }
     }
     #endregion
+
+
+    #region attack methods
+    
+    protected virtual void MoveToEnemyAttack(IState next_state)
+    {   
+
+    }
+
+    #endregion
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerLayerData
 {
     [field: SerializeField] public LayerMask GroundLayer { get; set; }
-
+    [field: SerializeField] public LayerMask AttackLayer { get; set; }
     public bool ContainsLayer(LayerMask layerMask, int layer)
     {
         return (1 << layer & layerMask) != 0;

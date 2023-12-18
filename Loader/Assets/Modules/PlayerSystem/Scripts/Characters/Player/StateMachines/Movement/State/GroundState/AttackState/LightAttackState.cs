@@ -18,14 +18,12 @@ public class LightAttackState : GroundedAttackState
     {
         base.OnEnter();
 
-        // StartAnimation(movement_state_machine.player.animation_data.AttackLightParameterHash);
         // 使用根运动
         movement_state_machine.player.animator.applyRootMotion = true;
         // 屏蔽移动
         movement_state_machine.reusable_data.MovementSpeedModifier = 0f;
         // 重置速度
         ResetVelocity();
-
 
         light_attack_configs = movement_state_machine.player.current_combo_config.light_attack_configs;
 
@@ -35,8 +33,6 @@ public class LightAttackState : GroundedAttackState
     public override void OnExit()
     {
         base.OnExit();
-
-        // StopAnimation(movement_state_machine.player.animation_data.AttackLightParameterHash);
 
         movement_state_machine.player.animator.applyRootMotion = false;
     }
@@ -63,11 +59,15 @@ public class LightAttackState : GroundedAttackState
     {
         if(AttackForwardShake(ref movement_state_machine.reusable_data.last_attack_time, light_attack_configs[movement_state_machine.reusable_data.next_light_combo_index - 1].relaese_time)) return;
 
+        MoveToEnemyAttack(movement_state_machine.light_attack_state);
+
         OnLightAttack();
     }     
     protected override void OnHardAttackStarted(InputAction.CallbackContext context)
     {
         if(AttackForwardShake(ref movement_state_machine.reusable_data.last_attack_time, light_attack_configs[movement_state_machine.reusable_data.next_light_combo_index - 1].relaese_time)) return;
+
+        MoveToEnemyAttack(movement_state_machine.hard_attack_state);
 
         movement_state_machine.ChangeState(movement_state_machine.hard_attack_state);
     } 

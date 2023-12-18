@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IAttackObject
 {   
     public Rigidbody enemy_rb;
     public Collider enemy_collider;
@@ -15,6 +15,12 @@ public class Enemy : MonoBehaviour
     public bool patrol;
     [Header("是否在攻击中")]
     public bool attacking;
+
+    public AttackObjectType self_type = AttackObjectType.Enemy;
+    public AttackObjectType SelfType { get => self_type; set => self_type = value ; }
+    public AttackObjectType attack_type = AttackObjectType.BeAttacked;
+    public AttackObjectType AttackType { get => attack_type; set => attack_type = value; }
+
     void Start()
     {
         enemy_rb = GetComponent<Rigidbody>();
@@ -30,5 +36,10 @@ public class Enemy : MonoBehaviour
     {
         Gizmos.color = new Color(1, 0, 0, 0.1f);
         Gizmos.DrawSphere(transform.position, 5);
+    }
+
+    public virtual void BeHit()
+    {
+        
     }
 }
