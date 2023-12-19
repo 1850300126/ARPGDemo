@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using BehaviorDesigner.Runtime.Tasks;
 using UnityEngine;
+using Action = System.Action;
 
 public class PlayerMoveToTarget : PlayerMovingState
 {   
@@ -24,9 +26,6 @@ public class PlayerMoveToTarget : PlayerMovingState
         Vector3 target_pos = new Vector3(target_trans.position.x, 0, target_trans.position.z);
 
         movement_state_machine.player.transform.LookAt(target_pos);
-
-        Debug.Log(target_trans.position);
-        Debug.Log(target_trans.gameObject.name);
     }
 
     public override void OnUpdate()
@@ -38,18 +37,24 @@ public class PlayerMoveToTarget : PlayerMovingState
     {
         base.OnFixUpdate();
 
-        Vector3 lerp_pos = Vector3.Lerp(movement_state_machine.player.player_rb.transform.position, target_trans.position, Time.fixedDeltaTime * 5f);
+        Vector3 lerp_pos = Vector3.Lerp(movement_state_machine.player.player_rb.transform.position, target_trans.position, Time.fixedDeltaTime * 10f);
         
+        Debug.Log(Vector3.Distance(movement_state_machine.player.player_rb.transform.position, target_trans.position));
+
         movement_state_machine.player.player_rb.transform.position = lerp_pos;
 
-        if(Vector3.Distance(movement_state_machine.player.player_rb.transform.position, movement_state_machine.player.transform.position) < 0.5f)
+        if(Vector3.Distance(movement_state_machine.player.player_rb.transform.position, target_trans.position) < 2f)
         {
             action?.Invoke();
         }
     }
+    public override void OnHandleInput()
+    {
+        
+    }
     public override void OnExit()
     {
-
+        RemoveInputAction();
     }
     protected override void AddInputAction()
     {

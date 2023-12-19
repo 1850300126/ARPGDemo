@@ -19,7 +19,6 @@ public class PlayerDodgeState : PlayerGroundedState
 
         base.OnEnter();
 
-        // StartAnimation(movement_state_machine.player.animation_data.DodgeParameterHash);
         movement_state_machine.player.animator.CrossFade("Dodge", 0.1f);
 
         movement_state_machine.reusable_data.current_jump_force = airborne_data.JumpData.StrongForce;
@@ -38,8 +37,6 @@ public class PlayerDodgeState : PlayerGroundedState
     {
         base.OnExit();
 
-        // StopAnimation(movement_state_machine.player.animation_data.DodgeParameterHash);
-
         SetBaseRotationData();
     }        
     public override void OnFixUpdate()
@@ -47,12 +44,12 @@ public class PlayerDodgeState : PlayerGroundedState
         base.OnFixUpdate();
         //Float();
 
-        // if (!shouldKeepRotating)
-        // {
-        //     return;
-        // }
+        if (!shouldKeepRotating)
+        {
+            return;
+        }
 
-        // RotateTowardsTargetRotation();
+        RotateTowardsTargetRotation();
     }
 
     public override void OnAnimationTransitionEvent()
@@ -91,20 +88,18 @@ public class PlayerDodgeState : PlayerGroundedState
     }
     private void Dash()
     {   
-        if(movement_state_machine.reusable_data.movement_input != Vector2.zero) return;
-
         Vector3 dashDirection = movement_state_machine.player.transform.forward;
 
         dashDirection.y = 0f;
 
         UpdateTargetRotation(dashDirection, false);
 
-        // if (movement_state_machine.reusable_data.movement_input != Vector2.zero)
-        // {
-        //     UpdateTargetRotation(GetMovementInputDirection());
+        if (movement_state_machine.reusable_data.movement_input != Vector2.zero)
+        {
+            UpdateTargetRotation(GetMovementInputDirection());
 
-        //     dashDirection = GetTargetRotationDirection(movement_state_machine.reusable_data.CurrentTargetRotation.y);
-        // }
+            dashDirection = GetTargetRotationDirection(movement_state_machine.reusable_data.CurrentTargetRotation.y);
+        }
 
         movement_state_machine.player.player_rb.velocity = dashDirection * GetMovementSpeed(false);        
     }

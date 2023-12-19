@@ -22,7 +22,7 @@ public class CanSeeObject : EnemyConditionBase
         {   
             fov_range = 20f;
 
-            target_objcet.Value = colliders[0].gameObject;
+            target_object.Value = colliders[0].gameObject;
 
             return TaskStatus.Success;
         }
@@ -30,7 +30,7 @@ public class CanSeeObject : EnemyConditionBase
         {   
             fov_range = 6;
             
-            target_objcet.Value = null;
+            target_object.Value = null;
 
             return TaskStatus.Failure;
         }

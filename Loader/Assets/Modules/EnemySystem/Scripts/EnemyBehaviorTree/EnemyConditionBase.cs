@@ -8,7 +8,7 @@ using DG.Tweening;
 public class EnemyConditionBase : Conditional
 {
     public Enemy enemy;
-    public SharedGameObject target_objcet;
+    public SharedGameObject target_object;
     public SharedTransform self_transform;
     
     public override void OnStart()
@@ -26,7 +26,6 @@ public class EnemyConditionBase : Conditional
     
     protected void AgentMoveToTarget(Vector3 target)
     {   
-        if(enemy.agent.pathPending) return;
         enemy.agent.SetDestination(target);
     }
     protected void ResetAgentTarget()

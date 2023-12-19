@@ -20,6 +20,6 @@ public class FightIdle : Action
 
         animator.CrossFade("AttackIdle", 0.1f);
 
-        enemy.transform.LookAt(target_object.Value.transform);
+        enemy.transform.LookAt(new Vector3(target_object.Value.transform.position.x, 0, target_object.Value.transform.position.z));
     }
 }

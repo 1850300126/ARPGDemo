@@ -29,9 +29,9 @@ public class ObserveTarget : EnemyConditionBase
 
     private TaskStatus Observe()
     {   
-        self_transform.Value.LookAt(target_objcet.Value.transform.position);
+        enemy.transform.LookAt(new Vector3(target_object.Value.transform.position.x, 0, target_object.Value.transform.position.z));
 
-        if(enemy.agent.remainingDistance < 0.1f)
+        if(!enemy.agent.pathPending && enemy.agent.remainingDistance < 0.1f)
         {
             return TaskStatus.Success;
         }

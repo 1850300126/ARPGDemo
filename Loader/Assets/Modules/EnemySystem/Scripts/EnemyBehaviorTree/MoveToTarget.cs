@@ -23,15 +23,15 @@ public class MoveToTarget : EnemyConditionBase
     
         enemy.agent.isStopped = false;
 
-        self_transform.Value.LookAt(target_objcet.Value.transform.position);
-
-        AgentMoveToTarget(target_objcet.Value.transform.position);
+        
     }   
     public TaskStatus MoveToTargetTrans()
     {   
-        // if(target_objcet.Value.gameObject == null) return TaskStatus.Failure;
+        AgentMoveToTarget(target_object.Value.transform.position);
 
-        if(enemy.agent.remainingDistance <= stop_distance) 
+        enemy.transform.LookAt(new Vector3(target_object.Value.transform.position.x, 0, target_object.Value.transform.position.z));
+
+        if(!enemy.agent.pathPending && enemy.agent.remainingDistance <= stop_distance) 
         {
             return TaskStatus.Success;
         }
