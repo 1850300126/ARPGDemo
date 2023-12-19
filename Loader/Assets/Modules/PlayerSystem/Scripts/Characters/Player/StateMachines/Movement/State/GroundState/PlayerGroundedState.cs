@@ -73,15 +73,15 @@ public class PlayerGroundedState : PlayerMovementState
 
         Collider[] colliders = Physics.OverlapSphere(movement_state_machine.player.transform.position, 6f , movement_state_machine.player.layer_data.AttackLayer);
 
-        if(colliders.Length > 0)
+        if(colliders.Length > 0 && Vector3.Distance(colliders[0].transform.position, movement_state_machine.player.transform.position) > 2)
         {   
             movement_state_machine.move_target_state.target_trans = colliders[0].transform;
 
             movement_state_machine.move_target_state.next_state = movement_state_machine.light_attack_state;
 
+            movement_state_machine.move_target_state.action = () => movement_state_machine.ChangeState(movement_state_machine.light_attack_state);;
+
             movement_state_machine.ChangeState(movement_state_machine.move_target_state);
-            
-            Debug.Log("invoke");
         }
         else
         {

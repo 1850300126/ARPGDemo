@@ -55,19 +55,18 @@ public class LightAttackState : GroundedAttackState
     {  
         PlayAnimationClipFinish(movement_state_machine.light_attack_finish_state);
     }
+
     protected override void OnLightAttackStarted(InputAction.CallbackContext context)
     {
         if(AttackForwardShake(ref movement_state_machine.reusable_data.last_attack_time, light_attack_configs[movement_state_machine.reusable_data.next_light_combo_index - 1].relaese_time)) return;
 
-        MoveToEnemyAttack(movement_state_machine.light_attack_state);
+        movement_state_machine.ChangeState(movement_state_machine.light_attack_state);
 
-        OnLightAttack();
+        // OnLightAttack();
     }     
     protected override void OnHardAttackStarted(InputAction.CallbackContext context)
     {
         if(AttackForwardShake(ref movement_state_machine.reusable_data.last_attack_time, light_attack_configs[movement_state_machine.reusable_data.next_light_combo_index - 1].relaese_time)) return;
-
-        MoveToEnemyAttack(movement_state_machine.hard_attack_state);
 
         movement_state_machine.ChangeState(movement_state_machine.hard_attack_state);
     } 
@@ -94,8 +93,8 @@ public class LightAttackState : GroundedAttackState
 
     protected void LightAttack(string animation_name)
     {
-        // 让人物旋转至输入方向
-        RotatePlayer();
+        // 如果有敌人就面向敌人方向
+        RotateTarget();
         // 播放动画切片
         PlayComboAnimationClip(animation_name);
     }

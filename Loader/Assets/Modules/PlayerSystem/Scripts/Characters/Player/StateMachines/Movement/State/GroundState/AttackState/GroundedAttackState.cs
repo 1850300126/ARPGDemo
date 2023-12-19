@@ -13,15 +13,13 @@ public class GroundedAttackState : PlayerGroundedState
 
     public override void OnEnter()
     {
-        base.OnEnter();
+        AddInputAction();
 
-        // StartAnimation(movement_state_machine.player.animation_data.AttackParameterHash);
+        Debug.Log("当前的状态" + this);
     }
     public override void OnExit()
     {
-        base.OnExit();
-
-        // StopAnimation(movement_state_machine.player.animation_data.AttackParameterHash);
+        RemoveInputAction();
     }
 
     public override void OnFixUpdate()
@@ -95,10 +93,26 @@ public class GroundedAttackState : PlayerGroundedState
 
         movement_state_machine.player.transform.rotation = target_rot;
     }
+
+    protected void RotateTarget()
+    {
+         Collider[] colliders = Physics.OverlapSphere(movement_state_machine.player.transform.position, 6f , movement_state_machine.player.layer_data.AttackLayer);
+
+        if(colliders.Length > 0 )
+        {   
+            Vector3 dashDirection = new Vector3(colliders[0].transform.position.x, 0, colliders[0].transform.position.z);
+
+            movement_state_machine.player.transform.LookAt(dashDirection);
+        }
+        else
+        {
+            // 让人物旋转至输入方向
+            RotatePlayer();
+        }
+    }
     protected void JugdeClipAllowInterruption()
     {
         if (!movement_state_machine.player.animator.GetCurrentAnimatorStateInfo(0).IsTag("AllowInterruption")) return;
-
 
         if (movement_state_machine.reusable_data.movement_input == Vector2.zero)
         {
