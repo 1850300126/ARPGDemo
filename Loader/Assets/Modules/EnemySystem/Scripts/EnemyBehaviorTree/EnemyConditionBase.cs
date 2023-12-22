@@ -28,6 +28,15 @@ public class EnemyConditionBase : Conditional
     {   
         enemy.agent.SetDestination(target);
     }
+
+    protected void LookAtTarget()
+    {
+        Vector3 _self = new Vector3(self_transform.Value.position.x, 0, self_transform.Value.position.z);
+        Vector3 _target = new Vector3(target_object.Value.transform.position.x, 0, target_object.Value.transform.position.z);
+        Vector3 vec = _target - _self;
+        Quaternion rotate = Quaternion.LookRotation(vec);
+        self_transform.Value.localRotation = Quaternion.Slerp(self_transform.Value.localRotation, rotate, 0.02f);
+    }    
     protected void ResetAgentTarget()
     {   
         

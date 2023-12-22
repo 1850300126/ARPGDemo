@@ -9,6 +9,8 @@ public class MoveToTarget : EnemyConditionBase
     public float stop_distance;
     public float move_speed;
     public string animator_clip_name;
+    private float angleSpeed = 0.05f;
+
     public override TaskStatus OnUpdate()
     {
         return MoveToTargetTrans();
@@ -18,18 +20,16 @@ public class MoveToTarget : EnemyConditionBase
         base.OnStart();
 
         InitAgent(move_speed, stop_distance);
-
-        enemy.animator.CrossFade(animator_clip_name, 0.1f);
     
         enemy.agent.isStopped = false;
 
-        
+        enemy.animator.CrossFade(animator_clip_name, 0.1f);
     }   
     public TaskStatus MoveToTargetTrans()
     {   
-        AgentMoveToTarget(target_object.Value.transform.position);
+        LookAtTarget();
 
-        enemy.transform.LookAt(new Vector3(target_object.Value.transform.position.x, 0, target_object.Value.transform.position.z));
+        AgentMoveToTarget(target_object.Value.transform.position);
 
         if(!enemy.agent.pathPending && enemy.agent.remainingDistance <= stop_distance) 
         {

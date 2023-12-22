@@ -29,7 +29,7 @@ public class ObserveTarget : EnemyConditionBase
 
     private TaskStatus Observe()
     {   
-        enemy.transform.LookAt(new Vector3(target_object.Value.transform.position.x, 0, target_object.Value.transform.position.z));
+        LookAtTarget();
 
         if(!enemy.agent.pathPending && enemy.agent.remainingDistance < 0.1f)
         {
@@ -43,7 +43,7 @@ public class ObserveTarget : EnemyConditionBase
     {
         float _random = Random.Range(1f, 2f);
         
-        Vector3 _random_point = enemy.transform.TransformPoint(enemy.transform.right * _random);
+        Vector3 _random_point = enemy.transform.TransformPoint(enemy.transform.right) * _random;
 
         AgentMoveToTarget(_random_point);
     }
