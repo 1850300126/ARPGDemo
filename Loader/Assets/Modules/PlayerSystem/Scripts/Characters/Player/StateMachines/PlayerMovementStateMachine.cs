@@ -13,8 +13,6 @@ public class PlayerMovementStateMachine : StateMachine
     public PlayerLightLandState light_land_state;
     public PlayerDodgeState dodge_state;
     public PlayerSprintState sprint_state;
-    public PlayerMoveToTarget move_target_state;
-
 
     public PlayerJumpState jump_state;
     public PlayerFallState fall_state;
@@ -44,8 +42,6 @@ public class PlayerMovementStateMachine : StateMachine
         dodge_state = new PlayerDodgeState(this);
 
         sprint_state = new PlayerSprintState(this);
-
-        move_target_state = new PlayerMoveToTarget(this);
 
 
         jump_state = new PlayerJumpState(this);

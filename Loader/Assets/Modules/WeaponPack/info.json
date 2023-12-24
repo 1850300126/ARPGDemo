@@ -13,7 +13,7 @@
         {
             "name"   : "Katana",
             "type"   : "weapon_model",
-            "data"   : "Prefabs/Katana.prefab",
+            "data"   : "Prefabs/Katanae.prefab",
             "tags"   : ["model"]
         },
         {

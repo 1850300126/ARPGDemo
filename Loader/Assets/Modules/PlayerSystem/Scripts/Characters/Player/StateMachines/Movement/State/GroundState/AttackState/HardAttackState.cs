@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using BehaviorDesigner.Runtime.Tasks;
 using EasyUpdateDemoSDK;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -8,8 +9,7 @@ using UnityEngine.InputSystem;
 
 public class HardAttackState : GroundedAttackState
 {
-    private float last_attack_time;
-    private int comb_index;
+    private int comb_index = 0;
 
     public HardAttackState(PlayerMovementStateMachine player_movement_state_machine) : base(player_movement_state_machine)
     {
@@ -27,6 +27,8 @@ public class HardAttackState : GroundedAttackState
         movement_state_machine.reusable_data.MovementSpeedModifier = 0f;
         // 重置速度
         ResetVelocity();
+
+        comb_index = 0;
         // 执行攻击
         OnHardAttack();
     }
@@ -69,7 +71,9 @@ public class HardAttackState : GroundedAttackState
         movement_state_machine.ChangeState(movement_state_machine.light_attack_state);
     }    
     protected override void OnHardAttackStarted(InputAction.CallbackContext context)
-    {
+    {   
+        Debug.Log(comb_index);
+
         if(comb_index == 1) return;
 
         if(AttackForwardShake(ref movement_state_machine.reusable_data.last_attack_time, movement_state_machine.player.current_combo_config.hard_attack_configs[movement_state_machine.reusable_data.next_light_combo_index - 1].relaese_time)) return;
@@ -89,11 +93,10 @@ public class HardAttackState : GroundedAttackState
     }
     protected void HardAttack(string animation_name)
     {
-        // 让人物旋转至输入方向
-        RotatePlayer();
+        // 让人物旋转至目标方向
+        RotateAttackableDirection();
         // 播放动画切片
         PlayComboAnimationClip(animation_name);
-        
-
+    
     }
 }

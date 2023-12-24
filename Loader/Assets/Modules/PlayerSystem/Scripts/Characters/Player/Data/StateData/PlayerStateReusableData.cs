@@ -55,8 +55,12 @@ public class PlayerStateReusableData
     // 消耗体力时间
     public float consume_energy ;
 
+    // 下一个连招索引
     public int next_light_combo_index { get; set; }
-    public int current_light_combo_index { get; set; }
+    // 上一次攻击时间
     public float last_attack_time;
+    // 连招时间
     public float combo_time = 2.5f;
+    // 攻击目标
+    public Transform target_trans;
 }

@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class GroundedAttackState : PlayerGroundedState
 {
+
+    protected bool find_target = false;
     public GroundedAttackState(PlayerMovementStateMachine player_movement_state_machine) : base(player_movement_state_machine)
     {
 
@@ -83,7 +85,26 @@ public class GroundedAttackState : PlayerGroundedState
         movement_state_machine.ChangeState(state);
     }
 
-    protected void RotatePlayer()
+    // 旋转到目标方向
+    protected void RotateAttackableDirection()
+    {
+        if(movement_state_machine.reusable_data.target_trans != null)
+        {
+            Vector3 _self = new Vector3(movement_state_machine.player.transform.position.x, 0, movement_state_machine.player.transform.position.z);
+            Vector3 _target = new Vector3(movement_state_machine.reusable_data.target_trans.position.x, 0, movement_state_machine.reusable_data.target_trans.position.z);
+            Vector3 _direction = _target - _self;
+            Quaternion _rotate = Quaternion.LookRotation(_direction);
+            movement_state_machine.player.transform.localRotation = _rotate;
+        }
+        else
+        {   
+            // 让人物旋转至输入方向
+            RotateInputDirection();
+        }
+        
+    }
+    // 旋转到输入方向
+    protected void RotateInputDirection()
     {
         if (movement_state_machine.reusable_data.movement_input == Vector2.zero) return;
 
@@ -93,23 +114,7 @@ public class GroundedAttackState : PlayerGroundedState
 
         movement_state_machine.player.transform.rotation = target_rot;
     }
-
-    protected void RotateTarget()
-    {
-         Collider[] colliders = Physics.OverlapSphere(movement_state_machine.player.transform.position, 6f , movement_state_machine.player.layer_data.AttackLayer);
-
-        if(colliders.Length > 0 )
-        {   
-            Vector3 dashDirection = new Vector3(colliders[0].transform.position.x, 0, colliders[0].transform.position.z);
-
-            movement_state_machine.player.transform.LookAt(dashDirection);
-        }
-        else
-        {
-            // 让人物旋转至输入方向
-            RotatePlayer();
-        }
-    }
+    // 判断切片是否可打断的标签
     protected void JugdeClipAllowInterruption()
     {
         if (!movement_state_machine.player.animator.GetCurrentAnimatorStateInfo(0).IsTag("AllowInterruption")) return;
@@ -120,14 +125,37 @@ public class GroundedAttackState : PlayerGroundedState
         }
 
         OnMove();
-
     }
-
+    // 判断连招时间是否结束
     protected void JugdeComboFinish()
     {
         if(Time.time - movement_state_machine.reusable_data.last_attack_time > movement_state_machine.reusable_data.combo_time)
         {
             movement_state_machine.reusable_data.next_light_combo_index = 0;
+        }
+    }
+    // 判断是否存在可攻击的物体
+    protected void JugdeExistAttackableObject()
+    {
+        if(movement_state_machine.reusable_data.next_light_combo_index != 0) return;
+
+        Collider[] colliders = Physics.OverlapSphere(movement_state_machine.player.transform.position, 6f , movement_state_machine.player.layer_data.AttackLayer);
+
+        if(colliders.Length > 0 )
+        {   
+            
+            Debug.Log("范围内有敌人");
+
+            movement_state_machine.reusable_data.target_trans = colliders[0].transform;
+
+            // 距离小于2不进行索敌位移
+            if(Vector3.Distance(colliders[0].transform.position, movement_state_machine.player.transform.position) < 2) return;
+
+            find_target = true;
+        }
+        else
+        {
+            movement_state_machine.reusable_data.target_trans = null;
         }
     }
 

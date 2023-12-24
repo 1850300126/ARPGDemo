@@ -10,8 +10,6 @@ using UnityEngine.InputSystem;
 public class LightAttackState : GroundedAttackState
 {
     private List<LightAttackConfig> light_attack_configs;
-    private bool find_target = false;
-    private Transform target_trans;
     public LightAttackState(PlayerMovementStateMachine player_movement_state_machine) : base(player_movement_state_machine)
     {
 
@@ -29,22 +27,9 @@ public class LightAttackState : GroundedAttackState
 
         light_attack_configs = movement_state_machine.player.current_combo_config.light_attack_configs;
 
+        JugdeExistAttackableObject();
         // 进行一次攻击
         OnLightAttack();
-        
-        Collider[] colliders = Physics.OverlapSphere(movement_state_machine.player.transform.position, 6f , movement_state_machine.player.layer_data.AttackLayer);
-
-        if(colliders.Length > 0 && Vector3.Distance(colliders[0].transform.position, movement_state_machine.player.transform.position) > 2)
-        {   
-            
-            Debug.Log("范围内有敌人");
-
-            target_trans = colliders[0].transform;
-
-            if(movement_state_machine.reusable_data.next_light_combo_index != 1) return;
-
-            find_target = true;
-        }
     }
     public override void OnExit()
     {
@@ -59,13 +44,11 @@ public class LightAttackState : GroundedAttackState
 
         if(!find_target) return;
         
-        Vector3 lerp_pos = Vector3.Lerp(movement_state_machine.player.player_rb.transform.position, target_trans.position, Time.fixedDeltaTime * 10f);
-        
-        Debug.Log(Vector3.Distance(movement_state_machine.player.player_rb.transform.position, target_trans.position));
+        Vector3 lerp_pos = Vector3.Lerp(movement_state_machine.player.player_rb.transform.position, movement_state_machine.reusable_data.target_trans.position, Time.fixedDeltaTime * 3f);
 
         movement_state_machine.player.player_rb.transform.position = lerp_pos;
 
-        if(Vector3.Distance(movement_state_machine.player.player_rb.transform.position, target_trans.position) < 2f)
+        if(Vector3.Distance(movement_state_machine.player.player_rb.transform.position, movement_state_machine.reusable_data.target_trans.position) < 2f)
         {
             find_target = false;
         }
@@ -91,8 +74,6 @@ public class LightAttackState : GroundedAttackState
         if(AttackForwardShake(ref movement_state_machine.reusable_data.last_attack_time, light_attack_configs[movement_state_machine.reusable_data.next_light_combo_index - 1].relaese_time)) return;
 
         movement_state_machine.ChangeState(movement_state_machine.light_attack_state);
-
-        // OnLightAttack();
     }     
     protected override void OnHardAttackStarted(InputAction.CallbackContext context)
     {
@@ -123,8 +104,7 @@ public class LightAttackState : GroundedAttackState
 
     protected void LightAttack(string animation_name)
     {
-        // 如果有敌人就面向敌人方向
-        RotateTarget();
+        RotateAttackableDirection();
         // 播放动画切片
         PlayComboAnimationClip(animation_name);
     }
