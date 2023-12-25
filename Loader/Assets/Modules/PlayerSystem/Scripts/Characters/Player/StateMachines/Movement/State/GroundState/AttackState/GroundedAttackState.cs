@@ -22,6 +22,8 @@ public class GroundedAttackState : PlayerGroundedState
     public override void OnExit()
     {
         RemoveInputAction();
+
+        movement_state_machine.player.CloseDamageCollider();
     }
 
     public override void OnFixUpdate()

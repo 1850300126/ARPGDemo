@@ -15,5 +15,8 @@ using UnityEngine;
         public void OnAnimationEnterEvent();
         public void OnAnimationExitEvent();
         public void OnAnimationTransitionEvent();
-    }
+        // public void OnAttackAnimationColliderOpen();
+        // public void OnAttackAnimationColliderClose();
+        // public void OnAttackAnimationParticlePlay();
+}
 

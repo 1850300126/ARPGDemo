@@ -20,6 +20,9 @@ public class Player : MonoBehaviour, IAnimationEvent, IAttackObject
     public PlayerInput player_input;
     public Transform cam_trans;
     public Transform hand_point;
+    public WeaponBase current_weapon;
+
+
     [field: SerializeField] public PlayerAnimationData animation_data { get; private set; }
     [field: SerializeField] public PlayerResizableCapsuleCollider ResizableCapsuleCollider { get; private set; }
 
@@ -71,13 +74,10 @@ public class Player : MonoBehaviour, IAnimationEvent, IAttackObject
         
 
         current_combo_config = (ComboConfig)APISystem.instance.CallAPI("weapon_system", "get_combo_config", new object[]{"Katana"});
-
-        GameObject current_weapon = (GameObject)APISystem.instance.CallAPI("weapon_system", "get_weapon_model", new object[]{"Katana"});
-
+        
+        current_weapon = (WeaponBase)APISystem.instance.CallAPI("weapon_system", "GetWeapon", new object[]{"Katana"});
         current_weapon.transform.parent = hand_point.transform;
-
         current_weapon.transform.localPosition = Vector3.zero;
-
         current_weapon.transform.localRotation = Quaternion.Euler(0, 0, -90);
     }
     private void Start() 
@@ -121,8 +121,41 @@ public class Player : MonoBehaviour, IAnimationEvent, IAttackObject
         movement_state_machine.OnAnimationTransitionEvent();
     }
 
+
+    // public void OnAttackAnimationColliderOpen()
+    // {
+    //     movement_state_machine.OnAttackAnimationColliderOpen();
+    // }
+
+    // public void OnAttackAnimationColliderClose()
+    // {
+    //     movement_state_machine.OnAttackAnimationColliderClose();
+    // }
+
+    // public void OnAttackAnimationParticlePlay()
+    // {
+    //     movement_state_machine.OnAttackAnimationParticlePlay();
+    // }
     public virtual void BeHit()
     {
         
+    }
+
+    public void PlayAttackParticle()
+    {
+        // 播放攻击特效
+        if(animator.IsInTransition(0)) return;
+        Debug.Log(movement_state_machine.reusable_data.next_light_combo_index - 1);
+        APISystem.instance.CallAPI("VFX_system", "play_particle_from_config", new object[]{current_combo_config.light_attack_configs[movement_state_machine.reusable_data.next_light_combo_index - 1].particle_configs[0], this.transform});
+    }
+
+    public void OpenDamageCollider()
+    {
+        current_weapon.OpenCollider();
+    }
+
+    public void CloseDamageCollider()
+    {
+        current_weapon.CloseCollider();
     }
 }

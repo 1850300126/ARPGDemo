@@ -38,6 +38,20 @@ public class PlayerMovementState : IState
         
     }
 
+    public virtual void OnAttackAnimationColliderOpen()
+    {
+        
+    }
+
+    public virtual void OnAttackAnimationColliderClose()
+    {
+        
+    }
+
+    public virtual void OnAttackAnimationParticlePlay()
+    {
+        
+    }
     public virtual void OnEnter()
     {
         Debug.Log("当前的状态" + this);

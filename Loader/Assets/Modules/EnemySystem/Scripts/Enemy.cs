@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using BehaviorDesigner.Runtime;
+using BehaviorDesigner.Runtime.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,7 +10,9 @@ public class Enemy : MonoBehaviour, IAttackObject
     public Rigidbody enemy_rb;
     public Collider enemy_collider;
     public NavMeshAgent agent;
-    public Animator animator;
+    public Animator animator;   
+
+    public BehaviorTree behavior_tree;
 
     [Header("数据类")]
     [Header("是否允许巡逻")]
@@ -30,6 +34,8 @@ public class Enemy : MonoBehaviour, IAttackObject
         agent = GetComponent<NavMeshAgent>();
         
         animator = GetComponent<Animator>();
+
+        behavior_tree = GetComponent<BehaviorTree>();
     }
 
     private void OnDrawGizmos() 
@@ -39,7 +45,11 @@ public class Enemy : MonoBehaviour, IAttackObject
     }
 
     public virtual void BeHit()
-    {
-        
+    {   
+        CharacterBeHit _behavior = (CharacterBeHit)behavior_tree.FindTaskWithName("Character Be Hit");
+
+        _behavior.BeHit();
+
+        Debug.Log("被击中了");
     }
 }

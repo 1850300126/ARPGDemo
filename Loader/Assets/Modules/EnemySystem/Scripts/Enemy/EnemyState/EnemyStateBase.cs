@@ -27,6 +27,21 @@ public class EnemyStateBase : IState
         
     }
 
+    // public void OnAttackAnimationColliderOpen()
+    // {
+        
+    // }
+
+    // public void OnAttackAnimationColliderClose()
+    // {
+        
+    // }
+
+    // public void OnAttackAnimationParticlePlay()
+    // {
+        
+    // }
+
     public virtual void OnEnter()
     {
         Debug.Log("敌人当前的状态" + this);

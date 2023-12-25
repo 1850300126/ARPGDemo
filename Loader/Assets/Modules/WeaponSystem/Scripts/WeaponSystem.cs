@@ -16,6 +16,7 @@ public class WeaponSystem : MonoBehaviour
 
         api_functions.Add("get_weapon_model", GetWeaponModel);
         api_functions.Add("get_combo_config", GetComboConfig);
+        api_functions.Add("GetWeapon", GetWeapon);
         
         APISystem.instance.RegistAPI("weapon_system", OnSystemAPIFunction);
  
@@ -32,15 +33,19 @@ public class WeaponSystem : MonoBehaviour
     public object BuildConfig(object[] param)
     {   
 
- 
         return null;
     }
 
     public object BuildWeapon(object[] param)
     {   
 
-
         return null;
+    }
+    public object GetWeapon(object[] param)
+    {   
+        WeaponBase weapon = ((GameObject)GetWeaponModel(new object[]{ (string)param[0] })).AddComponent<WeaponBase>();
+
+        return weapon;
     }
     public object GetWeaponModel(object[] param)
     {
@@ -57,16 +62,16 @@ public class WeaponSystem : MonoBehaviour
     }
     public object GetComboConfig(object[] param)
     {
-        BundleInfoSystem.BundleInfoItem weapom_config = BundleInfoSystem.instance.GetBundleInfoItem((string)param[0], "weapon_config");
-        if (weapom_config == null)
+        BundleInfoSystem.BundleInfoItem combo_config = BundleInfoSystem.instance.GetBundleInfoItem((string)param[0], "weapon_config");
+        if (combo_config == null)
         {
-            Debug.Log("未找到武器配置信息");
+            Debug.Log("未找到连招配置信息");
             return null;
         }
 
-        ComboConfig create_weapon_model = BundleInfoSystem.LoadAddressablesAsset<ComboConfig>(weapom_config.data);
+        ComboConfig load_combo_info = BundleInfoSystem.LoadAddressablesAsset<ComboConfig>(combo_config.data);
         
-        return create_weapon_model;
+        return load_combo_info;
     }
     public object GetWeaponFromData(object[] weapon_data)
     {   

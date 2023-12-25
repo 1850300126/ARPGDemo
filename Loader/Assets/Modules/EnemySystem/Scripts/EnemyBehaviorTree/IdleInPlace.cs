@@ -19,9 +19,6 @@ public class IdleInPlace : EnemyConditionBase
     {   
         base.OnStart();
 
-        if(target_object.Value != null)
-            self_transform.Value.LookAt(target_object.Value.transform.position);
-
         enemy.animator.CrossFade(animator_clip_name, 0.1f);
 
         enemy.agent.isStopped = true;

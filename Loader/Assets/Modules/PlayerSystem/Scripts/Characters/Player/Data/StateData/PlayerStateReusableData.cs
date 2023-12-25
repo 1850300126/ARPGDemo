@@ -56,7 +56,11 @@ public class PlayerStateReusableData
     public float consume_energy ;
 
     // 下一个连招索引
-    public int next_light_combo_index { get; set; }
+    public int next_light_combo_index 
+    {
+        get ;
+        set ; 
+    }
     // 上一次攻击时间
     public float last_attack_time;
     // 连招时间

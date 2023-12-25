@@ -57,6 +57,21 @@ public class StateMachine
     {
         current_state?.OnAnimationTransitionEvent();
     }
+
+    // public void OnAttackAnimationColliderOpen()
+    // {
+    //     current_state?.OnAttackAnimationColliderOpen();
+    // }
+
+    // public void OnAttackAnimationColliderClose()
+    // {
+    //     current_state?.OnAttackAnimationColliderClose();
+    // }
+
+    // public void OnAttackAnimationParticlePlay()
+    // {
+    //     current_state?.OnAttackAnimationParticlePlay();
+    // }
 }
 
 
