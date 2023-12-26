@@ -9,11 +9,9 @@ public class CharacterBeHit : EnemyConditionBase
     public TaskStatus status = TaskStatus.Failure;
     public string animator_clip_name;
 
-    public TaskStatus BeHit()
+    public void BeHit()
     {   
         enemy.animator.CrossFade("BeHit", 0.1f);
-
-        return status;
     }
 
 

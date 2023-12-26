@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using EasyUpdateDemoSDK;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,13 +18,13 @@ public class GroundedAttackState : PlayerGroundedState
     {
         AddInputAction();
 
-        Debug.Log("当前的状态" + this);
+        // Debug.Log("当前的状态" + this);
     }
     public override void OnExit()
     {
         RemoveInputAction();
 
-        movement_state_machine.player.CloseDamageCollider();
+        MsgSystem.instance.SendMsg("AttackExit", null);
     }
 
     public override void OnFixUpdate()

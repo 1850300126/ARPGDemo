@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using EasyUpdateDemoSDK;
 using UnityEngine;
 
 public class WeaponBase : MonoBehaviour
 {   
     public BoxCollider attack_collider;
-
     private void Start() 
     {
         InitWeapon();    
@@ -14,8 +14,16 @@ public class WeaponBase : MonoBehaviour
     public void InitWeapon()
     {
         attack_collider = this.GetComponent<BoxCollider>();
+    }
 
-        // CloseCollider();
+    private void OnEnable() 
+    {
+        MsgSystem.instance.RegistMsgAction("AttackExit", CloseCollider);
+    }
+
+    private void OnDisable() 
+    {
+        MsgSystem.instance.RemoveMsgAction("AttackExit", CloseCollider);
     }
 
     private void OnTriggerEnter(Collider collider) 
@@ -25,13 +33,15 @@ public class WeaponBase : MonoBehaviour
         if(attack_object == null) return;
 
         attack_object.BeHit();
+
+        Debug.Log("打中敌人");
     }
 
     public void OpenCollider()
     {
         attack_collider.enabled = true;
     }
-    public void CloseCollider()
+    public void CloseCollider(object param)
     {
         attack_collider.enabled = false;
     }

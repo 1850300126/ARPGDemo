@@ -54,7 +54,7 @@ public class PlayerMovementState : IState
     }
     public virtual void OnEnter()
     {
-        Debug.Log("当前的状态" + this);
+        // Debug.Log("当前的状态" + this);
         AddInputAction();
     }
 

@@ -145,9 +145,9 @@ public class Player : MonoBehaviour, IAnimationEvent, IAttackObject
     {
         // 播放攻击特效
         if(animator.IsInTransition(0)) return;
-        Debug.Log(movement_state_machine.reusable_data.next_light_combo_index - 1);
         APISystem.instance.CallAPI("VFX_system", "play_particle_from_config", new object[]{current_combo_config.light_attack_configs[movement_state_machine.reusable_data.next_light_combo_index - 1].particle_configs[0], this.transform});
     }
+
 
     public void OpenDamageCollider()
     {
@@ -156,6 +156,6 @@ public class Player : MonoBehaviour, IAnimationEvent, IAttackObject
 
     public void CloseDamageCollider()
     {
-        current_weapon.CloseCollider();
+        current_weapon.CloseCollider(null);
     }
 }
