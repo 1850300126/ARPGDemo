@@ -23,12 +23,12 @@ public class LookAtTarget : EnemyConditionBase
     {   
         if(target_object.Value == null) return TaskStatus.Failure; 
 
-        Vector3 _self = new Vector3(self_transform.Value.position.x, 0, self_transform.Value.position.z);
+        Vector3 _self = new Vector3(enemy.transform.position.x, 0, enemy.transform.position.z);
         Vector3 _target = new Vector3(target_object.Value.transform.position.x, 0, target_object.Value.transform.position.z);
         Vector3 vec = _target - _self;
         Quaternion rotate = Quaternion.LookRotation(vec);
 
-        self_transform.Value.localRotation = Quaternion.Slerp(self_transform.Value.localRotation, rotate, angleSpeed);
+        enemy.transform.localRotation = Quaternion.Slerp(enemy.transform.localRotation, rotate, angleSpeed);
 
         // if (Vector3.Angle(vec, self_transform.Value.forward) < 0.1f)
         // {   

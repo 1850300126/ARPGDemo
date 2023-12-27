@@ -41,7 +41,7 @@ public class ObserveTarget : EnemyConditionBase
 
     public void GetRandomPoint()
     {
-        float _random = Random.Range(1f, 2f);
+        float _random = Random.Range(-2f, 2f);
         
         Vector3 _random_point = enemy.transform.TransformPoint(enemy.transform.right) * _random;
 

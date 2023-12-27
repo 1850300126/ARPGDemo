@@ -709,12 +709,12 @@ PrefabInstance:
     - target: {fileID: 686647531944660484, guid: 691b47ea4bf874b4383361247b17bea5,
         type: 3}
       propertyPath: mBehaviorSource.mTaskData.JSONSerialization
-      value: '{"Variables":[{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"SelfObject","IsShared":true,"PropertyMapping":"UnityEngine.Transform/gameObject","PropertyMappingOwner":0},{"Type":"BehaviorDesigner.Runtime.SharedTransform","Name":"SelfTransform","IsShared":true,"PropertyMapping":"UnityEngine.Transform/transform","PropertyMappingOwner":1},{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"TargetObject","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"OriginPos","IsShared":true,"Vector3mValue":"(0,0,0)"}]}'
+      value: '{"Variables":[{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"TargetObject","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"OriginPos","IsShared":true,"Vector3mValue":"(0,0,0)"}]}'
       objectReference: {fileID: 0}
     - target: {fileID: 686647531944660484, guid: 691b47ea4bf874b4383361247b17bea5,
         type: 3}
       propertyPath: mBehaviorSource.mTaskData.fieldSerializationData.unityObjects.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2369535839493767282, guid: 691b47ea4bf874b4383361247b17bea5,
         type: 3}
@@ -734,7 +734,7 @@ PrefabInstance:
     - target: {fileID: 4897505397911462591, guid: 691b47ea4bf874b4383361247b17bea5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 2.18
       objectReference: {fileID: 0}
     - target: {fileID: 4897505397911462591, guid: 691b47ea4bf874b4383361247b17bea5,
         type: 3}

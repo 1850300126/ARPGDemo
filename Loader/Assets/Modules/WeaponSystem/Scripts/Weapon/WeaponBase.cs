@@ -6,6 +6,8 @@ using UnityEngine;
 public class WeaponBase : MonoBehaviour
 {   
     public BoxCollider attack_collider;
+    // 武器是否可以造成伤害
+    public bool weapon_damage;
     private void Start() 
     {
         InitWeapon();    
@@ -14,6 +16,7 @@ public class WeaponBase : MonoBehaviour
     public void InitWeapon()
     {
         attack_collider = this.GetComponent<BoxCollider>();
+        weapon_damage = false;
     }
 
     private void OnEnable() 
@@ -28,6 +31,8 @@ public class WeaponBase : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider) 
     {   
+        if(!weapon_damage) return;
+
         IAttackObject attack_object = collider.gameObject.GetComponent<IAttackObject>();
 
         if(attack_object == null) return;
@@ -39,10 +44,10 @@ public class WeaponBase : MonoBehaviour
 
     public void OpenCollider()
     {
-        attack_collider.enabled = true;
+        weapon_damage = true;
     }
     public void CloseCollider(object param)
     {
-        attack_collider.enabled = false;
+        weapon_damage = false;
     }
 }

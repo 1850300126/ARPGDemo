@@ -29,7 +29,7 @@ public class PatrolInPoints : EnemyConditionBase
 
         enemy.agent.isStopped = false;  
 
-        self_transform.Value.LookAt(patrol_points[current_way_point_index]);
+        enemy.transform.LookAt(patrol_points[current_way_point_index]);
     }
 
     private TaskStatus Patrol()
