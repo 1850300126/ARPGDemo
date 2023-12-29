@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Playables;
 
 public class Player : MonoBehaviour, IAnimationEvent, IAttackObject
 {   
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour, IAnimationEvent, IAttackObject
     public AttackObjectType SelfType { get => self_type; set => self_type = value ; }
     public AttackObjectType attack_type = AttackObjectType.Enemy;
     public AttackObjectType AttackType { get => attack_type; set => attack_type = value; }
+
     private void Awake() 
     {  
 
@@ -67,6 +69,7 @@ public class Player : MonoBehaviour, IAnimationEvent, IAttackObject
         };
 
         hand_point = this.GetComponent<CommonInfo>().GetPoint("right_hand").transform;
+    
 
         movement_state_machine = new PlayerMovementStateMachine(this);
         movement_state_machine.ChangeState(movement_state_machine.idle_state);
@@ -120,22 +123,6 @@ public class Player : MonoBehaviour, IAnimationEvent, IAttackObject
     {
         movement_state_machine.OnAnimationTransitionEvent();
     }
-
-
-    // public void OnAttackAnimationColliderOpen()
-    // {
-    //     movement_state_machine.OnAttackAnimationColliderOpen();
-    // }
-
-    // public void OnAttackAnimationColliderClose()
-    // {
-    //     movement_state_machine.OnAttackAnimationColliderClose();
-    // }
-
-    // public void OnAttackAnimationParticlePlay()
-    // {
-    //     movement_state_machine.OnAttackAnimationParticlePlay();
-    // }
     public virtual void BeHit()
     {
         
@@ -148,14 +135,28 @@ public class Player : MonoBehaviour, IAnimationEvent, IAttackObject
         APISystem.instance.CallAPI("VFX_system", "play_particle_from_config", new object[]{current_combo_config.light_attack_configs[movement_state_machine.reusable_data.next_light_combo_index - 1].particle_configs[0], this.transform});
     }
 
+    public void DamageCollider()
+    {   
+        Collider[] colliders = Physics.OverlapSphere(this.transform.position + transform.forward, 2);
 
-    public void OpenDamageCollider()
-    {
-        current_weapon.OpenCollider();
+        if(colliders.Length <= 0) return;
+
+        foreach(var _collider in colliders)
+        {   
+
+            IAttackObject _obj = _collider.gameObject.GetComponent<IAttackObject>();
+            if(_obj != null )
+            {
+                Debug.Log(_obj);
+                _obj.BeHit();
+            }
+
+        }
     }
 
-    public void CloseDamageCollider()
+    private void OnDrawGizmos() 
     {
-        current_weapon.CloseCollider(null);
+        Gizmos.color = new Color(0, 1, 0, 0.1f);
+        Gizmos.DrawSphere(this.transform.position + transform.forward, 2);
     }
 }

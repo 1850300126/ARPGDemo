@@ -46,10 +46,6 @@ public class Enemy : MonoBehaviour, IAttackObject
 
     public virtual void BeHit()
     {   
-        CharacterBeHit _behavior = (CharacterBeHit)behavior_tree.FindTaskWithName("Character Be Hit");
-
-        _behavior.BeHit();
-
         Debug.Log("被击中了");
     }
 }

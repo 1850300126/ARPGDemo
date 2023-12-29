@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Animations;
 using UnityEngine;
+using UnityEngine.Playables;
 
 [CreateAssetMenu(fileName = "WeaponAnimationConfig", menuName = "WeaponSystem/CreateWeaponAnimationConfig")]
 public class ComboConfig : ScriptableObject

@@ -61,8 +61,7 @@ public class LightAttackState : GroundedAttackState
     }
     public override void OnAnimationEnterEvent()
     {
-        // 播放特效
-        // APISystem.instance.CallAPI("VFX_system", "play_particle_from_config", new object[]{light_attack_configs[movement_state_machine.reusable_data.next_light_combo_index - 1].particle_configs[0], movement_state_machine.player.transform});
+       
     }
     public override void OnAnimationExitEvent()
     {  
