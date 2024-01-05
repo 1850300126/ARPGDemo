@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using EasyUpdateDemoSDK;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -30,12 +28,15 @@ public class LightAttackState : GroundedAttackState
         JugdeExistAttackableObject();
         // 进行一次攻击
         OnLightAttack();
+        // Attack();
     }
     public override void OnExit()
     {
         base.OnExit();
 
         movement_state_machine.player.animator.applyRootMotion = false;
+
+        movement_state_machine.player.playableDirector.Stop();
     }
 
     public override void OnFixUpdate()
@@ -106,5 +107,10 @@ public class LightAttackState : GroundedAttackState
         RotateAttackableDirection();
         // 播放动画切片
         PlayComboAnimationClip(animation_name);
+    }
+
+    protected void Attack()
+    {
+        movement_state_machine.player.playableDirector.Play();
     }
 }

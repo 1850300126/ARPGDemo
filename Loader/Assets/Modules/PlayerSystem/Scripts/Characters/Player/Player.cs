@@ -23,6 +23,8 @@ public class Player : MonoBehaviour, IAnimationEvent, IAttackObject
     public Transform hand_point;
     public WeaponBase current_weapon;
 
+    public PlayableDirector playableDirector;
+
 
     [field: SerializeField] public PlayerAnimationData animation_data { get; private set; }
     [field: SerializeField] public PlayerResizableCapsuleCollider ResizableCapsuleCollider { get; private set; }
@@ -74,14 +76,14 @@ public class Player : MonoBehaviour, IAnimationEvent, IAttackObject
         movement_state_machine = new PlayerMovementStateMachine(this);
         movement_state_machine.ChangeState(movement_state_machine.idle_state);
 
-        
-
         current_combo_config = (ComboConfig)APISystem.instance.CallAPI("weapon_system", "get_combo_config", new object[]{"Katana"});
         
         current_weapon = (WeaponBase)APISystem.instance.CallAPI("weapon_system", "GetWeapon", new object[]{"Katana"});
         current_weapon.transform.parent = hand_point.transform;
         current_weapon.transform.localPosition = Vector3.zero;
         current_weapon.transform.localRotation = Quaternion.Euler(0, 0, -90);
+
+        playableDirector = this.GetComponent<PlayableDirector>();
     }
     private void Start() 
     {
