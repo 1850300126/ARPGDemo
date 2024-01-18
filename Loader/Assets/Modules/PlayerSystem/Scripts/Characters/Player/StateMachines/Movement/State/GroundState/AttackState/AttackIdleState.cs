@@ -13,9 +13,8 @@ public class AttackIdleState : GroundedAttackState
     {
         base.OnEnter();
 
-        // StartAnimation(movement_state_machine.player.animation_data.AttackIdleParameterHash);
-        movement_state_machine.player.animator.CrossFade("FightIdle", 0.1f);
-        // 使用根运动
+        // movement_state_machine.player.SkillController.PlaySkill(movement_state_machine.player.currentWeaponAnimationConfigs.attack_finish, null);
+        // ʹ�ø��˶�
         movement_state_machine.player.animator.applyRootMotion = true;
 
         movement_state_machine.reusable_data.MovementSpeedModifier = 0;
@@ -25,8 +24,6 @@ public class AttackIdleState : GroundedAttackState
     public override void OnExit()
     {
         base.OnExit();
-
-        // StopAnimation(movement_state_machine.player.animation_data.AttackIdleParameterHash);
 
         movement_state_machine.player.animator.applyRootMotion = false;
     }
@@ -48,7 +45,7 @@ public class AttackIdleState : GroundedAttackState
 
         OnMove();
     }
-    public override void OnAnimationTransitionEvent()
+    public override void OnAnimationExitEvent()
     {
         movement_state_machine.ChangeState(movement_state_machine.idle_state);
     }

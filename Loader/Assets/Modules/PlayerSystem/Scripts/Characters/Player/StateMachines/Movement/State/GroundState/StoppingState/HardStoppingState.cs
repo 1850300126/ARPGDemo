@@ -14,15 +14,12 @@ public class HardStoppingState : StoppingStateBase
 
         movement_state_machine.reusable_data.MovementDecelerationForce = 2f;
 
-        movement_state_machine.player.animator.CrossFade("HardStop", 0.1f);
-        // StartAnimation(movement_state_machine.player.animation_data.HardStopParameterHash);
+        movement_state_machine.player.PlayAnimation("HardStop", null, 1, false, 0.1f);
         
     }
 
     public override void OnExit()
     {
         base.OnExit();
-
-        // StopAnimation(movement_state_machine.player.animation_data.HardStopParameterHash);
     }
 }

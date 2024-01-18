@@ -25,7 +25,7 @@
         {
             "name"   : "Katana",
             "type"   : "weapon_config",
-            "data"   : "WeaponData/ComboData/KatanaData/KatanaSO.asset",
+            "data"   : "WeaponData/WeaponAnimationConfigs/Kanata/KanataAnimationConfigs.asset",
             "tags"   : ["config"]
         }
     ]

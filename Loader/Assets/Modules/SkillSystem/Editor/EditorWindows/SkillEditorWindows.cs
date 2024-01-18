@@ -67,14 +67,19 @@ public class SkillEditorWindows : EditorWindow
         SkillConfigObjectField.value = temp;
     }
 
+    // 窗口销毁会调用，但是直接关闭Unity不会
     private void OnDestroy()
+    {
+        
+    }
+
+    private void OnDisable() 
     {
         if (skillConfig != null) SaveConfig();
     }
 
-
     #region TopMenu 
-    private const string skillEditorScenePath = "Assets/SkillEditor/SkillEditorScene.unity";
+    private const string skillEditorScenePath = "Assets/Modules/SkillSystem/SkillTestScene.unity";
     private const string PreviewCharacterParentPath = "PreviewCharacterRoot";
     private string oldScenePath;
 
@@ -236,14 +241,19 @@ public class SkillEditorWindows : EditorWindow
     {
         get => currentSelectFrameIndex;
         set
-        {
+        {   
+            int old = currentSelectFrameIndex;
             //如果超出范围，更新最大帧
             if (value > CurrentFrameCount) CurrentFrameCount = value;
             currentSelectFrameIndex = Mathf.Clamp(value, 0, CurrentFrameCount);
             CurrentFrameTextField.value = currentSelectFrameIndex;
-            UpdateTimerShaftView();
 
-            TickSkill();
+            if(old != currentSelectFrameIndex)
+            {
+                UpdateTimerShaftView();
+                TickSkill();
+            }
+
         }
     }
 
@@ -536,8 +546,9 @@ public class SkillEditorWindows : EditorWindow
     {
         if (skillConfig == null) return;
         InitAnimationTrack();
-
-        //音效、特效轨道....
+        // 特效轨道
+        InitEffectTrack();
+        // 音效....
         InitAudioTrack();
     }
 
@@ -548,6 +559,12 @@ public class SkillEditorWindows : EditorWindow
         trackList.Add(animationTrack);
     }
 
+    private void InitEffectTrack()
+    {
+        EffectTrack effectTrack = new EffectTrack();
+        effectTrack.Init(trackMenuParent, ContentListView, skillEditorConfig.FrameUnitWidth);
+        trackList.Add(effectTrack);
+    }
     private void InitAudioTrack()
     {
         AudioTrack audioTrack = new AudioTrack();
@@ -617,6 +634,20 @@ public class SkillEditorWindows : EditorWindow
             {
                 startTime = DateTime.Now;
                 startFrameIndex = currentSelectFrameIndex;
+
+                // OnPlay
+                for(int i = 0; i < trackList.Count;i++)   
+                {
+                    trackList[i].OnPlay(currentSelectFrameIndex);
+                }
+            }
+            else
+            {
+                // OnStop
+                for(int i = 0; i < trackList.Count;i++)   
+                {
+                    trackList[i].OnStop();
+                }
             }
         }
     }

@@ -16,7 +16,7 @@ public class PlayerLightLandState : PlayerLandingState
 
         base.OnEnter();
 
-        movement_state_machine.player.animator.CrossFade("LightLanding", 0.1f);
+        movement_state_machine.player.PlayAnimation("LightLanding", null, 1, false, 0.1f);
 
         ResetVelocity();
     }

@@ -24,7 +24,7 @@ public class PlayerSprintState : PlayerMovingState
 
         // StartAnimation(movement_state_machine.player.animation_data.SprintParameterHash);
 
-        movement_state_machine.player.animator.CrossFade("Sprint", 0.1f);
+        movement_state_machine.player.PlayAnimation("Sprint", null, 1, false, 0.1f);
 
         movement_state_machine.reusable_data.current_jump_force = airborne_data.JumpData.StrongForce;
 

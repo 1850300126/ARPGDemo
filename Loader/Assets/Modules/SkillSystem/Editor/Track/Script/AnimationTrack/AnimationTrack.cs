@@ -11,7 +11,7 @@ public class AnimationTrack : SkillTrackBase
     private SkillSingleLineTrackStyle trackStyle;
 
     private Dictionary<int, AnimationTrackItem> trackItemDic = new Dictionary<int, AnimationTrackItem>();
-    public SkillAnimationData AnimationData { get => SkillEditorWindows.Instance.SkillConfig.SkillAnimationData; }
+    public SkillAnimationFrameData AnimationData { get => SkillEditorWindows.Instance.SkillConfig.SkillAnimationData; }
 
     public override void Init(VisualElement menuParent, VisualElement trackParent, float frameWidth)
     {
@@ -38,12 +38,12 @@ public class AnimationTrack : SkillTrackBase
 
         //根据数据绘制 TrackItem
         foreach (var item in AnimationData.FrameDataDic)
-        {
+        {   
             CreateItem(item.Key, item.Value);
         }
     }
 
-    private void CreateItem(int frameIndex, SkillAnimationEvent skillAnimationEvent)
+    private void CreateItem(int frameIndex, SkillAnimationClipData skillAnimationEvent)
     {
         AnimationTrackItem trackItem = new AnimationTrackItem();
         trackItem.Init(this, trackStyle, frameIndex, frameWidth, skillAnimationEvent);
@@ -116,7 +116,7 @@ public class AnimationTrack : SkillTrackBase
                 }
 
                 //构建动画数据
-                SkillAnimationEvent animationEvent = new SkillAnimationEvent()
+                SkillAnimationClipData animationEvent = new SkillAnimationClipData()
                 {
                     AnimationClip = clip,
                     DurationFrame = durationFrame,
@@ -162,7 +162,7 @@ public class AnimationTrack : SkillTrackBase
     /// </summary>
     public void SetFrameIndex(int oldIndex, int newIndex)
     {
-        if (AnimationData.FrameDataDic.Remove(oldIndex, out SkillAnimationEvent animationEvent))
+        if (AnimationData.FrameDataDic.Remove(oldIndex, out SkillAnimationClipData animationEvent))
         {
             AnimationData.FrameDataDic.Add(newIndex, animationEvent);
             trackItemDic.Remove(oldIndex, out AnimationTrackItem animationTrackItem);
@@ -173,7 +173,8 @@ public class AnimationTrack : SkillTrackBase
     }
 
     public override void DeleteTrackItem(int frameIndex)
-    {
+    {   
+        
         //移除数据
         AnimationData.FrameDataDic.Remove(frameIndex);
         if (trackItemDic.Remove(frameIndex, out AnimationTrackItem item))
@@ -200,10 +201,10 @@ public class AnimationTrack : SkillTrackBase
         Animator animator = previewGameObject.GetComponent<Animator>();
 
         //根据帧找到目前是哪个动画
-        Dictionary<int, SkillAnimationEvent> frameDateDic = AnimationData.FrameDataDic;
+        Dictionary<int, SkillAnimationClipData> frameDateDic = AnimationData.FrameDataDic;
 
         #region 关于根运动计算
-        SortedDictionary<int, SkillAnimationEvent> frameDataSortedDic = new SortedDictionary<int, SkillAnimationEvent>(frameDateDic);
+        SortedDictionary<int, SkillAnimationClipData> frameDataSortedDic = new SortedDictionary<int, SkillAnimationClipData>(frameDateDic);
         int[] keys = frameDataSortedDic.Keys.ToArray();
         Vector3 rootMotionTotalPos = Vector3.zero;
 
@@ -211,7 +212,7 @@ public class AnimationTrack : SkillTrackBase
         for (int i = 0; i < keys.Length; i++)
         {
             int key = keys[i]; //当前动画的起始帧数
-            SkillAnimationEvent animationEvent = frameDataSortedDic[key];
+            SkillAnimationClipData animationEvent = frameDataSortedDic[key];
 
             //只考虑根运动配置的动画
             if (animationEvent.ApplyRootMotion == false) continue;
@@ -300,7 +301,7 @@ public class AnimationTrack : SkillTrackBase
 
         if (animtionEventIndex != -1)
         {
-            SkillAnimationEvent animationEvent = frameDateDic[animtionEventIndex];
+            SkillAnimationClipData animationEvent = frameDateDic[animtionEventIndex];
             //动画资源总帧数
             float clipFrameCount = animationEvent.AnimationClip.length * animationEvent.AnimationClip.frameRate;
             //计算当前的播放进度

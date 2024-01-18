@@ -69,7 +69,7 @@ public class WeaponSystem : MonoBehaviour
             return null;
         }
 
-        ComboConfig load_combo_info = BundleInfoSystem.LoadAddressablesAsset<ComboConfig>(combo_config.data);
+        WeaponAnimationConfigs load_combo_info = BundleInfoSystem.LoadAddressablesAsset<WeaponAnimationConfigs>(combo_config.data);
         
         return load_combo_info;
     }

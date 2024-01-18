@@ -15,9 +15,7 @@ public class PlayerIdleState : PlayerGroundedState
     {
         base.OnEnter();
 
-        // StartAnimation(movement_state_machine.player.animation_data.IdleParameterHash);
-
-        movement_state_machine.player.animator.CrossFade("Idle", 0.1f);
+        movement_state_machine.player.PlayAnimation("Idle", null, 1, false, 0.1f);
 
         movement_state_machine.reusable_data.MovementSpeedModifier = 0;
 

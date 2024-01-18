@@ -27,7 +27,7 @@ public class SkillEditorInspector : Editor
         currentTrackItem.OnSelect();
         currentTrack = track;
 
-        //避免已经打开Inspector，导致的面板刷新不及时
+        // 避免已经打开Inspector，导致的面板刷新不及时
         if (Instance != null) Instance.Show();
     }
 
@@ -44,12 +44,14 @@ public class SkillEditorInspector : Editor
 
 
     public override VisualElement CreateInspectorGUI()
-    {
+    {   
+
         Instance = this;
+
         root = new VisualElement();
-        //root.Add(new Label("AAAA"));
 
         Show();
+
         return root;
     }
 
@@ -59,13 +61,19 @@ public class SkillEditorInspector : Editor
         Clean();
         if (currentTrackItem == null) return;
 
-        //目前只有动画这一种情况
-        if (currentTrackItem.GetType() == typeof(AnimationTrackItem))
-        {
+        // TODO:补充其他类型
+        Type itemType = currentTrackItem.GetType();
+
+        if (itemType == typeof(AnimationTrackItem))
+        {   
             DrawAnimationTrackItem((AnimationTrackItem)currentTrackItem);
         }
-
+        else if (itemType == typeof(AudioTrackItem))
+        {
+            DrawAudioTrackItem((AudioTrackItem)currentTrackItem);
+        }
     }
+
 
     private void Clean()
     {
@@ -111,13 +119,21 @@ public class SkillEditorInspector : Editor
         //轨道长度
         durationField = new IntegerField("轨道长度");
         durationField.value = animationTrackItem.AnimationEvent.DurationFrame;
-        durationField.RegisterValueChangedCallback(DurtionFieldValueChangedCallback);
+
+        durationField.RegisterCallback<FocusInEvent>(DurtionFieldFocusIn);
+        durationField.RegisterCallback<FocusOutEvent>(DurtionFieldFocusOut);
+
+        // durationField.RegisterValueChangedCallback(DurtionFieldValueChangedCallback);
         root.Add(durationField);
 
         //过渡时间
         transitionTimeField = new FloatField("过渡时间");
-        transitionTimeField.value = animationTrackItem.AnimationEvent.TransitionTime;
-        transitionTimeField.RegisterValueChangedCallback(TransitionTimeFieldValueChangedCallback);
+        transitionTimeField.value = animationTrackItem.AnimationEvent.TransitionTime;    
+
+        transitionTimeField.RegisterCallback<FocusInEvent>(TransitionTimeFieldFocusIn);
+        transitionTimeField.RegisterCallback<FocusOutEvent>(TransitionTimeFieldFocusOut);
+
+        // transitionTimeField.RegisterValueChangedCallback(TransitionTimeFieldValueChangedCallback);
         root.Add(transitionTimeField);
 
         //动画相关的信息
@@ -155,6 +171,42 @@ public class SkillEditorInspector : Editor
         SkillEditorWindows.Instance.SaveConfig();
     }
 
+    int oldDurationValue;
+    private void DurtionFieldFocusIn(FocusInEvent evt)
+    {
+        oldDurationValue = durationField.value;
+    }    
+    private void DurtionFieldFocusOut(FocusOutEvent evt)
+    {
+        if(durationField.value != oldDurationValue)
+        {   
+            //安全校验
+            if (((AnimationTrack)currentTrack).CheckFrameIndexOnDrag(trackItemFrameIndex + durationField.value, trackItemFrameIndex, false))
+            {
+                //修改数据，刷新视图
+                (currentTrackItem as AnimationTrackItem).AnimationEvent.DurationFrame = durationField.value;
+                (currentTrackItem as AnimationTrackItem).CheckFrameCount();
+                SkillEditorWindows.Instance.SaveConfig();//注意要最后保存，不然新旧数据会对不上
+                currentTrackItem.ResetView();
+            }
+            else
+            {
+                durationField.value = oldDurationValue;
+            }
+        }
+    }
+    float oldTransitionTimeValue;
+    private void TransitionTimeFieldFocusIn(FocusInEvent evt)
+    {
+        oldTransitionTimeValue = transitionTimeField.value;
+    }    
+    private void TransitionTimeFieldFocusOut(FocusOutEvent evt)
+    {
+        if(transitionTimeField.value != oldTransitionTimeValue)
+        {   
+            ((AnimationTrackItem)currentTrackItem).AnimationEvent.TransitionTime = transitionTimeField.value;
+        }
+    }
     private void DurtionFieldValueChangedCallback(ChangeEvent<int> evt)
     {
         int value = evt.newValue;
@@ -189,5 +241,44 @@ public class SkillEditorInspector : Editor
 
     #endregion
 
+    #region 音效轨道
 
+    private FloatField voluemFiled;
+    private void DrawAudioTrackItem(AudioTrackItem trackItem)
+    {
+        //动画资源
+        ObjectField audioClipAssetField = new ObjectField("动画资源");
+        audioClipAssetField.objectType = typeof(AudioClip);
+        audioClipAssetField.value = trackItem.SkillAudioEvent.audioClip;
+        audioClipAssetField.RegisterValueChangedCallback(AudioClipValueChangedCallback);
+        root.Add(audioClipAssetField);
+
+        // 音量
+        voluemFiled = new FloatField("播放音量");
+        voluemFiled.value = trackItem.SkillAudioEvent.Voluem;
+        voluemFiled.RegisterCallback<FocusInEvent>(VoluemFieldFocusIn);
+        voluemFiled.RegisterCallback<FocusOutEvent>(VoluemFieldFocusOut);
+        root.Add(voluemFiled);
+
+    }
+
+    private void AudioClipValueChangedCallback(ChangeEvent<UnityEngine.Object> evt)
+    {
+        AudioClip audioClip = evt.newValue as AudioClip; 
+        ((AudioTrackItem)currentTrackItem).SkillAudioEvent.audioClip = audioClip;   
+        currentTrackItem.ResetView();
+    }
+    float oldVoluemFieldValue;
+    private void VoluemFieldFocusIn(FocusInEvent evt)
+    {
+        oldVoluemFieldValue = voluemFiled.value;
+    }    
+    private void VoluemFieldFocusOut(FocusOutEvent evt)
+    {
+        if(voluemFiled.value != oldVoluemFieldValue)
+        {   
+            ((AudioTrackItem)currentTrackItem).SkillAudioEvent.Voluem = voluemFiled.value;
+        }
+    }
+    #endregion
 }

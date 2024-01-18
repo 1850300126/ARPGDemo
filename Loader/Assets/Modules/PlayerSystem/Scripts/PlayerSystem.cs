@@ -7,13 +7,13 @@ using UnityEngine;
 
 public class PlayerSystem : MonoBehaviour
 {
-    // å…³å¡ç³»ç»Ÿapié›†åˆ
+    // ¹Ø¿¨ÏµÍ³api¼¯ºÏ
     public Dictionary<string, APISystem.APICallFunction> api_functions = new Dictionary<string, APISystem.APICallFunction>();
     public Player player;
     public void OnLoaded()
     {
-        // æ³¨å†Œapiè°ƒç”¨
-        // æ„å»ºåœºæ™¯ç±»
+        // ×¢²áapiµ÷ÓÃ
+        // ¹¹½¨³¡¾°Àà
         // api_functions.Add("build_config", BuildConfig);
         api_functions.Add("build_player", BuildPlayer);
 
@@ -49,21 +49,28 @@ public class PlayerSystem : MonoBehaviour
         BundleInfoSystem.BundleInfoItem model_data = BundleInfoSystem.instance.GetBundleInfoItem(name, "character");
             if (model_data == null)
             {
-                Debug.Log("æœªæ‰¾åˆ°è§’è‰²æ¨¡å‹");
+                Debug.Log("Î´ÕÒµ½½ÇÉ«Ä£ĞÍ");
                 return;
             }
 
         BundleInfoSystem.BundleInfoItem player_config = BundleInfoSystem.instance.GetBundleInfoItem("player_config", "player_config");
-            if (player_config == null)
-            {
-                Debug.Log("æœªæ‰¾åˆ°è§’è‰²é…ç½®ä¿¡æ¯");
-                return;
-            }
+        if (player_config == null)
+        {
+            Debug.Log("Î´ÕÒµ½½ÇÉ«ÅäÖÃĞÅÏ¢");
+            return;
+        }
 
         GameObject create_character_model = BundleInfoSystem.LoadAddressablesPrefabs(model_data.data, model_data.name, transform);
 
         player = create_character_model.AddComponent<Player>();
 
+        BundleInfoSystem.BundleInfoItem player_movement_animation_config = BundleInfoSystem.instance.GetBundleInfoItem("player_movement_animation_config", "player_config");
+        if (player_movement_animation_config == null)
+        {
+            Debug.Log("Î´ÕÒµ½½ÇÉ«ÅäÖÃĞÅÏ¢");
+            return;
+        }
+        player.movementAnimationSO = BundleInfoSystem.LoadAddressablesAsset<CharacterConfig>(player_movement_animation_config.data);
         player.player_data = BundleInfoSystem.LoadAddressablesAsset<PlayerSO>(player_config.data);
 
         player.OnLoaded();
@@ -77,7 +84,7 @@ public class PlayerSystem : MonoBehaviour
         }
         else
         {   
-            Warning.Info("æœªæ‰¾åˆ°è§’è‰²å¼•ç”¨");
+            Warning.Info("Î´ÕÒµ½½ÇÉ«ÒıÓÃ");
             return null;
         }
     }

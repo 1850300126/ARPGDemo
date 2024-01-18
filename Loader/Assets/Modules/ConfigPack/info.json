@@ -9,6 +9,12 @@
             "type"   : "player_config",
             "data"   : "Configs/PlayerConfigs/PlayerData.asset",
             "tags"   : ["config"]
+        },
+        {
+            "name"   : "player_movement_animation_config",
+            "type"   : "player_config",
+            "data"   : "Configs/PlayerConfigs/MovementAnimationSO.asset",
+            "tags"   : ["config"]
         }
     ]
 }

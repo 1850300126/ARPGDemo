@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public abstract class SkillTrackItemStyleBase
 {
-    public Label root { get; protected set; }
+    public VisualElement root { get; protected set; }
 
     public virtual void SetBGColor(Color color)
     {

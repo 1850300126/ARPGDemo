@@ -3,203 +3,439 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class PoolSystem : MonoBehaviour
+/// <summary>
+/// ÆÕÍ¨Àà ¶ÔÏó ¶ÔÏó³ØÊı¾İ
+/// </summary>
+public class ObjectPoolData
 {
-    public Dictionary<string, APISystem.APICallFunction> api_functions = new Dictionary<string, APISystem.APICallFunction>();
-
-    [System.Serializable]
-    public class Pool
+    public ObjectPoolData(object obj)
     {
-        public string tag;
-        public GameObject prefab;
-        public int size;
-        public Pool()
-        {
-
-        }
-        public Pool(string tag, GameObject prefab, int size)
-        {
-            this.tag = tag;
-            this.prefab = prefab;
-            this.size = size;
-        }
+        PushObj(obj);
+    }
+    // ¶ÔÏóÈİÆ÷
+    public Queue<object> poolQueue = new Queue<object>();
+    /// <summary>
+    /// ½«¶ÔÏó·Å½ø¶ÔÏó³Ø
+    /// </summary>
+    public void PushObj(object obj)
+    {
+        poolQueue.Enqueue(obj);
     }
 
+    /// <summary>
+    /// ´Ó¶ÔÏó³ØÖĞ»ñÈ¡¶ÔÏó
+    /// </summary>
+    /// <returns></returns>
+    public object GetObj()
+    {
+        return poolQueue.Dequeue();
+    }
+}
+/// <summary>
+/// GameObject¶ÔÏó³ØÊı¾İ
+/// </summary>
+public class GameObjectPoolData
+{
+    // ¶ÔÏó³ØÖĞ ¸¸½Úµã
+    public GameObject fatherObj;
+    // ¶ÔÏóÈİÆ÷
+    public Queue<GameObject> poolQueue;
+
+    public GameObjectPoolData(GameObject obj, GameObject poolRootObj)
+    {
+        // ´´½¨¸¸½Úµã ²¢ÉèÖÃµ½¶ÔÏó³Ø¸ù½ÚµãÏÂ·½
+        fatherObj = new GameObject(obj.name);
+        fatherObj.transform.SetParent(poolRootObj.transform);
+        poolQueue = new Queue<GameObject>();
+        // °ÑÊ×´Î´´½¨Ê±ºò ĞèÒª·ÅÈëµÄ¶ÔÏó ·Å½øÈİÆ÷
+        PushObj(obj);
+    }
+
+
+    /// <summary>
+    /// ½«¶ÔÏó·Å½ø¶ÔÏó³Ø
+    /// </summary>
+    public void PushObj(GameObject obj)
+    {
+        // ¶ÔÏó½øÈİÆ÷
+        poolQueue.Enqueue(obj);
+        // ÉèÖÃ¸¸ÎïÌå
+        obj.transform.SetParent(fatherObj.transform);
+        // ÉèÖÃÒş²Ø
+        obj.SetActive(false);
+    }
+
+    /// <summary>
+    /// ´Ó¶ÔÏó³ØÖĞ»ñÈ¡¶ÔÏó
+    /// </summary>
+    /// <returns></returns>
+    public GameObject GetObj(Transform parent = null)
+    {
+        GameObject obj = poolQueue.Dequeue();
+
+        // ÏÔÊ¾¶ÔÏó
+        obj.SetActive(true);
+        // ÉèÖÃ¸¸ÎïÌå
+        obj.transform.SetParent(parent);
+        if (parent == null)
+        {
+            // »Ø¹éÄ¬ÈÏ³¡¾°
+            UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(obj, UnityEngine.SceneManagement.SceneManager.GetActiveScene());
+        }
+
+        return obj;
+    }
+}
+public class PoolSystem : MonoBehaviour
+{   
+    public static PoolSystem instance;
+    // ¸ù½Úµã
     [SerializeField]
-    public List<Pool> pools = new List<Pool>();
+    private GameObject poolRootObj;
+    /// <summary>
+    /// GameObject¶ÔÏóÈİÆ÷
+    /// </summary>
+    public Dictionary<string, GameObjectPoolData> gameObjectPoolDic = new Dictionary<string, GameObjectPoolData>();
+    /// <summary>
+    /// ÆÕÍ¨Àà ¶ÔÏóÈİÆ÷
+    /// </summary>
+    public Dictionary<string, ObjectPoolData> objectPoolDic = new Dictionary<string, ObjectPoolData>();
 
-    Dictionary<string, Queue<GameObject>> poolDictionary = new Dictionary<string, Queue<GameObject>>();
-    Dictionary<string, GameObject> pools_dictionary = new Dictionary<string, GameObject>();
-
-    public static PoolSystem instance;    //å•ä¾‹æ¨¡å¼ï¼Œä¾¿äºè®¿é—®å¯¹è±¡æ± 
-
-    private void Awake()
+    public void OnLoaded()
     {
         instance = this;
     }
 
-    public void OnLoaded()
+    #region GameObject¶ÔÏóÏà¹Ø²Ù×÷
+
+    /// <summary>
+    /// »ñÈ¡GameObject,µ«ÊÇÈç¹ûÃ»ÓĞÔò·µ»ØNull
+    /// </summary>
+    public GameObject GetGameObject(string assetName, Transform parent = null)
     {
-        api_functions.Add("add_pool", AddPool);
-        api_functions.Add("push_from_pool", PushFromPool);
-        api_functions.Add("push_from_pool_distory_by_time", PushFromPoolAndDistoryByTime);
-
-        APISystem.instance.RegistAPI("pool_system", OnPoolSystemAPIFunction);
-
-        pools.Clear();
-    }
-
-    public object OnPoolSystemAPIFunction(string function, object[] param)
-    {
-        if (api_functions.ContainsKey(function) == true)
-            return api_functions[function](param);
-
-        return null;
-    }
-
-    public GameObject PushFromPool(string tag, Vector3 positon, Quaternion rotation)     //ä»å¯¹è±¡æ± ä¸­è·å–å¯¹è±¡çš„æ–¹æ³•
-    {
-        if (!poolDictionary.ContainsKey(tag))  //å¦‚æœå¯¹è±¡æ± å­—å…¸ä¸­ä¸åŒ…å«æ‰€éœ€çš„å¯¹è±¡æ± 
+        GameObject obj = null;
+        // ¼ì²éÓĞÃ»ÓĞÕâÒ»²ã
+        if (gameObjectPoolDic.TryGetValue(assetName, out GameObjectPoolData poolData) && poolData.poolQueue.Count > 0)
         {
-            Debug.Log("Pool: " + tag + " does not exist");
-            return null;
+            obj = poolData.GetObj(parent);
         }
-        GameObject objectToSpawn;
-        if (poolDictionary[tag].Count <= 0)
+        return obj;
+    }
+
+    /// <summary>
+    /// GameObject·Å½ø¶ÔÏó³Ø
+    /// </summary>
+    public void PushGameObject(GameObject obj)
+    {
+        string name = obj.name;
+        // ÏÖÔÚÓĞÃ»ÓĞÕâÒ»²ã
+        if (gameObjectPoolDic.TryGetValue(name, out GameObjectPoolData poolData))
         {
-            objectToSpawn = Instantiate(pools_dictionary[tag], transform);
+            poolData.PushObj(obj);
         }
         else
         {
-            objectToSpawn = poolDictionary[tag].Dequeue();//å‡ºé˜Ÿï¼Œä»å¯¹è±¡æ± ä¸­è·å–æ‰€éœ€çš„å¯¹è±¡
+            gameObjectPoolDic.Add(name, new GameObjectPoolData(obj, poolRootObj));
         }
-
-
-        objectToSpawn.transform.position = positon;  //è®¾ç½®è·å–åˆ°çš„å¯¹è±¡çš„ä½ç½®
-        objectToSpawn.transform.rotation = rotation; //è®¾ç½®å¯¹è±¡çš„æ—‹è½¬
-        objectToSpawn.SetActive(true);                //å°†å¯¹è±¡ä»éšè—è®¾ä¸ºæ¿€æ´»
-
-        //poolDictionary[tag].Enqueue(objectToSpawn);     //å†æ¬¡å…¥é˜Ÿï¼Œå¯ä»¥é‡å¤ä½¿ç”¨ï¼Œå¦‚æœéœ€è¦çš„å¯¹è±¡æ•°é‡è¶…è¿‡å¯¹è±¡æ± å†…å¯¹è±¡çš„æ•°é‡ï¼Œåœ¨è€ƒè™‘æ‰©å¤§å¯¹è±¡æ± 
-        //è¿™æ ·é‡å¤ä½¿ç”¨å°±ä¸å¿…ä¸€ç›´ç”Ÿæˆå’Œæ¶ˆè€—å¯¹è±¡ï¼ŒèŠ‚çº¦äº†å¤§é‡æ€§èƒ½
-        return objectToSpawn;  //è¿”å›å¯¹è±¡
     }
 
+    #endregion
+
+    #region ÆÕÍ¨¶ÔÏóÏà¹Ø²Ù×÷
     /// <summary>
-    /// ä»å¯¹è±¡æ± ä¸­è·å–å¯¹è±¡
+    /// »ñÈ¡ÆÕÍ¨¶ÔÏó
     /// </summary>
-    /// <param name="tag">param[0]</param>
-    /// <param name="positon">param[1]</param>
-    /// <param name="rotation">param[2]</param>
-    /// <returns>è¿”å›ç‰©å“</returns>
-    public GameObject PushFromPool(object[] param)     //ä»å¯¹è±¡æ± ä¸­è·å–å¯¹è±¡çš„æ–¹æ³•
+    public T GetObject<T>() where T : class, new()
     {
-        if (!poolDictionary.ContainsKey((string)param[0]))  //å¦‚æœå¯¹è±¡æ± å­—å…¸ä¸­ä¸åŒ…å«æ‰€éœ€çš„å¯¹è±¡æ± 
+        T obj;
+        if (CheckObjectCache<T>())
         {
-            // tag does not exist
-            Debug.Log("Pool: " + param[0] + " does not exist");
-            return null;
-        }
-        GameObject objectToSpawn;
-        // poolDictionary[tag]
-        if (poolDictionary[(string)param[0]].Count <= 0)
-        {
-            // pools_dictionary[tag]
-            objectToSpawn = Instantiate(pools_dictionary[(string)param[0]], transform);
+            string name = typeof(T).FullName;
+            obj = (T)objectPoolDic[name].GetObj();
+            return obj;
         }
         else
         {
-            // poolDictionary[tag]
-            objectToSpawn = poolDictionary[(string)param[0]].Dequeue();//å‡ºé˜Ÿï¼Œä»å¯¹è±¡æ± ä¸­è·å–æ‰€éœ€çš„å¯¹è±¡
+            return new T();
         }
-
-
-        objectToSpawn.transform.position = (Vector3)param[1];  //è®¾ç½®è·å–åˆ°çš„å¯¹è±¡çš„ä½ç½®
-        objectToSpawn.transform.rotation = (Quaternion)param[2]; //è®¾ç½®å¯¹è±¡çš„æ—‹è½¬
-        objectToSpawn.SetActive(true);                //å°†å¯¹è±¡ä»éšè—è®¾ä¸ºæ¿€æ´»
-
-        //poolDictionary[(string)param[0]].Enqueue(objectToSpawn);     //å†æ¬¡å…¥é˜Ÿï¼Œå¯ä»¥é‡å¤ä½¿ç”¨ï¼Œå¦‚æœéœ€è¦çš„å¯¹è±¡æ•°é‡è¶…è¿‡å¯¹è±¡æ± å†…å¯¹è±¡çš„æ•°é‡ï¼Œåœ¨è€ƒè™‘æ‰©å¤§å¯¹è±¡æ± 
-        //è¿™æ ·é‡å¤ä½¿ç”¨å°±ä¸å¿…ä¸€ç›´ç”Ÿæˆå’Œæ¶ˆè€—å¯¹è±¡ï¼ŒèŠ‚çº¦äº†å¤§é‡æ€§èƒ½
-        return objectToSpawn;  //è¿”å›å¯¹è±¡
     }
 
     /// <summary>
-    /// ä»å¯¹è±¡æ± ä¸­è·å–å¯¹è±¡,ç„¶åè¿‡timeç§’å›æ”¶
+    /// GameObject·Å½ø¶ÔÏó³Ø
     /// </summary>
-    /// <param name="tag">param[0]</param>
-    /// <param name="positon">param[1]</param>
-    /// <param name="rotation">param[2]</param>
-    /// <param name="time">param[3]</param>
-    /// <returns>è¿”å›ç‰©å“</returns>
-    public GameObject PushFromPoolAndDistoryByTime(object[] param)
+    /// <param name="obj"></param>
+    public void PushObject(object obj)
     {
-        GameObject go = PushFromPool((string)param[0], (Vector3)param[1], (Quaternion)param[2]);
-        StartCoroutine(PushFromPoolDistroy((string)param[0], go, (float)param[3]));
-        return go;
-    }
-
-    private IEnumerator PushFromPoolDistroy(string tag, GameObject objectToSpawn, float time)
-    {
-        yield return new WaitForSeconds(time);
-        PullFromPool(tag, objectToSpawn);
-    }
-
-    /// <summary>
-    /// å¸è½½å¯¹è±¡çš„æ–¹æ³•
-    /// </summary>
-    /// <param name="tag"></param>
-    /// <param name="objectToSpawn"></param>
-    public void PullFromPool(string tag, GameObject objectToSpawn)
-    {
-        objectToSpawn.SetActive(false);
-        if (!poolDictionary[tag].Contains(objectToSpawn))
-            poolDictionary[tag].Enqueue(objectToSpawn);
-
-    }
-
-    /// <summary>
-    /// æ·»åŠ å¯¹è±¡æ± 
-    /// </summary>
-    public object AddPool(object[] param)
-    {
-        string tag = (string)param[0];
-
-        // åˆ¤æ–­æ˜¯å¦å·²æœ‰
-        foreach(Pool _pool in pools)
+        string name = obj.GetType().FullName;
+        // ÏÖÔÚÓĞÃ»ÓĞÕâÒ»²ã
+        if (objectPoolDic.ContainsKey(name))
         {
-            if(_pool.tag.Contains(tag))
+            objectPoolDic[name].PushObj(obj);
+        }
+        else
+        {
+            objectPoolDic.Add(name, new ObjectPoolData(obj));
+        }
+    }
+
+    private bool CheckObjectCache<T>()
+    {
+        string name = typeof(T).FullName;
+        return objectPoolDic.ContainsKey(name) && objectPoolDic[name].poolQueue.Count > 0;
+    }
+    #endregion
+
+
+    #region É¾³ı
+    /// <summary>
+    /// É¾³ıÈ«²¿
+    /// </summary>
+    /// <param name="clearGameObject">ÊÇ·ñÉ¾³ıÓÎÏ·ÎïÌå</param>
+    /// <param name="clearCObject">ÊÇ·ñÉ¾³ıÆÕÍ¨C#¶ÔÏó</param>
+    public void Clear(bool clearGameObject = true, bool clearCObject = true)
+    {
+        if (clearGameObject)
+        {
+            for (int i = 0; i < poolRootObj.transform.childCount; i++)
             {
-                return null;
+                Destroy(poolRootObj.transform.GetChild(i).gameObject);
             }
+            gameObjectPoolDic.Clear();
         }
 
-        GameObject go = (GameObject)param[1];
-        int size = (int)param[2];
-        Pool pool = new Pool(tag, go, size);
-
-        pools.Add(pool);
-
-        UpdateDictionary(pool);
-
-        return null;
-    }
-
-    /// <summary>
-    /// æ›´æ–°å¯¹è±¡æ± å­—å…¸ç”¨äºç´¢å¼•ï¼Œå³ poolDictionary & pools_dictionary
-    /// </summary>
-    public void UpdateDictionary(Pool pool)
-    {
-        Queue<GameObject> objectPool = new Queue<GameObject>();     //ä¸ºæ¯ä¸ªå¯¹è±¡æ± åˆ›å»ºé˜Ÿåˆ—
-        for (int i = 0; i < pool.size; i++)
+        if (clearCObject)
         {
-            GameObject obj = Instantiate(pool.prefab, transform);
-            obj.SetActive(false);   //éšè—å¯¹è±¡æ± ä¸­çš„å¯¹è±¡
-            objectPool.Enqueue(obj);//å°†å¯¹è±¡å…¥é˜Ÿ
+            objectPoolDic.Clear();
         }
-        // é€šè¿‡tagç´¢å¼•Queue
-        poolDictionary.Add(pool.tag, objectPool);   //æ·»åŠ åˆ°å­—å…¸åå¯ä»¥é€šè¿‡tagæ¥å¿«é€Ÿè®¿é—®å¯¹è±¡æ± 
-                                                    // é€šè¿‡tagç´¢å¼•prefab
-        pools_dictionary.Add(pool.tag, pool.prefab);
     }
 
+    public void ClearAllGameObject()
+    {
+        Clear(true, false);
+    }
+    public void ClearGameObject(string prefabName)
+    {
+        GameObject go = poolRootObj.transform.Find(prefabName).gameObject;
+        if (ReferenceEquals(go, null) == false)
+        {
+            Destroy(go);
+            gameObjectPoolDic.Remove(prefabName);
+
+        }
+
+    }
+    public void ClearGameObject(GameObject prefab)
+    {
+        ClearGameObject(prefab.name);
+    }
+
+    public void ClearAllObject()
+    {
+        Clear(false, true);
+    }
+    public void ClearObject<T>()
+    {
+        objectPoolDic.Remove(typeof(T).FullName);
+    }
+    public void ClearObject(Type type)
+    {
+        objectPoolDic.Remove(type.FullName);
+    }
+    #endregion
+
+    // public Dictionary<string, APISystem.APICallFunction> api_functions = new Dictionary<string, APISystem.APICallFunction>();
+
+    // [System.Serializable]
+    // public class Pool
+    // {
+    //     public string tag;
+    //     public GameObject prefab;
+    //     public int size;
+    //     public Pool()
+    //     {
+
+    //     }
+    //     public Pool(string tag, GameObject prefab, int size)
+    //     {
+    //         this.tag = tag;
+    //         this.prefab = prefab;
+    //         this.size = size;
+    //     }
+    // }
+
+    // [SerializeField]
+    // public List<Pool> pools = new List<Pool>();
+
+    // Dictionary<string, Queue<GameObject>> poolDictionary = new Dictionary<string, Queue<GameObject>>();
+    // Dictionary<string, GameObject> pools_dictionary = new Dictionary<string, GameObject>();
+
+    // public static PoolSystem instance;    //µ¥ÀıÄ£Ê½£¬±ãÓÚ·ÃÎÊ¶ÔÏó³Ø
+
+    // private void Awake()
+    // {
+    //     instance = this;
+    // }
+
+    // public void OnLoaded()
+    // {
+    //     api_functions.Add("add_pool", AddPool);
+    //     api_functions.Add("push_from_pool", PushFromPool);
+    //     api_functions.Add("push_from_pool_distory_by_time", PushFromPoolAndDistoryByTime);
+
+    //     APISystem.instance.RegistAPI("pool_system", OnPoolSystemAPIFunction);
+
+    //     pools.Clear();
+    // }
+
+    // public object OnPoolSystemAPIFunction(string function, object[] param)
+    // {
+    //     if (api_functions.ContainsKey(function) == true)
+    //         return api_functions[function](param);
+
+    //     return null;
+    // }
+
+    // public GameObject PushFromPool(string tag, Vector3 positon, Quaternion rotation)     //´Ó¶ÔÏó³ØÖĞ»ñÈ¡¶ÔÏóµÄ·½·¨
+    // {
+    //     if (!poolDictionary.ContainsKey(tag))  //Èç¹û¶ÔÏó³Ø×ÖµäÖĞ²»°üº¬ËùĞèµÄ¶ÔÏó³Ø
+    //     {
+    //         Debug.Log("Pool: " + tag + " does not exist");
+    //         return null;
+    //     }
+    //     GameObject objectToSpawn;
+    //     if (poolDictionary[tag].Count <= 0)
+    //     {
+    //         objectToSpawn = Instantiate(pools_dictionary[tag], transform);
+    //     }
+    //     else
+    //     {
+    //         objectToSpawn = poolDictionary[tag].Dequeue();//³ö¶Ó£¬´Ó¶ÔÏó³ØÖĞ»ñÈ¡ËùĞèµÄ¶ÔÏó
+    //     }
+
+
+    //     objectToSpawn.transform.position = positon;  //ÉèÖÃ»ñÈ¡µ½µÄ¶ÔÏóµÄÎ»ÖÃ
+    //     objectToSpawn.transform.rotation = rotation; //ÉèÖÃ¶ÔÏóµÄĞı×ª
+    //     objectToSpawn.SetActive(true);                //½«¶ÔÏó´ÓÒş²ØÉèÎª¼¤»î
+
+    //     //poolDictionary[tag].Enqueue(objectToSpawn);     //ÔÙ´ÎÈë¶Ó£¬¿ÉÒÔÖØ¸´Ê¹ÓÃ£¬Èç¹ûĞèÒªµÄ¶ÔÏóÊıÁ¿³¬¹ı¶ÔÏó³ØÄÚ¶ÔÏóµÄÊıÁ¿£¬ÔÚ¿¼ÂÇÀ©´ó¶ÔÏó³Ø
+    //     //ÕâÑùÖØ¸´Ê¹ÓÃ¾Í²»±ØÒ»Ö±Éú³ÉºÍÏûºÄ¶ÔÏó£¬½ÚÔ¼ÁË´óÁ¿ĞÔÄÜ
+    //     return objectToSpawn;  //·µ»Ø¶ÔÏó
+    // }
+
+    // /// <summary>
+    // /// ´Ó¶ÔÏó³ØÖĞ»ñÈ¡¶ÔÏó
+    // /// </summary>
+    // /// <param name="tag">param[0]</param>
+    // /// <param name="positon">param[1]</param>
+    // /// <param name="rotation">param[2]</param>
+    // /// <returns>·µ»ØÎïÆ·</returns>
+    // public GameObject PushFromPool(object[] param)     //´Ó¶ÔÏó³ØÖĞ»ñÈ¡¶ÔÏóµÄ·½·¨
+    // {
+    //     if (!poolDictionary.ContainsKey((string)param[0]))  //Èç¹û¶ÔÏó³Ø×ÖµäÖĞ²»°üº¬ËùĞèµÄ¶ÔÏó³Ø
+    //     {
+    //         // tag does not exist
+    //         Debug.Log("Pool: " + param[0] + " does not exist");
+    //         return null;
+    //     }
+    //     GameObject objectToSpawn;
+    //     // poolDictionary[tag]
+    //     if (poolDictionary[(string)param[0]].Count <= 0)
+    //     {
+    //         // pools_dictionary[tag]
+    //         objectToSpawn = Instantiate(pools_dictionary[(string)param[0]], transform);
+    //     }
+    //     else
+    //     {
+    //         // poolDictionary[tag]
+    //         objectToSpawn = poolDictionary[(string)param[0]].Dequeue();//³ö¶Ó£¬´Ó¶ÔÏó³ØÖĞ»ñÈ¡ËùĞèµÄ¶ÔÏó
+    //     }
+
+
+    //     objectToSpawn.transform.position = (Vector3)param[1];  //ÉèÖÃ»ñÈ¡µ½µÄ¶ÔÏóµÄÎ»ÖÃ
+    //     objectToSpawn.transform.rotation = (Quaternion)param[2]; //ÉèÖÃ¶ÔÏóµÄĞı×ª
+    //     objectToSpawn.SetActive(true);                //½«¶ÔÏó´ÓÒş²ØÉèÎª¼¤»î
+
+    //     //poolDictionary[(string)param[0]].Enqueue(objectToSpawn);     //ÔÙ´ÎÈë¶Ó£¬¿ÉÒÔÖØ¸´Ê¹ÓÃ£¬Èç¹ûĞèÒªµÄ¶ÔÏóÊıÁ¿³¬¹ı¶ÔÏó³ØÄÚ¶ÔÏóµÄÊıÁ¿£¬ÔÚ¿¼ÂÇÀ©´ó¶ÔÏó³Ø
+    //     //ÕâÑùÖØ¸´Ê¹ÓÃ¾Í²»±ØÒ»Ö±Éú³ÉºÍÏûºÄ¶ÔÏó£¬½ÚÔ¼ÁË´óÁ¿ĞÔÄÜ
+    //     return objectToSpawn;  //·µ»Ø¶ÔÏó
+    // }
+
+    // /// <summary>
+    // /// ´Ó¶ÔÏó³ØÖĞ»ñÈ¡¶ÔÏó,È»ºó¹ıtimeÃë»ØÊÕ
+    // /// </summary>
+    // /// <param name="tag">param[0]</param>
+    // /// <param name="positon">param[1]</param>
+    // /// <param name="rotation">param[2]</param>
+    // /// <param name="time">param[3]</param>
+    // /// <returns>·µ»ØÎïÆ·</returns>
+    // public GameObject PushFromPoolAndDistoryByTime(object[] param)
+    // {
+    //     GameObject go = PushFromPool((string)param[0], (Vector3)param[1], (Quaternion)param[2]);
+    //     StartCoroutine(PushFromPoolDistroy((string)param[0], go, (float)param[3]));
+    //     return go;
+    // }
+
+    // private IEnumerator PushFromPoolDistroy(string tag, GameObject objectToSpawn, float time)
+    // {
+    //     yield return new WaitForSeconds(time);
+    //     PullFromPool(tag, objectToSpawn);
+    // }
+
+    // /// <summary>
+    // /// Ğ¶ÔØ¶ÔÏóµÄ·½·¨
+    // /// </summary>
+    // /// <param name="tag"></param>
+    // /// <param name="objectToSpawn"></param>
+    // public void PullFromPool(string tag, GameObject objectToSpawn)
+    // {
+    //     objectToSpawn.SetActive(false);
+    //     if (!poolDictionary[tag].Contains(objectToSpawn))
+    //         poolDictionary[tag].Enqueue(objectToSpawn);
+
+    // }
+
+    // /// <summary>
+    // /// Ìí¼Ó¶ÔÏó³Ø(±êÇ©£¬GameObject£¬ÊıÁ¿)
+    // /// </summary>
+    // public object AddPool(object[] param)
+    // {
+    //     string tag = (string)param[0];
+
+    //     // ÅĞ¶ÏÊÇ·ñÒÑÓĞ
+    //     foreach(Pool _pool in pools)
+    //     {
+    //         if(_pool.tag.Contains(tag))
+    //         {
+    //             return null;
+    //         }
+    //     }
+
+    //     GameObject go = (GameObject)param[1];
+    //     int size = (int)param[2];
+    //     Pool pool = new Pool(tag, go, size);
+
+    //     pools.Add(pool);
+
+    //     UpdateDictionary(pool);
+
+    //     return null;
+    // }
+
+    // /// <summary>
+    // /// ¸üĞÂ¶ÔÏó³Ø×ÖµäÓÃÓÚË÷Òı£¬¼´ poolDictionary & pools_dictionary
+    // /// </summary>
+    // public void UpdateDictionary(Pool pool)
+    // {
+    //     Queue<GameObject> objectPool = new Queue<GameObject>();     //ÎªÃ¿¸ö¶ÔÏó³Ø´´½¨¶ÓÁĞ
+    //     for (int i = 0; i < pool.size; i++)
+    //     {
+    //         GameObject obj = Instantiate(pool.prefab, transform);
+    //         obj.SetActive(false);   //Òş²Ø¶ÔÏó³ØÖĞµÄ¶ÔÏó
+    //         objectPool.Enqueue(obj);//½«¶ÔÏóÈë¶Ó
+    //     }
+    //     // Í¨¹ıtagË÷ÒıQueue
+    //     poolDictionary.Add(pool.tag, objectPool);   //Ìí¼Óµ½×Öµäºó¿ÉÒÔÍ¨¹ıtagÀ´¿ìËÙ·ÃÎÊ¶ÔÏó³Ø
+    //                                                 // Í¨¹ıtagË÷Òıprefab
+    //     pools_dictionary.Add(pool.tag, pool.prefab);
+    // }
 }

@@ -54,7 +54,7 @@ public class PlayerMovementState : IState
     }
     public virtual void OnEnter()
     {
-        // Debug.Log("当前的状态" + this);
+        Debug.Log("��ǰ��״̬��" + this);
         AddInputAction();
     }
 
@@ -153,9 +153,9 @@ public class PlayerMovementState : IState
         {
             return;
         }
-        // 获取输入的向量
+        // 获取输入的向�?
         Vector3 move_direction = GetMovementDirection();
-        // 获取转向方向
+        // 获取�?向方�?
         float target_rot_angle = Rotate(move_direction);
 
         Vector3 target_rot_direction = GetTargetRotationDirection(target_rot_angle);
@@ -178,7 +178,7 @@ public class PlayerMovementState : IState
 
     protected Vector3 GetMovementDirection()
     {   
-        // 在资产中本身设置的就是归一化的向量
+        // 在资产中�?�?设置的就�?归一化的向量
         return new Vector3(movement_state_machine.reusable_data.movement_input.x, 0, movement_state_machine.reusable_data.movement_input.y);
     }
     protected float GetMovementSpeed(bool shouldConsiderSlopes = true)
@@ -201,7 +201,7 @@ public class PlayerMovementState : IState
     protected float Rotate(Vector3 direction)
     {   
 
-        // 得到将要转向的目标角度（融合了输入与相机的角度）
+        // 得到将�?�转向的�?标�?�度（融合了输入与相机的角度�?
         float direction_angle = UpdateTargetRotation(direction);
 
         RotateTowardsTargetRotation();
@@ -214,14 +214,14 @@ public class PlayerMovementState : IState
     }
     protected float UpdateTargetRotation(Vector3 direction, bool should_consider_cam_rot = true)
     {   
-        // 得到输入产生的夹角
+        // 得到输入产生的夹�?
         float direction_angle = GetDirectionAngle(direction);
-        // 融合相机角度，使得人物角度能和相机正方向一致
+        // 融合相机角度，使得人物�?�度能和相机正方向一�?
         if(should_consider_cam_rot)
         {
             direction_angle = AddCameraRotateAngle(direction_angle);
         }
-        // 当前产生的夹角，不等于即将要旋转的角度，就更新它
+        // 当前产生的夹角，不等于即将�?�旋�?的�?�度，就更新�?
         if(direction_angle != movement_state_machine.reusable_data.CurrentTargetRotation.y)
         {
             UpdateTargetRotationData(direction_angle);
@@ -243,7 +243,7 @@ public class PlayerMovementState : IState
         {
             return;
         }
-        // 当当前的角度不与目标角度相同时，平滑旋转
+        // 当当前的角度不与�?标�?�度相同时，平滑旋转
         float smoothed_y_angle = Mathf.SmoothDampAngle(current_y_angele, movement_state_machine.reusable_data.CurrentTargetRotation.y, ref movement_state_machine.reusable_data.DampedTargetRotationCurrentVelocity.y, movement_state_machine.reusable_data.TimeToReachTargetRotation.y -  movement_state_machine.reusable_data.DampedTargetRotationPassedTime.y);
 
         movement_state_machine.reusable_data.DampedTargetRotationPassedTime.y += Time.deltaTime;
@@ -255,9 +255,9 @@ public class PlayerMovementState : IState
     }
     protected float GetDirectionAngle(Vector3 direction)
     {        
-        // 计算出两个值的夹角
+        // 计算出两�?值的夹�??
         float direction_angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-        // unity的旋转坐标是0~360，tan值小于0时需要+360矫正
+        // unity的旋�?坐标�?0~360，tan值小�?0时需�?+360�?�?
         if(direction_angle < 0)
         {
             direction_angle += 360f;
@@ -358,7 +358,7 @@ public class PlayerMovementState : IState
     {
         if(allow)
         {
-            movement_state_machine.reusable_data.next_light_combo_index = 0;
+            // movement_state_machine.reusable_data.next_light_combo_index = 0;
         }
     }
     #endregion

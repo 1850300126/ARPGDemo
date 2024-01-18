@@ -7,11 +7,11 @@ using UnityEngine.UIElements;
 
 public class AnimationTrackItem : TrackItemBase<AnimationTrack>
 {
-    private SkillAnimationEvent animationEvent;
-    public SkillAnimationEvent AnimationEvent { get => animationEvent; }
+    private SkillAnimationClipData animationEvent;
+    public SkillAnimationClipData AnimationEvent { get => animationEvent; }
     private SkillAnimationTrackItemStyle trackItemStyle;
 
-    public void Init(AnimationTrack animationTrack, SkillTrackStyleBase parentTrackStyle, int startFrameIndex, float frameUnitWidth, SkillAnimationEvent animationEvent)
+    public void Init(AnimationTrack animationTrack, SkillTrackStyleBase parentTrackStyle, int startFrameIndex, float frameUnitWidth, SkillAnimationClipData animationEvent)
     {
         track = animationTrack;
         this.frameIndex = startFrameIndex;
@@ -20,8 +20,6 @@ public class AnimationTrackItem : TrackItemBase<AnimationTrack>
 
         itemStyle = trackItemStyle = new SkillAnimationTrackItemStyle();
         trackItemStyle.Init(parentTrackStyle, startFrameIndex, frameUnitWidth);
-
-
 
         normalColor = new Color(0.388f, 0.850f, 0.905f, 0.5f);
         selectColor = new Color(0.388f, 0.850f, 0.905f, 1f);
@@ -114,13 +112,13 @@ public class AnimationTrackItem : TrackItemBase<AnimationTrack>
 
             if (checkDrag)
             {
-                //确定修改的数据
+                // 确定修改的数据
                 frameIndex = targetFrameIndex;
 
-                //如果超过右侧边界，拓展边界
-                CheckFrameCount();
+                // 如果超过右侧边界，拓展边界
+                // CheckFrameCount();
 
-                //刷新视图
+                // 刷新视图
                 ResetView(frameUnitWidth);
             }
         }

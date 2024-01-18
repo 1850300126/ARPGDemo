@@ -33,7 +33,7 @@ public class PlayerJumpState : PlayerAirborneState
     {
         base.OnEnter();
 
-        movement_state_machine.player.animator.CrossFade("Jump", 0.1f);
+        movement_state_machine.player.PlayAnimation("Jump", null, 1, false, 0.1f);
         movement_state_machine.reusable_data.MovementSpeedModifier = 0;
 
         shouldKeepRotating = movement_state_machine.reusable_data.movement_input != Vector2.zero;

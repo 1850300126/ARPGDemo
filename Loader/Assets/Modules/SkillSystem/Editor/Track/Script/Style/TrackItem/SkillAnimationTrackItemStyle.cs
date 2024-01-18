@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 public class SkillAnimationTrackItemStyle : SkillTrackItemStyleBase
 {
-    private const string trackItemAssetPath = "Assets/SkillEditor/Editor/Track/Assets/AnimationTrack/AnimationTrackItem.uxml";
+    private const string trackItemAssetPath = "Assets/Modules/SkillSystem/Editor/Track/Assets/TrackItem/AudioTrackItem.uxml";
     private Label titleLabel;
     public VisualElement mainDragArea { get; private set; }
     public VisualElement animationOverLine { get; private set; }

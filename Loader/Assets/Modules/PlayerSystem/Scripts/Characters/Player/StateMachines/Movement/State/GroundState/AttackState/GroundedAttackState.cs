@@ -18,7 +18,7 @@ public class GroundedAttackState : PlayerGroundedState
     {
         AddInputAction();
 
-        // Debug.Log("å½“å‰çš„çŠ¶æ€" + this);
+        Debug.Log("µ±Ç°µÄ×´Ì¬" + this);
     }
     public override void OnExit()
     {
@@ -61,10 +61,10 @@ public class GroundedAttackState : PlayerGroundedState
     }
 
     /// <summary>
-    /// åˆ¤æ–­æ˜¯å¦åœ¨å‰æ‘‡é˜¶æ®µï¼ˆåŠ¨ä½œå¿…é¡»æ’­çš„æ—¶é—´å†…ï¼‰
+    /// ÅĞ¶Ï??·ñÔÚÇ°Ò¡½×???£¨¶¯×÷±ØĞë??µÄÊ±¼äÄÚ??
     /// </summary>
-    /// <param name="last_attack_time">æœ¬æ¬¡æ”»å‡»å¼€å§‹çš„æ—¶é—´</param>
-    /// <param name="attack_animation_foward_shake">æœ¬æ¬¡æ”»å‡»çš„å‰æ‘‡æ—¶é—´</param>
+    /// <param name="last_attack_time">??´Î¹¥»÷¿ªÊ¼µÄÊ±¼ä</param>
+    /// <param name="attack_animation_foward_shake">??´Î¹¥»÷µÄÇ°Ò¡Ê±¼ä</param>
     /// <returns></returns>
     protected bool AttackForwardShake(ref float last_attack_time, float attack_animation_foward_shake)
     {
@@ -78,17 +78,13 @@ public class GroundedAttackState : PlayerGroundedState
             return false;
         }
     }
-    protected void PlayComboAnimationClip(string name, float fade_time = 0.05f)
-    {
-        movement_state_machine.player.animator.CrossFade(name, fade_time);
-    }
 
     protected void PlayAnimationClipFinish(IState state)
     {
         movement_state_machine.ChangeState(state);
     }
 
-    // æ—‹è½¬åˆ°ç›®æ ‡æ–¹å‘
+    // Ğı×ªµ½Ä¿±ê·½??
     protected void RotateAttackableDirection()
     {
         if(movement_state_machine.reusable_data.target_trans != null)
@@ -101,12 +97,12 @@ public class GroundedAttackState : PlayerGroundedState
         }
         else
         {   
-            // è®©äººç‰©æ—‹è½¬è‡³è¾“å…¥æ–¹å‘
+            // ÈÃÈËÎïĞı×ªµ½ÊäÈë·½Ïò
             RotateInputDirection();
         }
         
     }
-    // æ—‹è½¬åˆ°è¾“å…¥æ–¹å‘
+    // Ğı×ªµ½ÊäÈë·½??
     protected void RotateInputDirection()
     {
         if (movement_state_machine.reusable_data.movement_input == Vector2.zero) return;
@@ -117,7 +113,7 @@ public class GroundedAttackState : PlayerGroundedState
 
         movement_state_machine.player.transform.rotation = target_rot;
     }
-    // åˆ¤æ–­åˆ‡ç‰‡æ˜¯å¦å¯æ‰“æ–­çš„æ ‡ç­¾
+    // ÅĞ¶ÏÇĞÆ¬??·ñ¿É´ò¶ÏµÄ±ê??
     protected void JugdeClipAllowInterruption()
     {
         if (!movement_state_machine.player.animator.GetCurrentAnimatorStateInfo(0).IsTag("AllowInterruption")) return;
@@ -129,29 +125,24 @@ public class GroundedAttackState : PlayerGroundedState
 
         OnMove();
     }
-    // åˆ¤æ–­è¿æ‹›æ—¶é—´æ˜¯å¦ç»“æŸ
+    // ÅĞ¶ÏÊÇ·ñÔÚÁ¬ÕĞÊ±¼äÄÚ
     protected void JugdeComboFinish()
     {
-        if(Time.time - movement_state_machine.reusable_data.last_attack_time > movement_state_machine.reusable_data.combo_time)
-        {
-            movement_state_machine.reusable_data.next_light_combo_index = 0;
-        }
+
     }
-    // åˆ¤æ–­æ˜¯å¦å­˜åœ¨å¯æ”»å‡»çš„ç‰©ä½“
+    // ÅĞ¶ÏÊÇ·ñ´æÔÚ¿É¹¥»÷µÄÎïÌå
     protected void JugdeExistAttackableObject()
     {
-        if(movement_state_machine.reusable_data.next_light_combo_index != 0) return;
-
         Collider[] colliders = Physics.OverlapSphere(movement_state_machine.player.transform.position, 6f , movement_state_machine.player.layer_data.AttackLayer);
 
         if(colliders.Length > 0 )
         {   
             
-            Debug.Log("èŒƒå›´å†…æœ‰æ•Œäºº");
+            Debug.Log("·¶Î§ÄÚÓĞµĞÈË");
 
             movement_state_machine.reusable_data.target_trans = colliders[0].transform;
 
-            // è·ç¦»å°äº2ä¸è¿›è¡Œç´¢æ•Œä½ç§»
+            // ¾àÀëĞ¡ÓÚ2²»½øĞĞË÷µĞ
             if(Vector3.Distance(colliders[0].transform.position, movement_state_machine.player.transform.position) < 2) return;
 
             find_target = true;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using EasyUpdateDemoSDK;
@@ -9,58 +10,65 @@ using UnityEngine.Playables;
 
 public class Player : MonoBehaviour, IAnimationEvent, IAttackObject
 {   
-    // çŠ¶æ€æœº
+    [Header("×é¼þÀà")]
+    // ×´Ì¬»ú
     public PlayerMovementStateMachine movement_state_machine;
-    // ç¢°æ’žä½“
+    // Åö×²Ìå
     public Collider player_collider;
-    // åˆšä½“
+    // ¸ÕÌå
     public Rigidbody player_rb;
-    // åŠ¨ç”»å™¨
+    // ¶¯»­Æ÷
     public Animator animator;
+    // ¶¯»­¿ØÖÆÆ÷
+    [SerializeField] AnimationController animationController;
+    public AnimationController AnimationController { get => animationController; } 
+    // ¼¼ÄÜ¿ØÖÆÆ÷   
+    [SerializeField] private SkillController skillController;
+    public SkillController SkillController { get => skillController; }
+    // ¶¯»­ÊÂ¼þ¹ÜÀí
     public AnimationEventTrigger animator_event_trigger;
+    // ÊäÈë×é¼þ
     public PlayerInput player_input;
     public Transform cam_trans;
     public Transform hand_point;
     public WeaponBase current_weapon;
 
-    public PlayableDirector playableDirector;
 
-
-    [field: SerializeField] public PlayerAnimationData animation_data { get; private set; }
-    [field: SerializeField] public PlayerResizableCapsuleCollider ResizableCapsuleCollider { get; private set; }
-
+    [Header("Êý¾ÝÀà")]
     [field: SerializeField] public PlayerSO player_data;
     [field: SerializeField] public PlayerLayerData layer_data;
     [field: SerializeField] public ComboConfig current_combo_config;
+    [field: SerializeField] public CharacterConfig movementAnimationSO;
+    [field: SerializeField] public WeaponAnimationConfigs currentWeaponAnimationConfigs;
+    [field: SerializeField] public PlayerResizableCapsuleCollider ResizableCapsuleCollider { get; private set; }
+    
 
     public AttackObjectType self_type = AttackObjectType.BeAttacked;
     public AttackObjectType SelfType { get => self_type; set => self_type = value ; }
     public AttackObjectType attack_type = AttackObjectType.Enemy;
     public AttackObjectType AttackType { get => attack_type; set => attack_type = value; }
 
-    private void Awake() 
-    {  
-
-    }
     public void OnLoaded()
     {   
-
         player_data.self_data.InitPlayerSelfData();
-
-        player_collider = this.GetComponentInChildren<Collider>();
 
         player_rb = GetComponent<Rigidbody>();
 
+        player_collider = this.GetComponentInChildren<Collider>();
+        ResizableCapsuleCollider = this.GetComponent<PlayerResizableCapsuleCollider>();
+
         animator = this.GetComponentInChildren<Animator>();
-        animation_data = new PlayerAnimationData();
-        animation_data.Initialize();
         animator_event_trigger = animator.AddComponent<AnimationEventTrigger>();
         animator_event_trigger.InitEventTrigger(this);
 
+        animationController = animator.GetComponent<AnimationController>();
+        animationController.Init();
+
+        skillController = animator.GetComponent<SkillController>();
+        skillController.Init(animationController);
 
         player_input = this.AddComponent<PlayerInput>();
 
-        ResizableCapsuleCollider = this.GetComponent<PlayerResizableCapsuleCollider>();
 
         cam_trans = Camera.main.transform;
 
@@ -72,23 +80,18 @@ public class Player : MonoBehaviour, IAnimationEvent, IAttackObject
 
         hand_point = this.GetComponent<CommonInfo>().GetPoint("right_hand").transform;
     
-
         movement_state_machine = new PlayerMovementStateMachine(this);
         movement_state_machine.ChangeState(movement_state_machine.idle_state);
 
-        current_combo_config = (ComboConfig)APISystem.instance.CallAPI("weapon_system", "get_combo_config", new object[]{"Katana"});
+
+        currentWeaponAnimationConfigs = (WeaponAnimationConfigs)APISystem.instance.CallAPI("weapon_system", "get_combo_config", new object[]{"Katana"});
         
         current_weapon = (WeaponBase)APISystem.instance.CallAPI("weapon_system", "GetWeapon", new object[]{"Katana"});
         current_weapon.transform.parent = hand_point.transform;
         current_weapon.transform.localPosition = Vector3.zero;
         current_weapon.transform.localRotation = Quaternion.Euler(0, 0, -90);
 
-        playableDirector = this.GetComponent<PlayableDirector>();
     }
-    private void Start() 
-    {
-        
-    }        
     private void Update()
     {
         movement_state_machine.HandleInput();
@@ -129,36 +132,25 @@ public class Player : MonoBehaviour, IAnimationEvent, IAttackObject
     {
         
     }
-
-    public void PlayAttackParticle()
+    /// <summary>
+    /// ²¥·Å¶¯»­
+    /// </summary>
+    public void PlayAnimation(string animationClipName, Action<Vector3, Quaternion> rootMotionAction = null, float speed = 1, bool refreshAnimation = false, float transitionFixedTime = 0.25f)
     {
-        // æ’­æ”¾æ”»å‡»ç‰¹æ•ˆ
-        if(animator.IsInTransition(0)) return;
-        APISystem.instance.CallAPI("VFX_system", "play_particle_from_config", new object[]{current_combo_config.light_attack_configs[movement_state_machine.reusable_data.next_light_combo_index - 1].particle_configs[0], this.transform});
+        animationController.PlaySingleAniamtion(movementAnimationSO.GetAnimationByName(animationClipName), speed, refreshAnimation, transitionFixedTime);
     }
 
-    public void DamageCollider()
-    {   
-        Collider[] colliders = Physics.OverlapSphere(this.transform.position + transform.forward, 2);
-
-        if(colliders.Length <= 0) return;
-
-        foreach(var _collider in colliders)
-        {   
-
-            IAttackObject _obj = _collider.gameObject.GetComponent<IAttackObject>();
-            if(_obj != null )
-            {
-                Debug.Log(_obj);
-                _obj.BeHit();
-            }
-
+    /// <summary>
+    /// ²¥·Å»ìºÏ¶¯»­
+    /// </summary>
+    public void PlayBlendAnimation(string clip1Name, string clip2Name, Action<Vector3, Quaternion> rootMotionAction = null, float speed = 1, float transitionFixedTime = 0.25f)
+    {
+        if (rootMotionAction != null)
+        {
+            animationController.SetRootMotionAction(rootMotionAction);
         }
-    }
-
-    private void OnDrawGizmos() 
-    {
-        Gizmos.color = new Color(0, 1, 0, 0.1f);
-        Gizmos.DrawSphere(this.transform.position + transform.forward, 2);
+        AnimationClip clip1 = movementAnimationSO.GetAnimationByName(clip1Name);
+        AnimationClip clip2 = movementAnimationSO.GetAnimationByName(clip2Name);
+        animationController.PlayBlendAnimation(clip1, clip2, speed, transitionFixedTime);
     }
 }

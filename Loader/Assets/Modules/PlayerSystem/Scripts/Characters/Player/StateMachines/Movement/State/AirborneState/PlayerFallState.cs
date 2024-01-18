@@ -33,7 +33,7 @@ public class PlayerFallState : PlayerAirborneState
         base.OnEnter();   
 
         // StartAnimation(movement_state_machine.player.animation_data.FallParameterHash);
-        movement_state_machine.player.animator.CrossFade("Fall", 0.1f);
+        movement_state_machine.player.PlayAnimation("Fall", null, 1, false, 0.1f);
 
         movement_state_machine.reusable_data.MovementSpeedModifier = 0f;
 

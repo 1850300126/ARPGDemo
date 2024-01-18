@@ -15,10 +15,10 @@ public class AttackFinishState : GroundedAttackState
         base.OnEnter();
 
         // StartAnimation(movement_state_machine.player.animation_data.AttackFinishParameterHash);
-        // å±è”½ç§»åŠ¨
+        // ÆÁ±ÎÒÆ¶¯
         movement_state_machine.reusable_data.MovementSpeedModifier = 0f;
         movement_state_machine.player.animator.applyRootMotion = true;
-        // é‡ç½®é€Ÿåº¦
+        // ÖØÖÃËÙ¶È
         ResetVelocity();
     }
     public override void OnExit()

@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using EasyUpdateDemoSDK;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem;
 
 public class LightAttackState : GroundedAttackState
 {
-    private List<LightAttackConfig> light_attack_configs;
     public LightAttackState(PlayerMovementStateMachine player_movement_state_machine) : base(player_movement_state_machine)
     {
 
@@ -15,20 +15,16 @@ public class LightAttackState : GroundedAttackState
     public override void OnEnter()
     {
         base.OnEnter();
-
-        // ‰ΩøÁî®Ê†πËøêÂä®
+        //  π”√∏˘‘À∂Ø
         movement_state_machine.player.animator.applyRootMotion = true;
-        // Â±èËîΩÁßªÂä®
+        // ∆¡±Œ“∆∂Ø
         movement_state_machine.reusable_data.MovementSpeedModifier = 0f;
-        // ÈáçÁΩÆÈÄüÂ∫¶
+        // ÷ÿ÷√ÀŸ∂»
         ResetVelocity();
 
-        light_attack_configs = movement_state_machine.player.current_combo_config.light_attack_configs;
-
         JugdeExistAttackableObject();
-        // ËøõË°å‰∏ÄÊ¨°ÊîªÂáª
+        // Ω¯––“ª¥Œπ•ª˜
         OnLightAttack();
-        // Attack();
     }
     public override void OnExit()
     {
@@ -36,7 +32,7 @@ public class LightAttackState : GroundedAttackState
 
         movement_state_machine.player.animator.applyRootMotion = false;
 
-        movement_state_machine.player.playableDirector.Stop();
+        movement_state_machine.player.SkillController.InterruptSkill();
     }
 
     public override void OnFixUpdate()
@@ -66,51 +62,40 @@ public class LightAttackState : GroundedAttackState
     }
     public override void OnAnimationExitEvent()
     {  
-        PlayAnimationClipFinish(movement_state_machine.light_attack_finish_state);
+        PlayAnimationClipFinish(movement_state_machine.idle_state);
     }
 
-    protected override void OnLightAttackStarted(InputAction.CallbackContext context)
-    {
-        if(AttackForwardShake(ref movement_state_machine.reusable_data.last_attack_time, light_attack_configs[movement_state_machine.reusable_data.next_light_combo_index - 1].relaese_time)) return;
+    // protected override void OnLightAttackStarted(InputAction.CallbackContext context)
+    // {
+    //     if(AttackForwardShake(ref movement_state_machine.reusable_data.last_attack_time, light_attack_configs[movement_state_machine.reusable_data.next_light_combo_index - 1].relaese_time)) return;
 
-        movement_state_machine.ChangeState(movement_state_machine.light_attack_state);
-    }     
+    //     movement_state_machine.ChangeState(movement_state_machine.light_attack_state);
+    // }     
     protected override void OnHardAttackStarted(InputAction.CallbackContext context)
     {
-        if(AttackForwardShake(ref movement_state_machine.reusable_data.last_attack_time, light_attack_configs[movement_state_machine.reusable_data.next_light_combo_index - 1].relaese_time)) return;
-
         movement_state_machine.ChangeState(movement_state_machine.hard_attack_state);
     } 
 
     protected void OnLightAttack()
     {   
-        movement_state_machine.reusable_data.last_attack_time = Time.time;
-
-        int current_light_attack_index = movement_state_machine.reusable_data.next_light_combo_index;
-
-        if(current_light_attack_index < light_attack_configs.Count)
+        
+        if(movement_state_machine.reusable_data.current_combo_index < movement_state_machine.player.currentWeaponAnimationConfigs.light_attack_configs.Count)
         {
-            LightAttack(light_attack_configs[current_light_attack_index].light_attack_clip_name);
-
-            movement_state_machine.reusable_data.next_light_combo_index += 1;
+            LightAttack();
+            movement_state_machine.reusable_data.current_combo_index += 1;
         }
         else
         {
-            movement_state_machine.reusable_data.next_light_combo_index = 0;
+            movement_state_machine.reusable_data.current_combo_index = 0;
 
             movement_state_machine.ChangeState(movement_state_machine.light_attack_state);
         }
     }
 
-    protected void LightAttack(string animation_name)
+    protected void LightAttack()
     {
         RotateAttackableDirection();
-        // Êí≠ÊîæÂä®ÁîªÂàáÁâá
-        PlayComboAnimationClip(animation_name);
-    }
-
-    protected void Attack()
-    {
-        movement_state_machine.player.playableDirector.Play();
+        // ≤•∑≈∂Øª≠«–∆¨
+        movement_state_machine.player.SkillController.PlaySkill(movement_state_machine.player.currentWeaponAnimationConfigs.light_attack_configs[movement_state_machine.reusable_data.current_combo_index], null);
     }
 }
