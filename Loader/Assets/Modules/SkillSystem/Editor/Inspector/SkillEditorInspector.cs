@@ -72,6 +72,10 @@ public class SkillEditorInspector : Editor
         {
             DrawAudioTrackItem((AudioTrackItem)currentTrackItem);
         }
+        else if (itemType == typeof(EffectTrackItem))
+        {
+            DrawEffectTrackItem((EffectTrackItem)currentTrackItem);
+        }
     }
 
 
@@ -278,6 +282,115 @@ public class SkillEditorInspector : Editor
         if(voluemFiled.value != oldVoluemFieldValue)
         {   
             ((AudioTrackItem)currentTrackItem).SkillAudioEvent.Voluem = voluemFiled.value;
+        }
+    }
+    #endregion
+
+    #region 特效轨道
+    private FloatField effectDurationFiled;
+    private void DrawEffectTrackItem(EffectTrackItem trackItem)
+    {
+        //动画资源
+        ObjectField effectPrefabAssetField = new ObjectField("特效预制体");
+        effectPrefabAssetField.objectType = typeof(GameObject);
+        effectPrefabAssetField.value = trackItem.SkillEffectEvent.Prefab;
+        effectPrefabAssetField.RegisterValueChangedCallback(EffectPrefabValueChanged);
+        root.Add(effectPrefabAssetField);
+
+        // 坐标 
+        Vector3Field posFiled = new Vector3Field("坐标");
+        posFiled.value = trackItem.SkillEffectEvent.Position;
+        posFiled.RegisterValueChangedCallback(EffectPosFiledValueChanged);
+        root.Add(posFiled);
+        // 选转
+        Vector3Field rotFiled = new Vector3Field("旋转");
+        rotFiled.value = trackItem.SkillEffectEvent.Rotation;
+        rotFiled.RegisterValueChangedCallback(EffectRotFiledValueChanged);
+        root.Add(rotFiled);
+
+        // 自动销毁
+        Toggle autoDestructToggle = new Toggle("自动销毁");
+        autoDestructToggle.value = trackItem.SkillEffectEvent.AutoDestruct;
+        autoDestructToggle.RegisterValueChangedCallback(EffectAutoDestructToggleValueChanged);
+        root.Add(autoDestructToggle);
+        // 时间
+        
+        effectDurationFiled = new FloatField("持续时间");
+        effectDurationFiled.value = trackItem.SkillEffectEvent.Duration;
+        effectDurationFiled.RegisterCallback<FocusInEvent>(EffectDurationFieldFocusIn);
+        effectDurationFiled.RegisterCallback<FocusOutEvent>(EffectDurationFieldFocusOut);
+        root.Add(effectDurationFiled);
+
+        // 时间计算按钮
+        Button button = new Button(CalculateEffectDuration);
+        button.text = "重新计算时间";
+        root.Add(button);
+    }
+
+    private void CalculateEffectDuration()
+    {
+        EffectTrackItem effectTrackItem = ((EffectTrackItem)currentTrackItem);
+        ParticleSystem[] particleSystems = effectTrackItem.SkillEffectEvent.Prefab.GetComponentsInChildren<ParticleSystem>();
+        float max = -1;
+        int current = -1;
+        for(int i = 0; i < particleSystems.Length;i++)
+        {
+            if(particleSystems[i].main.duration > max)
+            {
+                max = particleSystems[i].main.duration; 
+                current = i;
+            }
+        } 
+
+        effectTrackItem.SkillEffectEvent.Duration = particleSystems[current].main.duration;
+
+        effectDurationFiled.value = effectTrackItem.SkillEffectEvent.Duration;
+
+        effectTrackItem.ResetView();
+    }
+
+
+    private void EffectPrefabValueChanged(ChangeEvent<UnityEngine.Object> evt)
+    {
+        EffectTrackItem effect = (EffectTrackItem)currentTrackItem;
+        effect.SkillEffectEvent.Prefab = evt.newValue as GameObject;
+        // 重新计时
+        CalculateEffectDuration();
+        effect.ResetView();
+    }
+    private void EffectPosFiledValueChanged(ChangeEvent<Vector3> evt)
+    {
+        EffectTrackItem effect = (EffectTrackItem)currentTrackItem;
+        effect.SkillEffectEvent.Position = evt.newValue;
+        effect.ResetView();
+
+    }    
+    private void EffectRotFiledValueChanged(ChangeEvent<Vector3> evt)
+    {
+        EffectTrackItem effect = (EffectTrackItem)currentTrackItem;
+        effect.SkillEffectEvent.Rotation = evt.newValue;        
+        effect.ResetView();
+
+    }
+    private void EffectAutoDestructToggleValueChanged(ChangeEvent<bool> evt)
+    {
+        EffectTrackItem effect = (EffectTrackItem)currentTrackItem;
+        effect.SkillEffectEvent.AutoDestruct = evt.newValue;
+        effect.ResetView();
+    }
+
+    float oldEffectDurationField;
+    private void EffectDurationFieldFocusIn(FocusInEvent evt)
+    {
+        oldEffectDurationField = effectDurationFiled.value;
+    }    
+    private void EffectDurationFieldFocusOut(FocusOutEvent evt)
+    {
+        if(effectDurationFiled.value != oldEffectDurationField)
+        {   
+            EffectTrackItem effect = (EffectTrackItem)currentTrackItem;
+            effect.SkillEffectEvent.Duration = effectDurationFiled.value;
+            effect.ResetView();
         }
     }
     #endregion

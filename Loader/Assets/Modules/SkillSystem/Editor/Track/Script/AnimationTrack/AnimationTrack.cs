@@ -167,8 +167,6 @@ public class AnimationTrack : SkillTrackBase
             AnimationData.FrameDataDic.Add(newIndex, animationEvent);
             trackItemDic.Remove(oldIndex, out AnimationTrackItem animationTrackItem);
             trackItemDic.Add(newIndex, animationTrackItem);
-
-            SkillEditorWindows.Instance.SaveConfig();
         }
     }
 
@@ -182,7 +180,6 @@ public class AnimationTrack : SkillTrackBase
             //移除视图
             trackStyle.DeleteItem(item.itemStyle.root);
         }
-        SkillEditorWindows.Instance.SaveConfig();
     }
 
     public override void OnConfigChanged()
@@ -192,18 +189,13 @@ public class AnimationTrack : SkillTrackBase
             item.OnConfigChanged();
         }
     }
-
-    public override void TickView(int frameIndex)
+    public Vector3 GetPositionForRootMotion(int frameIndex, bool recove = false)
     {
-        base.TickView(frameIndex);
-
         GameObject previewGameObject = SkillEditorWindows.Instance.PreviewCharacterObj;
         Animator animator = previewGameObject.GetComponent<Animator>();
-
         //根据帧找到目前是哪个动画
         Dictionary<int, SkillAnimationClipData> frameDateDic = AnimationData.FrameDataDic;
 
-        #region 关于根运动计算
         SortedDictionary<int, SkillAnimationClipData> frameDataSortedDic = new SortedDictionary<int, SkillAnimationClipData>(frameDateDic);
         int[] keys = frameDataSortedDic.Keys.ToArray();
         Vector3 rootMotionTotalPos = Vector3.zero;
@@ -283,9 +275,19 @@ public class AnimationTrack : SkillTrackBase
 
             if (isBreak) break;
         }
-        #endregion
+        if(recove)
+        {
+            UpdataePosture(SkillEditorWindows.Instance.CurrentSelectFrameIndex);
+        }
+        return rootMotionTotalPos;
+    }
+    private void UpdataePosture(int frameIndex)
+    {
+        GameObject previewGameObject = SkillEditorWindows.Instance.PreviewCharacterObj;
+        Animator animator = previewGameObject.GetComponent<Animator>();
+        //根据帧找到目前是哪个动画
+        Dictionary<int, SkillAnimationClipData> frameDateDic = AnimationData.FrameDataDic;
 
-        #region 关于当前帧的姿态
         //找到距离这一帧左边最近的一个动画，也就是当前要播放的动画
         int currentOffset = int.MaxValue;  //最近的索引距离当前选中帧的差距
         int animtionEventIndex = -1;
@@ -316,10 +318,13 @@ public class AnimationTrack : SkillTrackBase
             animator.applyRootMotion = animationEvent.ApplyRootMotion;
             animationEvent.AnimationClip.SampleAnimation(previewGameObject, progress * animationEvent.AnimationClip.length);
         }
-        #endregion
-
+    }
+    public override void TickView(int frameIndex)
+    {
+        GameObject previewGameObject = SkillEditorWindows.Instance.PreviewCharacterObj;
+        // UpdataePosture(frameIndex);
         //将角色拉回实际位置
-        previewGameObject.transform.position = rootMotionTotalPos;
+        previewGameObject.transform.position = GetPositionForRootMotion(frameIndex);
     }
 
     public override void Destory()

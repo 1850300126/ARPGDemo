@@ -32,9 +32,7 @@ public class SkillEffectTrackItemStyle : SkillTrackItemStyleBase
         {
             SetTitle(skillEffectEvent.Prefab.name);
 
-            ParticleSystem particleSystem = skillEffectEvent.Prefab.GetComponent<ParticleSystem>(); 
-
-            SetWidth(frameUnitWidth * particleSystem.main.duration * SkillEditorWindows.Instance.SkillConfig.FrameRate);
+            SetWidth(frameUnitWidth * skillEffectEvent.Duration * SkillEditorWindows.Instance.SkillConfig.FrameRate);
             SetPosition(frameUnitWidth * skillEffectEvent.FrameIndex);
         }
         else

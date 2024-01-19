@@ -237,10 +237,10 @@ public class SkillEditorWindows : EditorWindow
     /// <summary>
     /// 鼠标位置+下方容器的位置
     /// </summary>
-    private int CurrentSelectFrameIndex
+    public int CurrentSelectFrameIndex
     {
         get => currentSelectFrameIndex;
-        set
+        private set
         {   
             int old = currentSelectFrameIndex;
             //如果超出范围，更新最大帧
@@ -557,6 +557,7 @@ public class SkillEditorWindows : EditorWindow
         AnimationTrack animationTrack = new AnimationTrack();
         animationTrack.Init(trackMenuParent, ContentListView, skillEditorConfig.FrameUnitWidth);
         trackList.Add(animationTrack);
+        getPositionForRootMotion = animationTrack.GetPositionForRootMotion;
     }
 
     private void InitEffectTrack()
@@ -690,6 +691,8 @@ public class SkillEditorWindows : EditorWindow
         }
     }
 
+    private Func<int , bool ,Vector3>getPositionForRootMotion;
+    public Vector3 GetPositionForRootMotion(int frameIndex, bool recove = false) => getPositionForRootMotion(frameIndex, recove);
     #endregion
 
 

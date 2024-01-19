@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -44,11 +45,25 @@ public class EffectTrackItem : TrackItemBase<EffectTrack>
             }
         }
         trackItemStyle.ResetView(frameUnitWidth, skillEffectEvent);
+
+        // 强行生成预览
+        ClearEffectPreviewObj();
+        TickView(SkillEditorWindows.Instance.CurrentSelectFrameIndex);
     }
 
     public void Destory()
     {
+        ClearEffectPreviewObj();
         childTrackStyle.Destory();  
+    }
+
+    public void ClearEffectPreviewObj()
+    {
+        if(effectPreviewObj != null)
+        {
+            GameObject.DestroyImmediate(effectPreviewObj);
+            effectPreviewObj = null;
+        }
     }
 
     public void SetTrackName(string name)
@@ -124,10 +139,8 @@ public class EffectTrackItem : TrackItemBase<EffectTrack>
     {
         if (startDragFrameIndex != frameIndex)
         {
-            // skillAudioEvent.FrameIndex = frameIndex;
-
-            // TODO:inspector 数据刷新
-            // SkillEditorInspector.Instance.SetTrackItemFrameIndex(frameIndex);
+            skillEffectEvent.FrameIndex = frameIndex;
+            SkillEditorInspector.Instance.SetTrackItemFrameIndex(frameIndex);
         }
     }
     # endregion
@@ -135,38 +148,107 @@ public class EffectTrackItem : TrackItemBase<EffectTrack>
     #region  拖拽资源
     private void OnDragUpdatedEvent(DragUpdatedEvent evt)
     {
-        // UnityEngine.Object[] objs = DragAndDrop.objectReferences;
-        // AudioClip clip = objs[0] as AudioClip;
-        // if (clip != null)
-        // {
-        //     DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
-        // }
+        UnityEngine.Object[] objs = DragAndDrop.objectReferences;
+        GameObject prefab = objs[0] as GameObject;
+        if (prefab != null)
+        {
+            DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
+        }
     }
 
     private void OnDragExitedEvent(DragExitedEvent evt)
     {
-        // UnityEngine.Object[] objs = DragAndDrop.objectReferences;
-        // AudioClip clip = objs[0] as AudioClip;
-        // if (clip != null)
-        // {
-        //     //放置动画资源
+        UnityEngine.Object[] objs = DragAndDrop.objectReferences;
+        GameObject prefab = objs[0] as GameObject;
+        if (prefab != null)
+        {
+            //放置动画资源
 
-        //     //当前选中的帧数位置 检测是否能放置动画
-        //     int selectFrameIndex = SkillEditorWindows.Instance.GetFrameIndexByPos(evt.localMousePosition.x);
-        //     if(selectFrameIndex >= 0)
-        //     {
-        //         // 构建默认音效数据
-        //         // skillAudioEvent.audioClip = clip;
-        //         // skillAudioEvent.FrameIndex = selectFrameIndex;
-        //         // skillAudioEvent.Voluem = 1;
+            //当前选中的帧数位置 检测是否能放置动画
+            int selectFrameIndex = SkillEditorWindows.Instance.GetFrameIndexByPos(evt.localMousePosition.x);
+            if(selectFrameIndex >= 0)
+            {
+                // 构建默认特效数据
+                skillEffectEvent.FrameIndex = selectFrameIndex;
+                skillEffectEvent.Prefab = prefab;
+                skillEffectEvent.Position = Vector3.zero;
+                skillEffectEvent.AutoDestruct = true;
 
-        //         // this.frameIndex = selectFrameIndex;
-        //         // ResetView();
-        //         // SkillEditorWindows.Instance.SaveChanges();
-        //     }
+                ParticleSystem[] particleSystems = prefab.GetComponentsInChildren<ParticleSystem>();
+                float max = -1;
+                int current = -1;
+                for(int i = 0; i < particleSystems.Length;i++)
+                {
+                    if(particleSystems[i].main.duration > max)
+                    {
+                        max = particleSystems[i].main.duration; 
+                        current = i;
+                    }
+                } 
+                skillEffectEvent.Duration = particleSystems[current].main.duration;
+
+                this.frameIndex = selectFrameIndex;
+                ResetView();
+                SkillEditorWindows.Instance.SaveChanges();
+            }
             
-        // }
+        }
     }
 
+    #endregion
+
+    # region 预览
+    private GameObject effectPreviewObj;
+    public void TickView(int frameIndex)
+    {
+        if(skillEffectEvent.Prefab == null) return;
+        // 是不是在播放范围内
+        int durationFrame = (int)skillEffectEvent.Duration * SkillEditorWindows.Instance.SkillConfig.FrameRate;
+
+        if(skillEffectEvent.FrameIndex <= frameIndex && skillEffectEvent.FrameIndex + durationFrame > frameIndex)
+        {
+            // 对比预制体
+            if(effectPreviewObj != null && effectPreviewObj.name != skillEffectEvent.Prefab.name)
+            {
+                GameObject.DestroyImmediate(effectPreviewObj);
+                effectPreviewObj = null;
+            }
+
+            if(effectPreviewObj == null)
+            {
+                Transform characterRoot = SkillEditorWindows.Instance.PreviewCharacterObj.transform;
+                // 获取模拟坐标
+                Vector3 rotPostion = SkillEditorWindows.Instance.GetPositionForRootMotion(skillEffectEvent.FrameIndex, true);
+                Vector3 oldPos = characterRoot.position;
+                // 把角色临时设置到播放坐标
+                characterRoot.position = rotPostion;
+
+                Vector3 pos = characterRoot.TransformPoint(skillEffectEvent.Position);
+                Vector3 rot = characterRoot.eulerAngles + skillEffectEvent.Rotation;
+
+
+                // 还原坐标
+                characterRoot.position = oldPos;
+
+                // 实例化
+                effectPreviewObj = GameObject.Instantiate(skillEffectEvent.Prefab, pos, Quaternion.Euler(rot), null);
+                effectPreviewObj.name = skillEffectEvent.Prefab.name;
+            }
+                
+            // 粒子模拟
+            ParticleSystem[] particleSystems = effectPreviewObj.GetComponentsInChildren<ParticleSystem>();
+            for(int i = 0; i < particleSystems.Length;i++)
+            {   
+                // 得到模拟帧数
+                int simulateFrame = frameIndex - skillEffectEvent.FrameIndex;
+                // 1 / 30
+                particleSystems[i].Simulate((float)simulateFrame / SkillEditorWindows.Instance.SkillConfig.FrameRate);
+            }
+        }
+        else
+        {
+            ClearEffectPreviewObj();
+        }
+    }
     #endregion
 }

@@ -10,16 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da2c89c563d855946b05282af8509b1f, type: 3}
-  m_Name: TestSkill
+  m_Name: SkillConfig
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 7400000, guid: 7adb987c502593641a324d25828079b2, type: 2}
-    - {fileID: 8300000, guid: 14e8a8d2158bec840b56c54f5266e692, type: 3}
-    - {fileID: 8300000, guid: 6d350e9812100fc45992d2abc5ea492e, type: 3}
-    - {fileID: 1981778467074327466, guid: bd6a66167d9ff874cbc89dfd29bf34b5, type: 3}
+    - {fileID: 7400000, guid: 3adffb6226265ed40b240a1c9be9a59e, type: 2}
+    - {fileID: 6938957011003183058, guid: 802cc66ae198ae5418c8fe86d1a7933b, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -59,10 +57,10 @@ MonoBehaviour:
       Data: 0.25
     - Name: ApplyRootMotion
       Entry: 5
-      Data: false
+      Data: true
     - Name: DurationFrame
       Entry: 3
-      Data: 37
+      Data: 35
     - Name: 
       Entry: 8
       Data: 
@@ -87,43 +85,7 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 6|SkillAudioEvent, Assembly-CSharp
-    - Name: TrackName
-      Entry: 1
-      Data: "\u6211\u6211"
-    - Name: FrameIndex
-      Entry: 3
-      Data: 5
-    - Name: audioClip
-      Entry: 10
-      Data: 1
-    - Name: Voluem
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 7|SkillAudioEvent, Assembly-CSharp
-    - Name: TrackName
-      Entry: 1
-      Data: "\u97F3\u6548\u8F68\u9053"
-    - Name: FrameIndex
-      Entry: 3
-      Data: 13
-    - Name: audioClip
-      Entry: 10
-      Data: 2
-    - Name: Voluem
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 0
     - Name: 
       Entry: 13
       Data: 
@@ -135,65 +97,62 @@ MonoBehaviour:
       Data: 
     - Name: SkillEffectData
       Entry: 7
-      Data: 8|SkillEffectData, Assembly-CSharp
+      Data: 6|SkillEffectData, Assembly-CSharp
     - Name: FrameData
       Entry: 7
-      Data: 9|System.Collections.Generic.List`1[[SkillEffectEvent, Assembly-CSharp]],
+      Data: 7|System.Collections.Generic.List`1[[SkillEffectEvent, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 7
-      Data: 10|SkillEffectEvent, Assembly-CSharp
-    - Name: TrackName
-      Entry: 1
-      Data: 3
-    - Name: FrameIndex
-      Entry: 3
-      Data: -1
-    - Name: Prefab
-      Entry: 6
-      Data: 
-    - Name: Voluem
-      Entry: 4
       Data: 1
     - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
       Entry: 7
-      Data: 11|SkillEffectEvent, Assembly-CSharp
+      Data: 8|SkillEffectEvent, Assembly-CSharp
     - Name: TrackName
       Entry: 1
-      Data: 2
-    - Name: FrameIndex
-      Entry: 3
-      Data: -1
-    - Name: Prefab
-      Entry: 6
-      Data: 
-    - Name: Voluem
-      Entry: 4
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 12|SkillEffectEvent, Assembly-CSharp
-    - Name: TrackName
-      Entry: 1
-      Data: 1
+      Data: "\u7279\u6548\u8F68\u9053"
     - Name: FrameIndex
       Entry: 3
       Data: 0
     - Name: Prefab
       Entry: 10
-      Data: 3
-    - Name: Voluem
-      Entry: 4
       Data: 1
+    - Name: Position
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Duration
+      Entry: 4
+      Data: 4
+    - Name: AutoDestruct
+      Entry: 5
+      Data: true
     - Name: 
       Entry: 8
       Data: 
@@ -207,5 +166,5 @@ MonoBehaviour:
       Entry: 8
       Data: 
   SkillName: 
-  FrameCount: 155
-  FrameRate: 30
+  FrameCount: 106
+  FrameRate: 60

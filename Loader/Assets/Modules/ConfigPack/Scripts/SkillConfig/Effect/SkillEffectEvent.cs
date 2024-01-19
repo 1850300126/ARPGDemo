@@ -9,7 +9,12 @@ public class SkillEffectEvent
 #endif
     public int FrameIndex = -1;
     public GameObject Prefab;
-    // 音亮
-    public float Voluem = 1;
+    public Vector3 Position;
+    public Vector3 Rotation;
+    public float Duration;
+    /// <summary>
+    /// 是否自动销毁
+    /// </summary>
+    public bool AutoDestruct;
 
 }

@@ -59,6 +59,7 @@ public class AnimationTrackItem : TrackItemBase<AnimationTrack>
             overLinePos.x = animationClipFrameCount * frameUnitWidth - 1; //线条宽度为2，取一半
             trackItemStyle.animationOverLine.transform.position = overLinePos;
         }
+        track.TickView(SkillEditorWindows.Instance.CurrentSelectFrameIndex);
 
     }
 

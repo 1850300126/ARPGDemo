@@ -124,10 +124,8 @@ public class AudioTrackItem : TrackItemBase<AudioTrack>
     {
         if (startDragFrameIndex != frameIndex)
         {
-            // skillAudioEvent.FrameIndex = frameIndex;
-
-            // TODO:inspector Êý¾ÝË¢ÐÂ
-            // SkillEditorInspector.Instance.SetTrackItemFrameIndex(frameIndex);
+            skillAudioEvent.FrameIndex = frameIndex;
+            SkillEditorInspector.Instance.SetTrackItemFrameIndex(frameIndex);
         }
     }
     # endregion

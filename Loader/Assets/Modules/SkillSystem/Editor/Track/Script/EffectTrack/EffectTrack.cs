@@ -30,8 +30,6 @@ public class EffectTrack : SkillTrackBase
         }
         trackItemList.Clear();
 
-        if (SkillEditorWindows.Instance.SkillConfig == null) return;
-
         foreach (SkillEffectEvent effectEvent in EffectData.FrameData)
         {
             CreateItem(effectEvent);
@@ -79,6 +77,8 @@ public class EffectTrack : SkillTrackBase
             EffectData.FrameData.RemoveAt(index);
 
             SkillEditorWindows.Instance.SaveConfig();
+
+            trackItemList[index].ClearEffectPreviewObj();
         }
 
         return skillEffectEvent != null;
@@ -94,49 +94,19 @@ public class EffectTrack : SkillTrackBase
         // 保存交给窗口的退出机制
     }
     public override void Destory()
-    {
+    {   
         trackStyle.Destory();
+        for(int i = 0; i < trackItemList.Count; i++)
+        {
+            trackItemList[i].ClearEffectPreviewObj(); 
+        }
     }
-
-    public override void OnPlay(int startFrameIndex)
-    {
-        // for(int i = 0; i < AudioData.FrameData.Count; i++)
-        // {
-        //     SkillAudioEvent audioEvent = AudioData.FrameData[i];
-        //     if(audioEvent.audioClip == null) continue;
-
-        //     int audioFrameCount = (int)(audioEvent.audioClip.length * SkillEditorWindows.Instance.SkillConfig.FrameRate);
-        //     int audioLastFrameIndex =  audioFrameCount + audioEvent.FrameIndex;
-        //     // 时间轴在音频切片播放长度之内
-        //     if(audioEvent.FrameIndex < startFrameIndex && audioLastFrameIndex > startFrameIndex)
-        //     {
-        //         int offset = startFrameIndex - audioEvent.FrameIndex;
-        //         float playRate = (float)offset / audioFrameCount;
-        //         EditorAudioUnility.PlayAudio(audioEvent.audioClip, playRate);
-        //     }
-        //     else if(audioEvent.FrameIndex == startFrameIndex)
-        //     {
-        //         EditorAudioUnility.PlayAudio(audioEvent.audioClip, 0);
-        //     }
-        // }
-    }
-
     public override void TickView(int frameIndex)
     {   
-        // if(SkillEditorWindows.Instance.IsPlaying)
-        // {
-        //     for(int i = 0; i < AudioData.FrameData.Count; i++)
-        //     {
-        //         SkillAudioEvent audioEvent = AudioData.FrameData[i];
-        //         if(audioEvent.audioClip != null && audioEvent.FrameIndex == frameIndex)
-        //         {
-        //             // 从头播放
-        //             EditorAudioUnility.PlayAudio(audioEvent.audioClip, 0);
-        //         }
-
-        //     }
-        // }
-
+        for(int i = 0; i < trackItemList.Count; i++)
+        {
+            trackItemList[i].TickView(frameIndex); 
+        }
     }
 
     public override void OnStop()

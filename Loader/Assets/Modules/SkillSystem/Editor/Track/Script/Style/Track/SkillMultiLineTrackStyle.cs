@@ -330,7 +330,7 @@ public class SkillMultiLineTrackStyle : SkillTrackStyleBase
         }
 
         public void DoDestroy()
-        {
+        {   
             if (menuRoot != null) menuParent.Remove(menuRoot);
             if (trackRoot != null) trackParent.Remove(trackRoot);
         }
