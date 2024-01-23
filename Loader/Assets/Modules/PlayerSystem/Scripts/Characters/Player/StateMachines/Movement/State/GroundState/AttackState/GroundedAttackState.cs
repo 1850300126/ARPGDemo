@@ -137,9 +137,6 @@ public class GroundedAttackState : PlayerGroundedState
 
         if(colliders.Length > 0 )
         {   
-            
-            Debug.Log("范围内有敌人");
-
             movement_state_machine.reusable_data.target_trans = colliders[0].transform;
 
             // 距离小于2不进行索敌
@@ -152,5 +149,9 @@ public class GroundedAttackState : PlayerGroundedState
             movement_state_machine.reusable_data.target_trans = null;
         }
     }
-
+    protected void OnRootMotion(Vector3 deltaPosition, Quaternion deltaRotation)
+    {   
+        movement_state_machine.player.player_rb.position += deltaPosition;
+        movement_state_machine.player.animator.gameObject.transform.rotation *= deltaRotation;
+    }
 }

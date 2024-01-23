@@ -8,12 +8,24 @@ public class EffectTrack : SkillTrackBase
  private SkillMultiLineTrackStyle trackStyle;
     public SkillEffectData EffectData { get => SkillEditorWindows.Instance.SkillConfig.SkillEffectData; }
     private List<EffectTrackItem> trackItemList = new List<EffectTrackItem>();
+    public static Transform EffectParent{ get; private set; }
     public override void Init(VisualElement menuParent, VisualElement trackParent, float frameWidth)
     {
         base.Init(menuParent, trackParent, frameWidth);
         trackStyle = new SkillMultiLineTrackStyle();
         trackStyle.Init(menuParent, trackParent, "ÌØÐ§ÅäÖÃ", AddChildTrack, CheckDeleteChildTrack, SwapChildTrack, UpdateChildTrackName);
 
+        if(SkillEditorWindows.Instance.OnEditorScene)
+        {
+            EffectParent = GameObject.Find("Effects").transform;
+            EffectParent.position = Vector3.zero;
+            EffectParent.rotation = Quaternion.identity;
+
+            for(int i = EffectParent.childCount - 1; i >= 0; i--)
+            {
+                GameObject.DestroyImmediate(EffectParent.GetChild(i).gameObject);
+            }
+        }
         ResetView();
     }
 
@@ -79,6 +91,8 @@ public class EffectTrack : SkillTrackBase
             SkillEditorWindows.Instance.SaveConfig();
 
             trackItemList[index].ClearEffectPreviewObj();
+
+            trackItemList.RemoveAt(index);
         }
 
         return skillEffectEvent != null;

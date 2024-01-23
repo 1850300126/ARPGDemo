@@ -15,13 +15,10 @@ public class LightAttackState : GroundedAttackState
     public override void OnEnter()
     {
         base.OnEnter();
-        // 使用根运动
-        movement_state_machine.player.animator.applyRootMotion = true;
         // 屏蔽移动
         movement_state_machine.reusable_data.MovementSpeedModifier = 0f;
         // 重置速度
         ResetVelocity();
-
         JugdeExistAttackableObject();
         // 进行一次攻击
         OnLightAttack();
@@ -29,8 +26,6 @@ public class LightAttackState : GroundedAttackState
     public override void OnExit()
     {
         base.OnExit();
-
-        movement_state_machine.player.animator.applyRootMotion = false;
 
         movement_state_machine.player.SkillController.InterruptSkill();
     }
@@ -64,13 +59,6 @@ public class LightAttackState : GroundedAttackState
     {  
         PlayAnimationClipFinish(movement_state_machine.idle_state);
     }
-
-    // protected override void OnLightAttackStarted(InputAction.CallbackContext context)
-    // {
-    //     if(AttackForwardShake(ref movement_state_machine.reusable_data.last_attack_time, light_attack_configs[movement_state_machine.reusable_data.next_light_combo_index - 1].relaese_time)) return;
-
-    //     movement_state_machine.ChangeState(movement_state_machine.light_attack_state);
-    // }     
     protected override void OnHardAttackStarted(InputAction.CallbackContext context)
     {
         movement_state_machine.ChangeState(movement_state_machine.hard_attack_state);
@@ -96,6 +84,6 @@ public class LightAttackState : GroundedAttackState
     {
         RotateAttackableDirection();
         // 播放动画切片
-        movement_state_machine.player.SkillController.PlaySkill(movement_state_machine.player.currentWeaponAnimationConfigs.light_attack_configs[movement_state_machine.reusable_data.current_combo_index], null);
+        movement_state_machine.player.SkillController.PlaySkill(movement_state_machine.player.currentWeaponAnimationConfigs.light_attack_configs[movement_state_machine.reusable_data.current_combo_index], null, OnRootMotion);
     }
 }

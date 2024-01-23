@@ -19,6 +19,7 @@ MonoBehaviour:
     - {fileID: 7400000, guid: e36c67eecee3dae41bfa2889cdd1f58c, type: 2}
     - {fileID: 7400000, guid: 275b6a457a564c0488072552ce59b6ea, type: 2}
     - {fileID: 7400000, guid: add7e50aae179ae409ba1bceb8755f61, type: 2}
+    - {fileID: 7699698589382392644, guid: 6811baeaf2843184a8f34b7981df6747, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -112,7 +113,7 @@ MonoBehaviour:
       Data: 0.1
     - Name: ApplyRootMotion
       Entry: 5
-      Data: false
+      Data: true
     - Name: DurationFrame
       Entry: 3
       Data: 36
@@ -131,23 +132,101 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: SkillParticleData
+    - Name: SkillAudioData
       Entry: 7
-      Data: 6|SkillParticleFrameData, Assembly-CSharp
-    - Name: FrameDataDic
+      Data: 6|SkillAudioData, Assembly-CSharp
+    - Name: FrameData
       Entry: 7
-      Data: 7|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[SkillParticleData,
-        Assembly-CSharp]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 8|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
-        mscorlib]], mscorlib
+      Data: 7|System.Collections.Generic.List`1[[SkillAudioEvent, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
     - Name: 
       Entry: 8
       Data: 
     - Name: 
+      Entry: 8
+      Data: 
+    - Name: SkillEffectData
+      Entry: 7
+      Data: 8|SkillEffectData, Assembly-CSharp
+    - Name: FrameData
+      Entry: 7
+      Data: 9|System.Collections.Generic.List`1[[SkillEffectEvent, Assembly-CSharp]],
+        mscorlib
+    - Name: 
       Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 10|SkillEffectEvent, Assembly-CSharp
+    - Name: TrackName
+      Entry: 1
+      Data: "\u7279\u6548\u8F68\u9053"
+    - Name: FrameIndex
+      Entry: 3
+      Data: 3
+    - Name: Prefab
+      Entry: 10
+      Data: 3
+    - Name: Position
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
       Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0.87
+    - Name: 
+      Entry: 4
+      Data: 1.08511472
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Scale
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Duration
+      Entry: 4
+      Data: 0.7
+    - Name: AutoDestruct
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 

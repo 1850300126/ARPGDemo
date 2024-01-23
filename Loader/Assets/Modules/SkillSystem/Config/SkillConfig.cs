@@ -34,37 +34,3 @@ public class SkillConfig : ConfigBase
 #endif
 
 }
-
-/// <summary>
-/// 技能特效数据
-/// </summary>
-public class SkillParticleData : SkillFrameEventBase
-{
-    public ParticleSystem particlePrefab;
-
-#if UNITY_EDITOR
-    public int StartFrame;
-    public int DurationFrame;
-
-
-#endif    
-}
-
-/// <summary>
-/// 技能特效数据
-/// </summary>
-[Serializable]
-public class SkillParticleFrameData
-{
-    /// <summary>
-    /// 动画帧事件
-    /// key:开始帧数
-    /// value：事件数据
-    /// </summary>
-    // [NonSerialized, OdinSerialize]//不通过Unity的序列化，用Odin 的序列化
-    // [DictionaryDrawerSettings(KeyLabel = "开始帧数", ValueLabel = "特效数据")]
-    // public Dictionary<int, SkillParticleData> FrameDataDic = new Dictionary<int, SkillParticleData>();    
-    [NonSerialized, OdinSerialize]//不通过Unity的序列化，用Odin 的序列化
-    [TableList(ShowIndexLabels = true, AlwaysExpanded = true)]
-    public List<SkillParticleData> skillParticleDatas = new List<SkillParticleData>();
-}

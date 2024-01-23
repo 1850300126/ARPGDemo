@@ -193,7 +193,7 @@ public class AnimationController : MonoBehaviour
     #region RootMotion
     private Action<Vector3, Quaternion> rootMotionAction;
     private void OnAnimatorMove()
-    {
+    {   
         rootMotionAction?.Invoke(animator.deltaPosition, animator.deltaRotation);
     }
     public void SetRootMotionAction(Action<Vector3, Quaternion> rootMotionAction)

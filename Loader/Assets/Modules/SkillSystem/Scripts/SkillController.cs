@@ -16,9 +16,12 @@ public class SkillController : MonoBehaviour
     private float playTotalTime;        //当前播放的总时间
     private int frameRate;              //当前技能的帧率
 
-    public void Init(AnimationController animationController)
+    private Transform modelTransform;
+
+    public void Init(AnimationController animationController, Transform modelTransform)
     {
         this.animationController = animationController;
+        this.modelTransform = modelTransform;
     }
 
     private Action<Vector3, Quaternion> rootMotionAction;
@@ -96,7 +99,29 @@ public class SkillController : MonoBehaviour
                 PlayOneShot();
             }
         }
-
+        // 驱动特效
+        for(int i = 0; i < skillConfig.SkillEffectData.FrameData.Count; i++)
+        {   
+            
+            SkillEffectEvent effectEvent = skillConfig.SkillEffectData.FrameData[i];
+            if(effectEvent.Prefab != null && effectEvent.FrameIndex == currentFrameIndex)
+            {
+                // 实例化特效
+                GameObject effectObj = PoolSystem.instance.GetGameObject(effectEvent.Prefab.name);
+                if(effectObj == null)   
+                {
+                    effectObj = GameObject.Instantiate(effectEvent.Prefab); 
+                    effectObj.name = effectEvent.Prefab.name;
+                }
+                effectObj.transform.position = modelTransform.TransformPoint(effectEvent.Position);
+                effectObj.transform.rotation = Quaternion.Euler(modelTransform.eulerAngles + effectEvent.Rotation);
+                effectObj.transform.localScale = effectEvent.Scale;
+                if(effectEvent.AutoDestruct)
+                {
+                    StartCoroutine(AutoDestructEffectGameObject(effectEvent.Duration, effectObj));
+                }
+            }
+        }    
     }
 
     /// <summary>
@@ -111,5 +136,11 @@ public class SkillController : MonoBehaviour
     public void PlayOneShot()
     {
         Debug.Log("播放音乐");
+    }
+
+    private IEnumerator AutoDestructEffectGameObject(float time, GameObject obj)
+    {
+        yield return new WaitForSeconds(time);
+        PoolSystem.instance.PushGameObject(obj);
     }
 }

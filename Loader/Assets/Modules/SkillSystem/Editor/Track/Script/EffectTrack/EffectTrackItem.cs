@@ -172,6 +172,8 @@ public class EffectTrackItem : TrackItemBase<EffectTrack>
                 skillEffectEvent.FrameIndex = selectFrameIndex;
                 skillEffectEvent.Prefab = prefab;
                 skillEffectEvent.Position = Vector3.zero;
+                skillEffectEvent.Rotation = Vector3.zero;
+                skillEffectEvent.Scale = Vector3.one;
                 skillEffectEvent.AutoDestruct = true;
 
                 ParticleSystem[] particleSystems = prefab.GetComponentsInChildren<ParticleSystem>();
@@ -201,12 +203,11 @@ public class EffectTrackItem : TrackItemBase<EffectTrack>
     private GameObject effectPreviewObj;
     public void TickView(int frameIndex)
     {
-        if(skillEffectEvent.Prefab == null) return;
+        if(skillEffectEvent.Prefab == null ||  SkillEditorWindows.Instance.PreviewCharacterObj == null) return;
         // 是不是在播放范围内
-        int durationFrame = (int)skillEffectEvent.Duration * SkillEditorWindows.Instance.SkillConfig.FrameRate;
-
-        if(skillEffectEvent.FrameIndex <= frameIndex && skillEffectEvent.FrameIndex + durationFrame > frameIndex)
-        {
+        int durationFrame = Mathf.RoundToInt(skillEffectEvent.Duration * SkillEditorWindows.Instance.SkillConfig.FrameRate);
+        if(skillEffectEvent.FrameIndex <= frameIndex && skillEffectEvent.FrameIndex + durationFrame >= frameIndex)
+        {   
             // 对比预制体
             if(effectPreviewObj != null && effectPreviewObj.name != skillEffectEvent.Prefab.name)
             {
@@ -222,7 +223,6 @@ public class EffectTrackItem : TrackItemBase<EffectTrack>
                 Vector3 oldPos = characterRoot.position;
                 // 把角色临时设置到播放坐标
                 characterRoot.position = rotPostion;
-
                 Vector3 pos = characterRoot.TransformPoint(skillEffectEvent.Position);
                 Vector3 rot = characterRoot.eulerAngles + skillEffectEvent.Rotation;
 
@@ -231,8 +231,9 @@ public class EffectTrackItem : TrackItemBase<EffectTrack>
                 characterRoot.position = oldPos;
 
                 // 实例化
-                effectPreviewObj = GameObject.Instantiate(skillEffectEvent.Prefab, pos, Quaternion.Euler(rot), null);
+                effectPreviewObj = GameObject.Instantiate(skillEffectEvent.Prefab, pos, Quaternion.Euler(rot), EffectTrack.EffectParent);
                 effectPreviewObj.name = skillEffectEvent.Prefab.name;
+                effectPreviewObj.transform.localScale = SkillEffectEvent.Scale;
             }
                 
             // 粒子模拟
@@ -246,8 +247,25 @@ public class EffectTrackItem : TrackItemBase<EffectTrack>
             }
         }
         else
-        {
+        {   
             ClearEffectPreviewObj();
+        }
+    }
+
+    public void ApplyModelTransformData()
+    {
+        if(effectPreviewObj != null)
+        {       
+            Transform characterRoot = SkillEditorWindows.Instance.PreviewCharacterObj.transform;
+            // 获取模拟坐标
+            Vector3 rotPostion = SkillEditorWindows.Instance.GetPositionForRootMotion(skillEffectEvent.FrameIndex, true);
+            Vector3 oldPos = characterRoot.position;
+            // 把角色临时设置到播放坐标
+            characterRoot.position = rotPostion;
+            skillEffectEvent.Position = characterRoot.InverseTransformPoint(effectPreviewObj.transform.position);
+            skillEffectEvent.Rotation = effectPreviewObj.transform.eulerAngles - characterRoot.eulerAngles;
+            skillEffectEvent.Scale = effectPreviewObj.transform.localScale;
+            characterRoot.position = oldPos;
         }
     }
     #endregion

@@ -104,6 +104,9 @@ public class PoolSystem : MonoBehaviour
     public void OnLoaded()
     {
         instance = this;
+
+
+        poolRootObj = this.gameObject;
     }
 
     #region GameObject对象相关操作

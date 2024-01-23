@@ -11,6 +11,7 @@ public class SkillEffectEvent
     public GameObject Prefab;
     public Vector3 Position;
     public Vector3 Rotation;
+    public Vector3 Scale;
     public float Duration;
     /// <summary>
     /// 是否自动销毁

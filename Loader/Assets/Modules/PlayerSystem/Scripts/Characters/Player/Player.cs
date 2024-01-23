@@ -65,7 +65,7 @@ public class Player : MonoBehaviour, IAnimationEvent, IAttackObject
         animationController.Init();
 
         skillController = animator.GetComponent<SkillController>();
-        skillController.Init(animationController);
+        skillController.Init(animationController, this.transform);
 
         player_input = this.AddComponent<PlayerInput>();
 
@@ -136,7 +136,8 @@ public class Player : MonoBehaviour, IAnimationEvent, IAttackObject
     /// ²¥·Å¶¯»­
     /// </summary>
     public void PlayAnimation(string animationClipName, Action<Vector3, Quaternion> rootMotionAction = null, float speed = 1, bool refreshAnimation = false, float transitionFixedTime = 0.25f)
-    {
+    {   
+        animationController.SetRootMotionAction(rootMotionAction);
         animationController.PlaySingleAniamtion(movementAnimationSO.GetAnimationByName(animationClipName), speed, refreshAnimation, transitionFixedTime);
     }
 
@@ -145,10 +146,7 @@ public class Player : MonoBehaviour, IAnimationEvent, IAttackObject
     /// </summary>
     public void PlayBlendAnimation(string clip1Name, string clip2Name, Action<Vector3, Quaternion> rootMotionAction = null, float speed = 1, float transitionFixedTime = 0.25f)
     {
-        if (rootMotionAction != null)
-        {
-            animationController.SetRootMotionAction(rootMotionAction);
-        }
+        animationController.SetRootMotionAction(rootMotionAction);
         AnimationClip clip1 = movementAnimationSO.GetAnimationByName(clip1Name);
         AnimationClip clip2 = movementAnimationSO.GetAnimationByName(clip2Name);
         animationController.PlayBlendAnimation(clip1, clip2, speed, transitionFixedTime);

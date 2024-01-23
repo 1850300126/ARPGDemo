@@ -302,11 +302,18 @@ public class SkillEditorInspector : Editor
         posFiled.value = trackItem.SkillEffectEvent.Position;
         posFiled.RegisterValueChangedCallback(EffectPosFiledValueChanged);
         root.Add(posFiled);
-        // 选转
+
+        // 旋转
         Vector3Field rotFiled = new Vector3Field("旋转");
         rotFiled.value = trackItem.SkillEffectEvent.Rotation;
         rotFiled.RegisterValueChangedCallback(EffectRotFiledValueChanged);
         root.Add(rotFiled);
+
+        // 旋转
+        Vector3Field scaleFiled = new Vector3Field("缩放");
+        scaleFiled.value = trackItem.SkillEffectEvent.Scale;
+        scaleFiled.RegisterValueChangedCallback(EffectScaleFiledValueChanged);
+        root.Add(scaleFiled);
 
         // 自动销毁
         Toggle autoDestructToggle = new Toggle("自动销毁");
@@ -322,9 +329,21 @@ public class SkillEditorInspector : Editor
         root.Add(effectDurationFiled);
 
         // 时间计算按钮
-        Button button = new Button(CalculateEffectDuration);
-        button.text = "重新计算时间";
-        root.Add(button);
+        Button calculateEffectButton = new Button(CalculateEffectDuration);
+        calculateEffectButton.text = "重新计算时间";
+        root.Add(calculateEffectButton);
+
+        // 引用模型Transform信息
+        Button applyModelTransformDataButton = new Button(ApplyModelTransformData);
+        applyModelTransformDataButton.text = "引用模型Transform信息";
+        root.Add(applyModelTransformDataButton);
+    }
+
+    private void ApplyModelTransformData()
+    {
+        EffectTrackItem effectTrackItem = ((EffectTrackItem)currentTrackItem);
+        effectTrackItem.ApplyModelTransformData();
+        Show();
     }
 
     private void CalculateEffectDuration()
@@ -369,6 +388,13 @@ public class SkillEditorInspector : Editor
     {
         EffectTrackItem effect = (EffectTrackItem)currentTrackItem;
         effect.SkillEffectEvent.Rotation = evt.newValue;        
+        effect.ResetView();
+
+    }
+    private void EffectScaleFiledValueChanged(ChangeEvent<Vector3> evt)
+    {
+        EffectTrackItem effect = (EffectTrackItem)currentTrackItem;
+        effect.SkillEffectEvent.Scale = evt.newValue;        
         effect.ResetView();
 
     }

@@ -18,6 +18,8 @@ MonoBehaviour:
     ReferencedUnityObjects:
     - {fileID: 7400000, guid: 6511185ee149662488a195bd7f357f21, type: 2}
     - {fileID: 7400000, guid: 275b6a457a564c0488072552ce59b6ea, type: 2}
+    - {fileID: 7400000, guid: add7e50aae179ae409ba1bceb8755f61, type: 2}
+    - {fileID: 6938957011003183058, guid: 802cc66ae198ae5418c8fe86d1a7933b, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -105,13 +107,13 @@ MonoBehaviour:
       Data: 5|SkillAnimationClipData, Assembly-CSharp
     - Name: AnimationClip
       Entry: 10
-      Data: 0
+      Data: 2
     - Name: TransitionTime
       Entry: 4
-      Data: 0.1
+      Data: 0.25
     - Name: ApplyRootMotion
       Entry: 5
-      Data: false
+      Data: true
     - Name: DurationFrame
       Entry: 3
       Data: 36
@@ -130,23 +132,101 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: SkillParticleData
+    - Name: SkillAudioData
       Entry: 7
-      Data: 6|SkillParticleFrameData, Assembly-CSharp
-    - Name: FrameDataDic
+      Data: 6|SkillAudioData, Assembly-CSharp
+    - Name: FrameData
       Entry: 7
-      Data: 7|System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[SkillParticleData,
-        Assembly-CSharp]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 8|System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
-        mscorlib]], mscorlib
+      Data: 7|System.Collections.Generic.List`1[[SkillAudioEvent, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
     - Name: 
       Entry: 8
       Data: 
     - Name: 
+      Entry: 8
+      Data: 
+    - Name: SkillEffectData
+      Entry: 7
+      Data: 8|SkillEffectData, Assembly-CSharp
+    - Name: FrameData
+      Entry: 7
+      Data: 9|System.Collections.Generic.List`1[[SkillEffectEvent, Assembly-CSharp]],
+        mscorlib
+    - Name: 
       Entry: 12
-      Data: 0
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 10|SkillEffectEvent, Assembly-CSharp
+    - Name: TrackName
+      Entry: 1
+      Data: "\u7279\u6548\u8F68\u9053"
+    - Name: FrameIndex
+      Entry: 3
+      Data: 7
+    - Name: Prefab
+      Entry: 10
+      Data: 3
+    - Name: Position
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.241436124
+    - Name: 
+      Entry: 4
+      Data: 0.848
+    - Name: 
+      Entry: 4
+      Data: 1.26870084
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Rotation
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 330.087067
+    - Name: 
+      Entry: 4
+      Data: 39.3442078
+    - Name: 
+      Entry: 4
+      Data: 32.1984825
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Scale
+      Entry: 7
+      Data: UnityEngine.Vector3, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: Duration
+      Entry: 4
+      Data: 0.55
+    - Name: AutoDestruct
+      Entry: 5
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 

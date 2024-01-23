@@ -322,9 +322,12 @@ public class AnimationTrack : SkillTrackBase
     public override void TickView(int frameIndex)
     {
         GameObject previewGameObject = SkillEditorWindows.Instance.PreviewCharacterObj;
-        // UpdataePosture(frameIndex);
-        //将角色拉回实际位置
-        previewGameObject.transform.position = GetPositionForRootMotion(frameIndex);
+        // 判断是否已选角色
+        if(previewGameObject != null)
+        {
+            //将角色拉回实际位置
+            previewGameObject.transform.position = GetPositionForRootMotion(frameIndex);
+        }
     }
 
     public override void Destory()

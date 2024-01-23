@@ -113,7 +113,14 @@ public class SkillEditorWindows : EditorWindow
         SkillConfigObjectField.RegisterValueChangedCallback(SkillConfigObjectFieldChanged);
     }
 
-
+    public bool OnEditorScene
+    {
+        get
+        {
+            string currentpath = EditorSceneManager.GetActiveScene().path;
+            return currentpath == skillEditorScenePath;
+        }
+    }
 
     /// <summary>
     /// ¼ÓÔØ±à¼­Æ÷³¡¾°

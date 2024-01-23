@@ -78,7 +78,7 @@ public class AudioTrack : SkillTrackBase
         if(skillAudioEvent != null)
         {
             AudioData.FrameData.RemoveAt(index);
-
+            trackItemList.RemoveAt(index);
             SkillEditorWindows.Instance.SaveConfig();
         }
 
