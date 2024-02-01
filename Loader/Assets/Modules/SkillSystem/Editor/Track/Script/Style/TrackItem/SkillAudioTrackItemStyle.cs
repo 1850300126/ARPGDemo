@@ -9,7 +9,7 @@ public class SkillAudioTrackItemStyle : SkillTrackItemStyleBase
     private Label titleLabel;
     public VisualElement mainDragArea { get; private set; }
     // public VisualElement animationOverLine { get; private set; }
-    private const string trackItemAssetPath = "Assets/Modules/SkillSystem/Editor/Track/Assets/TrackItem/AudioTrackItem.uxml";
+    private const string trackItemAssetPath = "Assets/Modules/SkillSystem/Editor/Track/Assets/TrackItem/Item/AudioTrackItem.uxml";
 
     public bool isInit{get; private set;}
     public void Init(float frameUnitWidth, SkillAudioEvent skillAudioEvent, SkillMultiLineTrackStyle.ChildTrack childTrack)

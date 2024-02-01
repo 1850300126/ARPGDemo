@@ -17,8 +17,10 @@ public class AudioTrackItem : TrackItemBase<AudioTrack>
         this.childTrackStyle = childTrack;
 
         this.skillAudioEvent = skillAudioEvent;
-        normalColor = new Color(0.388f, 0.850f, 0.905f, 0.5f);
-        selectColor = new Color(0.388f, 0.850f, 0.905f, 1f);
+        // normalColor = new Color(1f, 191/255f, 7/255f, 0.5f);
+        // selectColor = new Color(1f, 191/255f, 7/255f, 1f);
+        normalColor = new Color(0.33f, 0.33f, 0.33f, 0.5f);
+        selectColor = new Color(0f, 0f, 0f, 1f);
         trackItemStyle = new SkillAudioTrackItemStyle();
 
         itemStyle = trackItemStyle;

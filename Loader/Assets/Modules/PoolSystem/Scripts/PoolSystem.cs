@@ -101,10 +101,16 @@ public class PoolSystem : MonoBehaviour
     /// </summary>
     public Dictionary<string, ObjectPoolData> objectPoolDic = new Dictionary<string, ObjectPoolData>();
 
-    public void OnLoaded()
+    private void Awake() 
     {
         instance = this;
 
+        poolRootObj = this.gameObject;
+    }
+
+    public void OnLoaded()
+    {
+        instance = this;
 
         poolRootObj = this.gameObject;
     }

@@ -76,6 +76,10 @@ public class SkillEditorInspector : Editor
         {
             DrawEffectTrackItem((EffectTrackItem)currentTrackItem);
         }
+        else if (itemType == typeof(EffectTrackItem))
+        {
+            DrawCustomEventTrackItem((CustomEventTrackItem)currentTrackItem);
+        }
     }
 
 
@@ -418,6 +422,13 @@ public class SkillEditorInspector : Editor
             effect.SkillEffectEvent.Duration = effectDurationFiled.value;
             effect.ResetView();
         }
+    }
+    #endregion
+
+    # region 自定义脚本轨道
+    private void DrawCustomEventTrackItem(CustomEventTrackItem trackItem)
+    {
+
     }
     #endregion
 }

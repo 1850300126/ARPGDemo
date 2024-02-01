@@ -9,6 +9,7 @@ public class GroundedAttackState : PlayerGroundedState
 {
 
     protected bool find_target = false;
+    protected float moveTime;
     public GroundedAttackState(PlayerMovementStateMachine player_movement_state_machine) : base(player_movement_state_machine)
     {
 
@@ -17,6 +18,8 @@ public class GroundedAttackState : PlayerGroundedState
     public override void OnEnter()
     {
         AddInputAction();
+
+        moveTime = 0;
 
         Debug.Log("当前的状态" + this);
     }
@@ -35,6 +38,7 @@ public class GroundedAttackState : PlayerGroundedState
     public override void OnUpdate()
     {
         base.OnUpdate();
+        JugdeMove();
 
     }
     protected override void AddInputAction()
@@ -87,16 +91,8 @@ public class GroundedAttackState : PlayerGroundedState
     // 旋转到目标方??
     protected void RotateAttackableDirection()
     {
-        if(movement_state_machine.reusable_data.target_trans != null)
+        if(movement_state_machine.reusable_data.target_trans == null)
         {
-            Vector3 _self = new Vector3(movement_state_machine.player.transform.position.x, 0, movement_state_machine.player.transform.position.z);
-            Vector3 _target = new Vector3(movement_state_machine.reusable_data.target_trans.position.x, 0, movement_state_machine.reusable_data.target_trans.position.z);
-            Vector3 _direction = _target - _self;
-            Quaternion _rotate = Quaternion.LookRotation(_direction);
-            movement_state_machine.player.transform.localRotation = _rotate;
-        }
-        else
-        {   
             // 让人物旋转到输入方向
             RotateInputDirection();
         }
@@ -113,23 +109,26 @@ public class GroundedAttackState : PlayerGroundedState
 
         movement_state_machine.player.transform.rotation = target_rot;
     }
-    // 判断切片??否可打断的标??
-    protected void JugdeClipAllowInterruption()
-    {
-        if (!movement_state_machine.player.animator.GetCurrentAnimatorStateInfo(0).IsTag("AllowInterruption")) return;
-
-        if (movement_state_machine.reusable_data.movement_input == Vector2.zero)
-        {
-            return;
-        }
-
-        OnMove();
-    }
     // 判断是否在连招时间内
     protected void JugdeComboFinish()
     {
 
     }
+    // 判断是否可以移动
+    protected void JugdeMove()
+    {       
+        moveTime += Time.deltaTime;
+        // if(moveTime > movement_state_machine.player.currentWeaponAnimationConfigs.light_attack_configs[movement_state_machine.reusable_data.current_combo_index - 1].AfterShaking + 0.2f)
+        // {
+        //     if (movement_state_machine.reusable_data.movement_input == Vector2.zero)
+        //     {
+        //         return;
+        //     }
+
+        //     OnMove();
+        // }
+
+    }   
     // 判断是否存在可攻击的物体
     protected void JugdeExistAttackableObject()
     {

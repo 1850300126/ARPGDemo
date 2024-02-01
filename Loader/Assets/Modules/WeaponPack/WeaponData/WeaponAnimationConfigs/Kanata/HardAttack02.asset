@@ -236,6 +236,26 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: SkillCustomData
+      Entry: 7
+      Data: 11|SkillCustomData, Assembly-CSharp
+    - Name: FrameData
+      Entry: 7
+      Data: 12|System.Collections.Generic.List`1[[SkillCustomEvent, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   SkillName: LightAttack04
   FrameCount: 169
   FrameRate: 30
+  AfterShaking: 0.5

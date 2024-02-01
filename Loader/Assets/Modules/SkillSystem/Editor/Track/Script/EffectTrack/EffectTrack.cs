@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class EffectTrack : SkillTrackBase
 {
- private SkillMultiLineTrackStyle trackStyle;
+    private SkillMultiLineTrackStyle trackStyle;
     public SkillEffectData EffectData { get => SkillEditorWindows.Instance.SkillConfig.SkillEffectData; }
     private List<EffectTrackItem> trackItemList = new List<EffectTrackItem>();
     public static Transform EffectParent{ get; private set; }

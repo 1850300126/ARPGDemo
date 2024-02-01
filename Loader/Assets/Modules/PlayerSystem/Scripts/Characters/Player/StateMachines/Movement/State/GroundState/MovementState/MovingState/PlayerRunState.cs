@@ -30,6 +30,7 @@ public class PlayerRunState : PlayerMovingState
         base.OnEnter();
 
         movement_state_machine.player.PlayAnimation("Run", null, 1, false, 0.1f);
+        // movement_state_machine.player.TimelinePlayer.CtrlPlayable.CrossFade("Run", 0.25f);
 
         movement_state_machine.reusable_data.current_jump_force = airborne_data.JumpData.WeakForce;
 

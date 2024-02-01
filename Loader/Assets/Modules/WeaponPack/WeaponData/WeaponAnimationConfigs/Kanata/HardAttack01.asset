@@ -141,7 +141,25 @@ MonoBehaviour:
         mscorlib
     - Name: 
       Entry: 12
-      Data: 0
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 8|SkillAudioEvent, Assembly-CSharp
+    - Name: TrackName
+      Entry: 1
+      Data: "\u97F3\u6548\u8F68\u9053"
+    - Name: FrameIndex
+      Entry: 3
+      Data: -1
+    - Name: audioClip
+      Entry: 6
+      Data: 
+    - Name: Voluem
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 
@@ -153,17 +171,17 @@ MonoBehaviour:
       Data: 
     - Name: SkillEffectData
       Entry: 7
-      Data: 8|SkillEffectData, Assembly-CSharp
+      Data: 9|SkillEffectData, Assembly-CSharp
     - Name: FrameData
       Entry: 7
-      Data: 9|System.Collections.Generic.List`1[[SkillEffectEvent, Assembly-CSharp]],
+      Data: 10|System.Collections.Generic.List`1[[SkillEffectEvent, Assembly-CSharp]],
         mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 10|SkillEffectEvent, Assembly-CSharp
+      Data: 11|SkillEffectEvent, Assembly-CSharp
     - Name: TrackName
       Entry: 1
       Data: "\u7279\u6548\u8F68\u9053"
@@ -236,6 +254,26 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: SkillCustomData
+      Entry: 7
+      Data: 12|SkillCustomData, Assembly-CSharp
+    - Name: FrameData
+      Entry: 7
+      Data: 13|System.Collections.Generic.List`1[[SkillCustomEvent, Assembly-CSharp]],
+        mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   SkillName: LightAttack04
   FrameCount: 141
   FrameRate: 30
+  AfterShaking: 0.5

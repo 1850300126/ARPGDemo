@@ -30,9 +30,9 @@ MonoBehaviour:
       <RotationData>k__BackingField:
         <TargetRotationReachTime>k__BackingField: {x: 0, y: 0.2, z: 0}
       <StationaryForce>k__BackingField: {x: 0, y: 10, z: 0}
-      <WeakForce>k__BackingField: {x: 2, y: 10, z: 2}
-      <MediumForce>k__BackingField: {x: 3, y: 10, z: 3}
-      <StrongForce>k__BackingField: {x: 5, y: 10, z: 5}
+      <WeakForce>k__BackingField: {x: 5, y: 10, z: 5}
+      <MediumForce>k__BackingField: {x: 6, y: 10, z: 6}
+      <StrongForce>k__BackingField: {x: 7, y: 10, z: 7}
       <DecelerationForce>k__BackingField: 1.5
   <grounded_data>k__BackingField:
     <BaseSpeed>k__BackingField: 5

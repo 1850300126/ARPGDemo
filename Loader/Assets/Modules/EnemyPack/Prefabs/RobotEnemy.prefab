@@ -597,8 +597,7 @@ MonoBehaviour:
   agent: {fileID: 0}
   animator: {fileID: 0}
   behavior_tree: {fileID: 0}
-  patrol: 1
-  attacking: 0
+  enemyAnimationController: {fileID: 0}
   self_type: 1
   attack_type: 0
 --- !u!195 &4233300199085924237
@@ -651,15 +650,13 @@ MonoBehaviour:
       parentIndex: 
       startIndex: 
       variableStartIndex: 
-      JSONSerialization: '{"Variables":[{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"SelfObject","IsShared":true,"PropertyMapping":"UnityEngine.Transform/gameObject","PropertyMappingOwner":0},{"Type":"BehaviorDesigner.Runtime.SharedTransform","Name":"SelfTransform","IsShared":true,"PropertyMapping":"UnityEngine.Transform/transform","PropertyMappingOwner":1},{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"TargetObject","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"OriginPos","IsShared":true,"Vector3mValue":"(0,0,0)"}]}'
+      JSONSerialization: '{"Variables":[{"Type":"BehaviorDesigner.Runtime.SharedGameObject","Name":"TargetObject","IsShared":true},{"Type":"BehaviorDesigner.Runtime.SharedVector3","Name":"OriginPos","IsShared":true,"Vector3mValue":"(0,0,0)"}]}'
       fieldSerializationData:
         typeName: []
         fieldNameHash: 
         startIndex: 
         dataPosition: 
-        unityObjects:
-        - {fileID: 2369535839493767282}
-        - {fileID: 2369535839493767282}
+        unityObjects: []
         byteData: 
         byteDataArray: 
       Version: 1.7.7

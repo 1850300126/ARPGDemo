@@ -18,8 +18,10 @@ public class EffectTrackItem : TrackItemBase<EffectTrack>
         this.childTrackStyle = childTrack;
 
         this.skillEffectEvent = skillEffectEvent;
-        normalColor = new Color(0.388f, 0.850f, 0.905f, 0.5f);
-        selectColor = new Color(0.388f, 0.850f, 0.905f, 1f);
+        // normalColor = new Color(117/255f, 210f/255f, 1f, 0.5f);
+        // selectColor = new Color(117/255f, 210f/255f, 1f, 1f);
+        normalColor = new Color(0.33f, 0.33f, 0.33f, 0.5f);
+        selectColor = new Color(0f, 0f, 0f, 1f);
         trackItemStyle = new SkillEffectTrackItemStyle();
 
         itemStyle = trackItemStyle;
@@ -113,26 +115,11 @@ public class EffectTrackItem : TrackItemBase<EffectTrack>
             frameIndex = targetFrameIndex;
 
             skillEffectEvent.FrameIndex = frameIndex;
-            //如果超过右侧边界，拓展边界
-            CheckFrameCount();
 
             //刷新视图
             ResetView(frameUnitWidth);
             
         }
-    }
-
-    /// <summary>
-    /// 如果超过右侧边界，拓展边界
-    /// </summary>
-    public void CheckFrameCount()
-    {   
-        // int frameCount = (int)skillAudioEvent.audioClip.length * SkillEditorWindows.Instance.SkillConfig.FrameRate;
-        // if (frameIndex + frameCount > SkillEditorWindows.Instance.SkillConfig.FrameCount)
-        // {
-        //     //保存配置导致对象无效，重新引用
-        //     SkillEditorWindows.Instance.CurrentFrameCount = frameIndex + frameCount;
-        // }
     }
 
     private void ApplyDrag()

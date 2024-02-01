@@ -68,32 +68,8 @@ public class PlayerGroundedState : PlayerMovementState
         movement_state_machine.ChangeState(movement_state_machine.dodge_state);
     }     
     protected virtual void OnLightAttackStarted(InputAction.CallbackContext context)
-    {   
-        // 重置连招索引
-        // if(movement_state_machine.player.current_combo_config == null) return;
-
-        // Collider[] colliders = Physics.OverlapSphere(movement_state_machine.player.transform.position, 6f , movement_state_machine.player.layer_data.AttackLayer);
-
-        // if(colliders.Length > 0 && Vector3.Distance(colliders[0].transform.position, movement_state_machine.player.transform.position) > 2)
-        // {       
-        //     Debug.Log("范围内有敌人");
-
-        //     movement_state_machine.move_target_state.target_trans = colliders[0].transform;
-
-        //     movement_state_machine.move_target_state.next_state = movement_state_machine.light_attack_state;
-
-        //     movement_state_machine.move_target_state.action = 
-        //         () => movement_state_machine.ChangeState(movement_state_machine.light_attack_state);
-
-        //     movement_state_machine.ChangeState(movement_state_machine.move_target_state);
-        // }
-        // else
-        // {
-        //     movement_state_machine.ChangeState(movement_state_machine.light_attack_state);
-        // }
-
+    {  
         movement_state_machine.ChangeState(movement_state_machine.light_attack_state);
-
     }     
     protected virtual void OnHardAttackStarted(InputAction.CallbackContext context)
     {

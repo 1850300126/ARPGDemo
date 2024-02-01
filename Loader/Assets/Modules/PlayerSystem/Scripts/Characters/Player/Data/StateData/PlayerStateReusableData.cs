@@ -50,16 +50,17 @@ public class PlayerStateReusableData
     }
     public PlayerRotationData RotationData { get; set; }
 
-    // æ˜¯å¦æ¢å¤ä½“åŠ›
+    // ÊÇ·ñ»Ö¸´ÌåÁ¦
     public bool recharge { get; set; }
-    // æ¶ˆè€—ä½“åŠ›æ—¶é—´
+    // ÏûºÄÌåÁ¦Ê±¼ä
     public float consume_energy ;
 
 
-    # region æ”»å‡»ç±»
-    // æ”»å‡»ç›®æ ‡
+    # region ¹¥»÷Àà
+    public float last_attack_time;
+    // ¹¥»÷Ä¿±ê
     public Transform target_trans;
-    // è¿æ‹›ç´¢å¼•
+    // Á¬ÕĞË÷Òı
     public int current_combo_index;
     # endregion
 }

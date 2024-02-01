@@ -62,7 +62,7 @@ public class PlayerSystem : MonoBehaviour
 
         GameObject create_character_model = BundleInfoSystem.LoadAddressablesPrefabs(model_data.data, model_data.name, transform);
 
-        player = create_character_model.AddComponent<Player>();
+        player = create_character_model.GetComponent<Player>();
 
         BundleInfoSystem.BundleInfoItem player_movement_animation_config = BundleInfoSystem.instance.GetBundleInfoItem("player_movement_animation_config", "player_config");
         if (player_movement_animation_config == null)

@@ -557,6 +557,8 @@ public class SkillEditorWindows : EditorWindow
         InitEffectTrack();
         // 音效....
         InitAudioTrack();
+        // 自定义事件
+        InitCustomEventTrack();
     }
 
     private void InitAnimationTrack()
@@ -579,7 +581,12 @@ public class SkillEditorWindows : EditorWindow
         audioTrack.Init(trackMenuParent, ContentListView, skillEditorConfig.FrameUnitWidth);
         trackList.Add(audioTrack);
     }
-
+    private void InitCustomEventTrack()
+    {
+        CustomEventTrack customEventTrack = new CustomEventTrack();
+        customEventTrack.Init(trackMenuParent, ContentListView, skillEditorConfig.FrameUnitWidth);
+        trackList.Add(customEventTrack);
+    }
     private void ResetTrack()
     {
         if (skillConfig == null)

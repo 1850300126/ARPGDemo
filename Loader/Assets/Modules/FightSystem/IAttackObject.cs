@@ -5,16 +5,8 @@ using UnityEngine;
 
 public enum AttackObjectType
 {
-    BeAttacked,
+    Player,
     Enemy,
+    Item,
     NoAttack
-}
-
-public interface IAttackObject
-{
-    public AttackObjectType SelfType {get; set;}
-
-    public AttackObjectType AttackType {get; set;}
-
-    public void BeHit();
 }

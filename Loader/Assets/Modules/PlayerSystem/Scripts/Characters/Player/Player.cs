@@ -1,14 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using EasyUpdateDemoSDK;
-using JetBrains.Annotations;
+using Taco.Timeline;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Playables;
-
-public class Player : MonoBehaviour, IAnimationEvent, IAttackObject
+using Custom.Animation;
+public class Player : WorldObjectBase, IAnimationEvent
 {   
     [Header("组件类")]
     // 状态机
@@ -25,6 +21,9 @@ public class Player : MonoBehaviour, IAnimationEvent, IAttackObject
     // 技能控制器   
     [SerializeField] private SkillController skillController;
     public SkillController SkillController { get => skillController; }
+    // 技能控制器   
+    [SerializeField] private TimelinePlayer timelinePlayer;
+    public TimelinePlayer TimelinePlayer { get => timelinePlayer; }
     // 动画事件管理
     public AnimationEventTrigger animator_event_trigger;
     // 输入组件
@@ -37,16 +36,10 @@ public class Player : MonoBehaviour, IAnimationEvent, IAttackObject
     [Header("数据类")]
     [field: SerializeField] public PlayerSO player_data;
     [field: SerializeField] public PlayerLayerData layer_data;
-    [field: SerializeField] public ComboConfig current_combo_config;
+    [field: SerializeField] public TimelineSkillConfig currentSkillConfig;
     [field: SerializeField] public CharacterConfig movementAnimationSO;
-    [field: SerializeField] public WeaponAnimationConfigs currentWeaponAnimationConfigs;
+    // [field: SerializeField] public WeaponAnimationConfigs currentWeaponAnimationConfigs;
     [field: SerializeField] public PlayerResizableCapsuleCollider ResizableCapsuleCollider { get; private set; }
-    
-
-    public AttackObjectType self_type = AttackObjectType.BeAttacked;
-    public AttackObjectType SelfType { get => self_type; set => self_type = value ; }
-    public AttackObjectType attack_type = AttackObjectType.Enemy;
-    public AttackObjectType AttackType { get => attack_type; set => attack_type = value; }
 
     public void OnLoaded()
     {   
@@ -64,8 +57,10 @@ public class Player : MonoBehaviour, IAnimationEvent, IAttackObject
         animationController = animator.GetComponent<AnimationController>();
         animationController.Init();
 
-        skillController = animator.GetComponent<SkillController>();
-        skillController.Init(animationController, this.transform);
+        // skillController = animator.GetComponent<SkillController>();
+        // skillController.Init(animationController, this.transform);
+    
+        timelinePlayer = animator.GetComponent<TimelinePlayer>();
 
         player_input = this.AddComponent<PlayerInput>();
 
@@ -84,13 +79,12 @@ public class Player : MonoBehaviour, IAnimationEvent, IAttackObject
         movement_state_machine.ChangeState(movement_state_machine.idle_state);
 
 
-        currentWeaponAnimationConfigs = (WeaponAnimationConfigs)APISystem.instance.CallAPI("weapon_system", "get_combo_config", new object[]{"Katana"});
+        // currentWeaponAnimationConfigs = (WeaponAnimationConfigs)APISystem.instance.CallAPI("weapon_system", "get_combo_config", new object[]{"Katana"});
         
         current_weapon = (WeaponBase)APISystem.instance.CallAPI("weapon_system", "GetWeapon", new object[]{"Katana"});
         current_weapon.transform.parent = hand_point.transform;
         current_weapon.transform.localPosition = Vector3.zero;
         current_weapon.transform.localRotation = Quaternion.Euler(0, 0, -90);
-
     }
     private void Update()
     {
@@ -128,10 +122,6 @@ public class Player : MonoBehaviour, IAnimationEvent, IAttackObject
     {
         movement_state_machine.OnAnimationTransitionEvent();
     }
-    public virtual void BeHit()
-    {
-        
-    }
     /// <summary>
     /// 播放动画
     /// </summary>
@@ -147,8 +137,13 @@ public class Player : MonoBehaviour, IAnimationEvent, IAttackObject
     public void PlayBlendAnimation(string clip1Name, string clip2Name, Action<Vector3, Quaternion> rootMotionAction = null, float speed = 1, float transitionFixedTime = 0.25f)
     {
         animationController.SetRootMotionAction(rootMotionAction);
-        AnimationClip clip1 = movementAnimationSO.GetAnimationByName(clip1Name);
-        AnimationClip clip2 = movementAnimationSO.GetAnimationByName(clip2Name);
+        UnityEngine.AnimationClip clip1 = movementAnimationSO.GetAnimationByName(clip1Name);
+        UnityEngine.AnimationClip clip2 = movementAnimationSO.GetAnimationByName(clip2Name);
         animationController.PlayBlendAnimation(clip1, clip2, speed, transitionFixedTime);
+    }
+
+    public override void BeHit()
+    {
+        Debug.Log("被击中了" + this.name);
     }
 }

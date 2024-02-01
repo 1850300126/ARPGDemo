@@ -22,12 +22,12 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   weapon_name: Kanata
-  attack_finish: {fileID: 11400000, guid: 3d6ac7b968ff61a42ac391a5fa506182, type: 2}
   light_attack_configs:
   - {fileID: 11400000, guid: 2be0c64e5bc88ba4197353a57721a274, type: 2}
   - {fileID: 11400000, guid: 781b74bfa82834146abcb6395f663d81, type: 2}
   - {fileID: 11400000, guid: 2a46646f0eb891b478bb3b6978152369, type: 2}
   - {fileID: 11400000, guid: 9ce68cc5872705c4d8dae08f2103cedf, type: 2}
+  - {fileID: 11400000, guid: 30becfd01f762794285efe475cf2f8aa, type: 2}
   hard_attack_configs:
   - {fileID: 11400000, guid: 67731f0056ba30b43acddb1b1210aecb, type: 2}
   - {fileID: 11400000, guid: 7ffb1590dd3f69347a208df99c8f724f, type: 2}

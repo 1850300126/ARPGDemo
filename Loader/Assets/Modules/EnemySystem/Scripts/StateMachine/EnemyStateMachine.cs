@@ -11,6 +11,7 @@ public class EnemyStateMachine : StateMachine
     public EnemyPatrolState patrol_state;
     public EnemyRunState run_state;
     public EnemyAttackState attack_state;
+    public EnemyBeHitState behitState;
     public EnemyStateMachine(Enemy enemy)
     {
         this.enemy = enemy;
@@ -24,5 +25,7 @@ public class EnemyStateMachine : StateMachine
         run_state = new EnemyRunState(this);
 
         attack_state = new EnemyAttackState(this);
+
+        behitState = new EnemyBeHitState(this);
     }
 }

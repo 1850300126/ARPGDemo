@@ -14,7 +14,8 @@ public class HardStoppingState : StoppingStateBase
 
         movement_state_machine.reusable_data.MovementDecelerationForce = 2f;
 
-        movement_state_machine.player.PlayAnimation("HardStop", null, 1, false, 0.1f);
+        movement_state_machine.player.PlayAnimation("HardStop", null, 1, false, 0.25f);
+        // movement_state_machine.player.TimelinePlayer.CtrlPlayable.CrossFade("HardStop", 0.25f);
         
     }
 

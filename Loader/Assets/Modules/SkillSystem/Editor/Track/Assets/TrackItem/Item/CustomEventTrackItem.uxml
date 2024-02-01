@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Label text="AnimationClip" display-tooltip-when-elided="true" name="AnimationTrackItem" style="flex-direction: row; height: 100%; width: 217px; -unity-text-align: middle-center; font-size: 10px; background-color: rgb(88, 88, 88); white-space: nowrap; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; position: absolute; border-left-width: 0; border-right-width: 0.5px; border-left-color: rgb(32, 32, 32); border-right-color: rgb(32, 32, 32); text-overflow: ellipsis; -unity-font-style: bold;">
+        <ui:VisualElement name="BottomLine" style="flex-shrink: 0; width: 100%; height: 3px; background-color: rgb(104, 207, 102); position: absolute; left: auto; max-width: none; min-width: auto; -unity-text-align: middle-center; white-space: nowrap; bottom: 0;" />
+        <ui:VisualElement name="Main" style="flex-shrink: 0; width: 100%; height: 100%; white-space: nowrap; font-size: 7px; -unity-font-style: bold;" />
+    </ui:Label>
+</ui:UXML>

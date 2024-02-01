@@ -57,6 +57,6 @@ public class HardAttackState : GroundedAttackState
     {
         RotateAttackableDirection();
          // �?放动画切�?
-        movement_state_machine.player.SkillController.PlaySkill(movement_state_machine.player.currentWeaponAnimationConfigs.hard_attack_configs[movement_state_machine.reusable_data.current_combo_index - 1], null, OnRootMotion);
+        // movement_state_machine.player.SkillController.PlaySkill(movement_state_machine.player.currentWeaponAnimationConfigs.hard_attack_configs[movement_state_machine.reusable_data.current_combo_index - 1], null, OnRootMotion);
     }
 }

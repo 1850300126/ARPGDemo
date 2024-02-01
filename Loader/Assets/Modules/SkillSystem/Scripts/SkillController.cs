@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
+using Custom.Animation;
 public class SkillController : MonoBehaviour
 {
     private AnimationController animationController;
@@ -120,6 +122,16 @@ public class SkillController : MonoBehaviour
                 {
                     StartCoroutine(AutoDestructEffectGameObject(effectEvent.Duration, effectObj));
                 }
+            }
+        }    
+        // 驱动自定义事件
+        for(int i = 0; i < skillConfig.SkillCustomData.FrameData.Count; i++)
+        {   
+            SkillCustomEvent effectEvent = skillConfig.SkillCustomData.FrameData[i];
+
+            if(currentFrameIndex == effectEvent.FrameIndex)
+            {
+                effectEvent.TriggerEvent();
             }
         }    
     }
