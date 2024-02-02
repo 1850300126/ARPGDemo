@@ -13,7 +13,7 @@ public class EnemyBeHitState : EnemyStateBase
     {
         base.OnEnter();
 
-        enemy_state_machine.enemy.PlayAnimation("GetHit");
+        // enemy_state_machine.enemy.PlayAnimation("GetHit");
     }
 
     public override void OnExit()

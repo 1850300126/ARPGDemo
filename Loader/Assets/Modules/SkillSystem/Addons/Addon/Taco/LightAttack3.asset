@@ -19,15 +19,54 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 3282842707788824576
+      type: {class: AnimationClip, ns: Taco.Timeline, asm: Taco.Timeline}
+      data:
+        StartFrame: 0
+        EndFrame: 70
+        OtherEaseInFrame: 0
+        OtherEaseOutFrame: 11
+        SelfEaseInFrame: 0
+        SelfEaseOutFrame: 0
+        ClipInFrame: 0
+        CanSkip: 0
+        Clip: {fileID: 7400000, guid: 3adffb6226265ed40b240a1c9be9a59e, type: 2}
+        ExtraPolationMode: 0
+    - rid: 3282842707788824577
+      type: {class: AnimationClip, ns: Taco.Timeline, asm: Taco.Timeline}
+      data:
+        StartFrame: 59
+        EndFrame: 179
+        OtherEaseInFrame: 11
+        OtherEaseOutFrame: 16
+        SelfEaseInFrame: 0
+        SelfEaseOutFrame: 0
+        ClipInFrame: 0
+        CanSkip: 0
+        Clip: {fileID: 7400000, guid: 275b6a457a564c0488072552ce59b6ea, type: 2}
+        ExtraPolationMode: 0
+    - rid: 3282842707788824579
+      type: {class: AnimationClip, ns: Taco.Timeline, asm: Taco.Timeline}
+      data:
+        StartFrame: 163
+        EndFrame: 235
+        OtherEaseInFrame: 16
+        OtherEaseOutFrame: 0
+        SelfEaseInFrame: 0
+        SelfEaseOutFrame: 0
+        ClipInFrame: 0
+        CanSkip: 0
+        Clip: {fileID: 7400000, guid: add7e50aae179ae409ba1bceb8755f61, type: 2}
+        ExtraPolationMode: 0
     - rid: 4776406651433648128
       type: {class: AnimationTrack, ns: Taco.Timeline, asm: Taco.Timeline}
       data:
         Name: Animation
         m_PersistentMuted: 0
         m_Clips:
-        - rid: 4776406651433648132
-        - rid: 4776406651433648133
-        - rid: 4776406651433648135
+        - rid: 3282842707788824576
+        - rid: 3282842707788824577
+        - rid: 3282842707788824579
         AvatarMask: {fileID: 0}
     - rid: 4776406651433648130
       type: {class: ParticleTrack, ns: Taco.Timeline, asm: Taco.Timeline}
@@ -39,7 +78,6 @@ MonoBehaviour:
     - rid: 4776406651433648131
       type: {class: ParticleClip, ns: Taco.Timeline, asm: Taco.Timeline}
       data:
-        ExtraPolationMode: 0
         StartFrame: 20
         EndFrame: 73
         OtherEaseInFrame: 0
@@ -47,45 +85,10 @@ MonoBehaviour:
         SelfEaseInFrame: 0
         SelfEaseOutFrame: 0
         ClipInFrame: 0
-        ParticleSystem: {fileID: 7502663394802255986, guid: 6811baeaf2843184a8f34b7981df6747,
-          type: 3}
+        CanSkip: 0
+        ParticlePrefab: {fileID: 0}
+        ExtraPolationMode: 0
         SocketName: 
         PositionOffset: {x: 0, y: 0, z: 0}
         RotationOffset: {x: 0, y: 0, z: 0}
         UseSelfTransform: 0
-    - rid: 4776406651433648132
-      type: {class: AnimationClip, ns: Taco.Timeline, asm: Taco.Timeline}
-      data:
-        ExtraPolationMode: 0
-        StartFrame: 170
-        EndFrame: 242
-        OtherEaseInFrame: 5
-        OtherEaseOutFrame: 0
-        SelfEaseInFrame: 0
-        SelfEaseOutFrame: 0
-        ClipInFrame: 0
-        Clip: {fileID: 7400000, guid: add7e50aae179ae409ba1bceb8755f61, type: 2}
-    - rid: 4776406651433648133
-      type: {class: AnimationClip, ns: Taco.Timeline, asm: Taco.Timeline}
-      data:
-        ExtraPolationMode: 0
-        StartFrame: 55
-        EndFrame: 175
-        OtherEaseInFrame: 5
-        OtherEaseOutFrame: 5
-        SelfEaseInFrame: 0
-        SelfEaseOutFrame: 0
-        ClipInFrame: 0
-        Clip: {fileID: 7400000, guid: 275b6a457a564c0488072552ce59b6ea, type: 2}
-    - rid: 4776406651433648135
-      type: {class: AnimationClip, ns: Taco.Timeline, asm: Taco.Timeline}
-      data:
-        ExtraPolationMode: 0
-        StartFrame: 0
-        EndFrame: 60
-        OtherEaseInFrame: 0
-        OtherEaseOutFrame: 5
-        SelfEaseInFrame: 0
-        SelfEaseOutFrame: 0
-        ClipInFrame: 0
-        Clip: {fileID: 7400000, guid: 442fb93ff6074dc4eb17499936b53d37, type: 2}

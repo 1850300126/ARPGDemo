@@ -15,7 +15,7 @@ public class WeaponSystem : MonoBehaviour
         api_functions.Add("build_weapon", BuildWeapon);  
 
         api_functions.Add("get_weapon_model", GetWeaponModel);
-        api_functions.Add("get_combo_config", GetComboConfig);
+        // api_functions.Add("get_combo_config", GetComboConfig);
         api_functions.Add("GetWeapon", GetWeapon);
         
         APISystem.instance.RegistAPI("weapon_system", OnSystemAPIFunction);
@@ -52,7 +52,7 @@ public class WeaponSystem : MonoBehaviour
         BundleInfoSystem.BundleInfoItem weapom_model = BundleInfoSystem.instance.GetBundleInfoItem((string)param[0], "weapon_model");
         if (weapom_model == null)
         {
-            Debug.Log("未找到武器模型信息");
+            Debug.Log("�?找到武器模型信息");
             return null;
         }
 
@@ -60,19 +60,19 @@ public class WeaponSystem : MonoBehaviour
         
         return create_weapon_model;
     }
-    public object GetComboConfig(object[] param)
-    {
-        BundleInfoSystem.BundleInfoItem combo_config = BundleInfoSystem.instance.GetBundleInfoItem((string)param[0], "weapon_config");
-        if (combo_config == null)
-        {
-            Debug.Log("未找到连招配置信息");
-            return null;
-        }
+    // public object GetComboConfig(object[] param)
+    // {
+    //     BundleInfoSystem.BundleInfoItem combo_config = BundleInfoSystem.instance.GetBundleInfoItem((string)param[0], "weapon_config");
+    //     if (combo_config == null)
+    //     {
+    //         Debug.Log("�?找到连招配置信息");
+    //         return null;
+    //     }
 
-        WeaponAnimationConfigs load_combo_info = BundleInfoSystem.LoadAddressablesAsset<WeaponAnimationConfigs>(combo_config.data);
+    //     WeaponAnimationConfigs load_combo_info = BundleInfoSystem.LoadAddressablesAsset<WeaponAnimationConfigs>(combo_config.data);
         
-        return load_combo_info;
-    }
+    //     return load_combo_info;
+    // }
     public object GetWeaponFromData(object[] weapon_data)
     {   
 

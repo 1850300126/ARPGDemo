@@ -13,7 +13,7 @@ public class EnemyIdleState : EnemyStateBase
     {
         base.OnEnter();
 
-        enemy_state_machine.enemy.PlayAnimation("Idle");
+        // enemy_state_machine.enemy.PlayAnimation("Idle");
     }
 
     public override void OnUpdate()

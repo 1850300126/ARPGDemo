@@ -92,7 +92,7 @@ namespace Taco.Timeline
         {
             Time = 0;
             TimelinePlayer = timelinePlayer;
-            PlayableGraph = timelinePlayer.graph;
+            PlayableGraph = timelinePlayer.PlayableGraph;
             RootPlayable = timelinePlayer.RootPlayable;
 
             Binding = true;

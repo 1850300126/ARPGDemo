@@ -89,7 +89,6 @@ MonoBehaviour:
   animator: {fileID: 0}
   animationController: {fileID: 0}
   skillController: {fileID: 0}
-  timelinePlayer: {fileID: 0}
   animator_event_trigger: {fileID: 0}
   player_input: {fileID: 0}
   cam_trans: {fileID: 0}
@@ -104,8 +103,6 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 0
   currentSkillConfig: {fileID: 11400000, guid: a871678fbdd0d61409a31d71b015dd6e, type: 2}
-  movementAnimationSO: {fileID: 11400000, guid: dd35083b60ca8a04e815963ad42e9ac5,
-    type: 2}
   <ResizableCapsuleCollider>k__BackingField: {fileID: 0}
 --- !u!114 &7760194418912501016
 MonoBehaviour:
@@ -4100,7 +4097,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7f1e0bf55f3770b45b1aa57a195d66b0,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8304196531937338051}
+      addedObject: {fileID: 3817850666717447224}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7f1e0bf55f3770b45b1aa57a195d66b0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 13371631182688442}
   m_SourcePrefab: {fileID: 100100000, guid: 7f1e0bf55f3770b45b1aa57a195d66b0, type: 3}
 --- !u!1 &2841094221951815573 stripped
 GameObject:
@@ -4129,7 +4130,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8304196531937338051
+--- !u!114 &3817850666717447224
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4138,10 +4139,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 2841094221951815573}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93dea3f350a3e80428c7348db6c58d14, type: 3}
+  m_Script: {fileID: 11500000, guid: b5d6d8bbdc6f49a4f8de84f63b92e0f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 5156643153916212862}
+  animator: {fileID: 0}
+--- !u!114 &13371631182688442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2841094221951815573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: accb01d8235962346afde31b66ceffb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Controller: {fileID: 9100000, guid: fb8b72f8631462141ace1c357c4203ce, type: 2}
+  ApplyRootMotion: 0
 --- !u!4 &3118405751069422420 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 65931629416169872, guid: 7f1e0bf55f3770b45b1aa57a195d66b0,

@@ -32,7 +32,7 @@ public class HardAttackState : GroundedAttackState
     {
         base.OnExit();
 
-        movement_state_machine.player.SkillController.InterruptSkill();
+        // movement_state_machine.player.SkillController.InterruptSkill();
     }
 
     public override void OnFixUpdate()

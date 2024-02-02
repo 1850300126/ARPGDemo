@@ -14,7 +14,7 @@ public class LightStoppingState : StoppingStateBase
 
         movement_state_machine.reusable_data.MovementDecelerationForce = 5f;
         
-        movement_state_machine.player.PlayAnimation("LightStop", null, 1, false, 0.25f);
+        movement_state_machine.player.PlayAnimation("LightStop", null, 0.1f);
         // movement_state_machine.player.TimelinePlayer.CtrlPlayable.CrossFade("LightStop", 0.25f);
         
     }

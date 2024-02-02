@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: TimelineSkillConfig
   m_EditorClassIdentifier: 
   timelines:
-  - {fileID: 11400000, guid: 6946dc7b90c0f4744abb29723845a34f, type: 2}
+  - {fileID: 11400000, guid: 65da7b73b99186344abc0e7e0e87adca, type: 2}

@@ -38,9 +38,9 @@ namespace Taco.Timeline
 #endif
             }
         }
-        public bool IsValid => graph.IsValid();
+        public bool IsValid => PlayableGraph.IsValid();
         public Animator Animator { get; private set; }
-        public PlayableGraph graph { get; private set; }
+        public PlayableGraph PlayableGraph { get; private set; }
         public AnimationLayerMixerPlayable RootPlayable { get; private set; }
         public AnimatorControllerPlayable CtrlPlayable { get; private set; }
         public List<Timeline> RunningTimelines { get; private set; }
@@ -69,21 +69,20 @@ namespace Taco.Timeline
                 }
             }
         }
-        // private void OnAnimatorMove() { }
+        private void OnAnimatorMove() { }
 
 
         public virtual void Init()
         {
+            PlayableGraph = PlayableGraph.Create("Taco.Timeline.PlayableGraph");
+            RootPlayable = AnimationLayerMixerPlayable.Create(PlayableGraph);
+
             Animator = GetComponent<Animator>();
-            graph = PlayableGraph.Create("Taco.Timeline.PlayableGraph");
-
-            RootPlayable = AnimationLayerMixerPlayable.Create(graph);
-
-            AnimationPlayableOutput playableOutput = AnimationPlayableOutput.Create(graph, "Animation", Animator);
+            var playableOutput = AnimationPlayableOutput.Create(PlayableGraph, "Animation", Animator);
             playableOutput.SetSourcePlayable(RootPlayable);
 
-            // CtrlPlayable = AnimatorControllerPlayable.Create(graph, Controller);
-            // RootPlayable.AddInput(CtrlPlayable, 0, 1);
+            CtrlPlayable = AnimatorControllerPlayable.Create(PlayableGraph, Controller);
+            RootPlayable.AddInput(CtrlPlayable, 0, 1);
 
             RunningTimelines = new List<Timeline>();
         }
@@ -95,7 +94,7 @@ namespace Taco.Timeline
                 {
                     RemoveTimeline(RunningTimelines[i]);
                 }
-                graph.Destroy();
+                PlayableGraph.Destroy();
             }
             RunningTimelines = null;
             IsPlaying = false;
@@ -107,7 +106,7 @@ namespace Taco.Timeline
                 Timeline runningTimelines = RunningTimelines[i];
                 runningTimelines.Evaluate(deltaTime);
             }
-            graph.Evaluate(deltaTime);
+            PlayableGraph.Evaluate(deltaTime);
 
             OnRootMotion();
 

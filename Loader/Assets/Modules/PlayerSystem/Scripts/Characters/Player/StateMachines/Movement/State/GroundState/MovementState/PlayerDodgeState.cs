@@ -19,7 +19,7 @@ public class PlayerDodgeState : PlayerGroundedState
 
         base.OnEnter();
 
-        movement_state_machine.player.PlayAnimation("Dodge", null, 1, false, 0.1f);
+        movement_state_machine.player.PlayAnimation("Dodge", null, 0.1f);
         // movement_state_machine.player.TimelinePlayer.CtrlPlayable.CrossFade("Dodge", 0.25f);
 
         movement_state_machine.reusable_data.current_jump_force = airborne_data.JumpData.StrongForce;

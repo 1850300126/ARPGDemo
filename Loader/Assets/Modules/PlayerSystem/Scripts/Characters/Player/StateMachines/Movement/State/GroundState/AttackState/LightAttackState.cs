@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using EasyUpdateDemoSDK;
+using Taco.Timeline;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem;
 
 public class LightAttackState : GroundedAttackState
-{
+{   
+    private Timeline currentTimeline;
     public LightAttackState(PlayerMovementStateMachine player_movement_state_machine) : base(player_movement_state_machine)
     {
 
@@ -28,7 +30,7 @@ public class LightAttackState : GroundedAttackState
     {
         base.OnExit();
 
-        // movement_state_machine.player.SkillController.InterruptSkill();
+        movement_state_machine.player.SkillController.StopTimeline(currentTimeline);
     }
 
     public override void OnFixUpdate()
@@ -92,28 +94,13 @@ public class LightAttackState : GroundedAttackState
 
             movement_state_machine.ChangeState(movement_state_machine.light_attack_state);
         }  
-        // if(movement_state_machine.reusable_data.current_combo_index < movement_state_machine.player.currentWeaponAnimationConfigs.light_attack_configs.Count)
-        // {   
-        //     LightAttack();
-        //     movement_state_machine.reusable_data.current_combo_index += 1;
-        // }
-        // else
-        // {
-        //     movement_state_machine.reusable_data.current_combo_index = 0;
-
-        //     movement_state_machine.ChangeState(movement_state_machine.light_attack_state);
-        // }
     }
 
     protected void LightAttack()
     {
         movement_state_machine.reusable_data.last_attack_time = Time.time;
         // ²¥·Å¶¯»­ÇÐÆ¬
-        // movement_state_machine.player.SkillController.PlaySkill(
-        //     movement_state_machine.player.currentWeaponAnimationConfigs.light_attack_configs[movement_state_machine.reusable_data.current_combo_index], null, OnRootMotion);
-        Debug.Log(movement_state_machine.reusable_data.current_combo_index);
-        movement_state_machine.player.AnimationController.PlayTimeline
-        (movement_state_machine.player.currentSkillConfig.timelines[movement_state_machine.reusable_data.current_combo_index],
-        () => movement_state_machine.ChangeState(movement_state_machine.idle_state));
+        currentTimeline = GameObject.Instantiate(movement_state_machine.player.currentSkillConfig.timelines[movement_state_machine.reusable_data.current_combo_index]);
+        movement_state_machine.player.PlaySkill(currentTimeline, OnRootMotion, () => movement_state_machine.ChangeState(movement_state_machine.idle_state));
     }
 }

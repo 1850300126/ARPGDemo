@@ -70,7 +70,7 @@ public class PlayerSystem : MonoBehaviour
             Debug.Log("未找到角色配置信息");
             return;
         }
-        player.movementAnimationSO = BundleInfoSystem.LoadAddressablesAsset<CharacterConfig>(player_movement_animation_config.data);
+        // player.movementAnimationSO = BundleInfoSystem.LoadAddressablesAsset<CharacterConfig>(player_movement_animation_config.data);
         player.player_data = BundleInfoSystem.LoadAddressablesAsset<PlayerSO>(player_config.data);
 
         player.OnLoaded();

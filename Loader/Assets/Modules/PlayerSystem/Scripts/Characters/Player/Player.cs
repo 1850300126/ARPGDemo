@@ -3,7 +3,6 @@ using EasyUpdateDemoSDK;
 using Taco.Timeline;
 using Unity.VisualScripting;
 using UnityEngine;
-using Custom.Animation;
 public class Player : WorldObjectBase, IAnimationEvent
 {   
     [Header("组件类")]
@@ -21,9 +20,6 @@ public class Player : WorldObjectBase, IAnimationEvent
     // 技能控制器   
     [SerializeField] private SkillController skillController;
     public SkillController SkillController { get => skillController; }
-    // 技能控制器   
-    [SerializeField] private TimelinePlayer timelinePlayer;
-    public TimelinePlayer TimelinePlayer { get => timelinePlayer; }
     // 动画事件管理
     public AnimationEventTrigger animator_event_trigger;
     // 输入组件
@@ -37,7 +33,6 @@ public class Player : WorldObjectBase, IAnimationEvent
     [field: SerializeField] public PlayerSO player_data;
     [field: SerializeField] public PlayerLayerData layer_data;
     [field: SerializeField] public TimelineSkillConfig currentSkillConfig;
-    [field: SerializeField] public CharacterConfig movementAnimationSO;
     // [field: SerializeField] public WeaponAnimationConfigs currentWeaponAnimationConfigs;
     [field: SerializeField] public PlayerResizableCapsuleCollider ResizableCapsuleCollider { get; private set; }
 
@@ -57,10 +52,7 @@ public class Player : WorldObjectBase, IAnimationEvent
         animationController = animator.GetComponent<AnimationController>();
         animationController.Init();
 
-        // skillController = animator.GetComponent<SkillController>();
-        // skillController.Init(animationController, this.transform);
-    
-        timelinePlayer = animator.GetComponent<TimelinePlayer>();
+        skillController = animator.GetComponent<SkillController>();
 
         player_input = this.AddComponent<PlayerInput>();
 
@@ -125,22 +117,21 @@ public class Player : WorldObjectBase, IAnimationEvent
     /// <summary>
     /// 播放动画
     /// </summary>
-    public void PlayAnimation(string animationClipName, Action<Vector3, Quaternion> rootMotionAction = null, float speed = 1, bool refreshAnimation = false, float transitionFixedTime = 0.25f)
+    public void PlayAnimation(string animationClipName, Action<Vector3, Quaternion> rootMotionAction = null, float transitionFixedTime = 0.25f)
     {   
         animationController.SetRootMotionAction(rootMotionAction);
-        animationController.PlaySingleAniamtion(movementAnimationSO.GetAnimationByName(animationClipName), speed, refreshAnimation, transitionFixedTime);
+        skillController.CtrlPlayable.CrossFade(animationClipName, 0.15f, 0);
+        
     }
 
     /// <summary>
-    /// 播放混合动画
+    /// 播放技能
     /// </summary>
-    public void PlayBlendAnimation(string clip1Name, string clip2Name, Action<Vector3, Quaternion> rootMotionAction = null, float speed = 1, float transitionFixedTime = 0.25f)
+    public void PlaySkill(Timeline timeline, Action<Vector3, Quaternion> rootMotionAction = null, Action OnDone = null)
     {
         animationController.SetRootMotionAction(rootMotionAction);
-        UnityEngine.AnimationClip clip1 = movementAnimationSO.GetAnimationByName(clip1Name);
-        UnityEngine.AnimationClip clip2 = movementAnimationSO.GetAnimationByName(clip2Name);
-        animationController.PlayBlendAnimation(clip1, clip2, speed, transitionFixedTime);
-    }
+        skillController.PlayTimeline(timeline, OnDone);
+    } 
 
     public override void BeHit()
     {
